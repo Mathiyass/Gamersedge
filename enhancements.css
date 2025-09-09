@@ -1,0 +1,263 @@
+/* GamersEdge Enhancements - Additional styles for a more futuristic feel */
+
+/* Custom Cursor */
+body {
+    cursor: none;
+}
+
+.cursor-dot {
+    width: 5px;
+    height: 5px;
+    background-color: var(--glow-color);
+    border-radius: 50%;
+    position: fixed;
+    z-index: 10001;
+    pointer-events: none;
+    box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
+    transition: transform 0.2s ease-out;
+}
+
+.cursor-outline {
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--glow-color);
+    border-radius: 50%;
+    position: fixed;
+    z-index: 10001;
+    pointer-events: none;
+    transition: all 0.3s ease-out;
+}
+
+/* Background Grid Pattern */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image:
+        linear-gradient(rgba(0, 191, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 191, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* Scroll-triggered Animations */
+.gsap-fade-in {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.gsap-slide-from-left {
+    opacity: 0;
+    transform: translateX(-100px);
+}
+
+.gsap-slide-from-right {
+    opacity: 0;
+    transform: translateX(100px);
+}
+
+.gsap-zoom-in {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+/* Enhanced Button and Link Hover Effects */
+.btn {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease;
+    z-index: -1;
+}
+
+.btn:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.btn-primary {
+    border: 2px solid transparent;
+}
+
+.btn-primary:hover {
+    border-color: var(--glow-color);
+    box-shadow: 0 0 20px var(--glow-color);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--glow-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* Live Search */
+.nav-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#search-icon {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+#search-icon:hover {
+    color: var(--glow-color);
+}
+
+.search-input-container {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 300px;
+    max-width: 90vw;
+    padding-top: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+.search-input-container.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+#nav-search-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-light);
+    font-size: 1rem;
+    outline: none;
+}
+
+#nav-search-input:focus {
+    border-color: var(--glow-color);
+    box-shadow: var(--shadow-glow);
+}
+
+#nav-search-results {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#nav-search-results a {
+    display: block;
+    padding: 0.8rem 1rem;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+#nav-search-results a:hover {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+/* Custom Tooltips */
+[data-tooltip] {
+    position: relative;
+}
+
+.tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 10px;
+    padding: 0.5rem 1rem;
+    background: var(--glow-color);
+    color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    font-weight: bold;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 10002;
+}
+
+[data-tooltip]:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Enhanced Product Modal */
+.modal-thumbnails {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+.modal-thumbnail {
+    width: 60px;
+    height: 60px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+.modal-thumbnail:hover,
+.modal-thumbnail.active {
+    opacity: 1;
+    border-color: var(--glow-color);
+    transform: scale(1.1);
+}
+
+.modal-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+
+@media (max-width: 480px) {
+    .search-input-container {
+        width: 90vw;
+    }
+}
