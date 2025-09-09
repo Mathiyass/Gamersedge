@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - GamersEdge</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">GamersEdge</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="products.html" class="nav-link active">Products</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="cart.html" class="nav-link cart-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Live Clock -->
+    <div class="live-clock" id="live-clock"></div>
+
+    <!-- Products Header -->
+    <section class="page-header">
+        <div class="particles-container"></div>
+        <div class="container">
+            <h1 class="page-title">Gaming Products</h1>
+            <p class="page-subtitle">Discover our premium collection of gaming hardware</p>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <!-- Search and Filter -->
+            <div class="products-controls">
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search products..." class="search-input">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                
+                <div class="filter-container">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="gpu">GPU</button>
+                    <button class="filter-btn" data-filter="pc">PC</button>
+                    <button class="filter-btn" data-filter="monitor">Monitor</button>
+                    <button class="filter-btn" data-filter="keyboard">Keyboard</button>
+                    <button class="filter-btn" data-filter="headset">Headset</button>
+                    <button class="filter-btn" data-filter="cooling">Cooling</button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="products-grid" id="products-grid">
+                <!-- GPU Products -->
+                <div class="product-card" data-category="gpu" data-tilt>
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400" alt="RTX 4090">
+                        <div class="product-overlay">
+                            <button class="btn btn-small view-details" data-product="rtx-4090">View Details</button>
+                            <button class="btn btn-small add-to-cart" data-product="rtx-4090">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>NVIDIA RTX 4090</h3>
+                        <p class="product-price">$1,599</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="gpu" data-tilt>
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400" alt="RTX 4080">
+                        <div class="product-overlay">
+                            <button class="btn btn-small view-details" data-product="rtx-4080">View Details</button>
+                            <button class="btn btn-small add-to-cart" data-product="rtx-4080">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>NVIDIA RTX 4080</h3>
+                        <p class="product-price">$1,199</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PC Products -->
+                <div class="product-card" data-category="pc" data-tilt>
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Gaming PC Ultimate">
+                        <div class="product-overlay">
+                            <button class="btn btn-small view-details" data-product="gaming-pc-ultimate">View Details</button>
+                            <button class="btn btn-small add-to-cart" data-product="gaming-pc-ultimate">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Ultimate Gaming PC</h3>
+                        <p class="product-price">$2,499</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="pc" data-tilt>
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Gaming PC Pro">
+                        <div class="product-overlay">
+                            <button class="btn btn-small view-details" data-product="gaming-pc-pro">View Details</button>
+                            <button class="btn btn-small add-to-cart" data-product="gaming-pc-pro">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Pro Gaming PC</h3>
+                        <p class="product-price">$1,899</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monitor Products -->
+                <div class="product-card" data-category="monitor" data-tilt>
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=400" alt="4K Gaming Monitor">
+                        <div class="product-overlay">
+                            <button class="btn btn-small view-details" data-product="monitor-4k">View Details</button>
+                            <button class="btn btn-small add-to-cart" data-product="monitor-4k">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>4K Gaming Monitor 32"</h3>
+                        <p class="product-price">$599</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="monitor" data-tilt>
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Ultrawide Monitor">
+                        <div class="product-overlay">
+                            <button class="btn btn-small view-details" data-product="monitor-ultrawide">View Details</button>
+                            <button class="btn btn-small add-to-cart" data-product="monitor-ultrawide">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Ultrawide Gaming Monitor</h3>
+                        <p class="product-price">$799</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Keyboard Products -->
+                <div class="product-card" data-category="keyboard" data-tilt>
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Mechanical Keyboard">
+                        <div class="product-overlay">
+                            <button class="btn btn-small view-details" data-product="keyboard-mechanical">View Details</button>
+                            <button class="btn btn-small add-to-cart" data-product="keyboard-mechanical">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>RGB Mechanical Keyboard</h3>
+                        <p class="product-price">$149</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Headset Products -->
+                <div class="product-card" data-category="headset" data-tilt>
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Gaming Headset">
+                        <div class="product-overlay">
+                            <button class="btn btn-small view-details" data-product="headset-pro">View Details</button>
+                            <button class="btn btn-small add-to-cart" data-product="headset-pro">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Pro Gaming Headset</h3>
+                        <p class="product-price">$199</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cooling Products -->
+                <div class="product-card" data-category="cooling" data-tilt>
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Liquid Cooling">
+                        <div class="product-overlay">
+                            <button class="btn btn-small view-details" data-product="cooling-liquid">View Details</button>
+                            <button class="btn btn-small add-to-cart" data-product="cooling-liquid">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Liquid Cooling System</h3>
+                        <p class="product-price">$299</p>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Modal -->
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modal-product-image" src="" alt="">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modal-product-name"></h2>
+                    <p class="modal-price" id="modal-product-price"></p>
+                    <div class="modal-rating" id="modal-product-rating"></div>
+                    <p class="modal-description" id="modal-product-description"></p>
+                    <div class="modal-actions">
+                        <button class="btn btn-primary add-to-cart-modal" id="add-to-cart-modal">Add to Cart</button>
+                        <button class="btn btn-secondary">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-particles"></div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>GamersEdge</h3>
+                    <p>Your ultimate destination for gaming hardware and custom PC solutions.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone"></i> 0740705733 / 0765329455</p>
+                        <p><i class="fas fa-envelope"></i> sl.gamersedge@gmail.com</p>
+                        <p><i class="fas fa-map-marker-alt"></i> 207/04/03/F/2, Wilimbula, Henegama, Sri Lanka</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Stay updated with our latest products and offers</p>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Enter your email" class="newsletter-input">
+                        <button class="btn btn-primary newsletter-btn">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 GamersEdge. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Music Toggle -->
+    <button class="music-toggle" id="music-toggle">
+        <i class="fas fa-music"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

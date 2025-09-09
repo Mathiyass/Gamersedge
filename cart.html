@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - GamersEdge</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">GamersEdge</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="products.html" class="nav-link">Products</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="cart.html" class="nav-link cart-link active">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Live Clock -->
+    <div class="live-clock" id="live-clock"></div>
+
+    <!-- Cart Header -->
+    <section class="page-header">
+        <div class="particles-container"></div>
+        <div class="container">
+            <h1 class="page-title">Shopping Cart</h1>
+            <p class="page-subtitle">Review your selected items</p>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <div class="container">
+            <div class="cart-content">
+                <!-- Cart Items -->
+                <div class="cart-items-container">
+                    <div class="cart-header">
+                        <h2>Your Items</h2>
+                        <button class="btn btn-secondary clear-cart" id="clear-cart">Clear Cart</button>
+                    </div>
+                    
+                    <div class="cart-items" id="cart-items">
+                        <!-- Cart items will be dynamically inserted here -->
+                    </div>
+                    
+                    <div class="empty-cart" id="empty-cart" style="display: none;">
+                        <div class="empty-cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h3>Your cart is empty</h3>
+                        <p>Looks like you haven't added any items to your cart yet.</p>
+                        <a href="products.html" class="btn btn-primary">Continue Shopping</a>
+                    </div>
+                </div>
+
+                <!-- Cart Summary -->
+                <div class="cart-summary">
+                    <h2>Order Summary</h2>
+                    
+                    <div class="summary-details">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="cart-subtotal">$0.00</span>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span id="cart-shipping">$25.00</span>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Tax (8%):</span>
+                            <span id="cart-tax">$0.00</span>
+                        </div>
+                        
+                        <div class="summary-divider"></div>
+                        
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span id="cart-total">$0.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="promo-code">
+                        <input type="text" placeholder="Enter promo code" class="promo-input" id="promo-input">
+                        <button class="btn btn-secondary apply-promo" id="apply-promo">Apply</button>
+                    </div>
+                    
+                    <div class="checkout-actions">
+                        <button class="btn btn-primary checkout-btn" id="checkout-btn">
+                            <i class="fas fa-lock"></i>
+                            Secure Checkout
+                        </button>
+                        <a href="products.html" class="btn btn-secondary continue-shopping">Continue Shopping</a>
+                    </div>
+                    
+                    <div class="payment-methods">
+                        <h4>We Accept</h4>
+                        <div class="payment-icons">
+                            <i class="fab fa-cc-visa"></i>
+                            <i class="fab fa-cc-mastercard"></i>
+                            <i class="fab fa-cc-paypal"></i>
+                            <i class="fab fa-cc-stripe"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommended Products -->
+    <section class="recommended-products">
+        <div class="container">
+            <h2 class="section-title">You Might Also Like</h2>
+            <div class="products-grid">
+                <div class="product-card" data-tilt>
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Gaming Mouse">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart" data-product="gaming-mouse">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Gaming Mouse</h3>
+                        <p class="product-price">$79</p>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-tilt>
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Mouse Pad">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart" data-product="mouse-pad">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>RGB Mouse Pad</h3>
+                        <p class="product-price">$39</p>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-tilt>
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Webcam">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart" data-product="webcam">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>4K Webcam</h3>
+                        <p class="product-price">$129</p>
+                    </div>
+                </div>
+                
+                <div class="product-card" data-tilt>
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Cable Management">
+                        <div class="product-overlay">
+                            <button class="btn btn-small add-to-cart" data-product="cable-management">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Cable Management Kit</h3>
+                        <p class="product-price">$25</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkout-modal">
+        <div class="modal-content checkout-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="checkout-header">
+                <h2>Secure Checkout</h2>
+                <div class="checkout-steps">
+                    <div class="step active">1. Shipping</div>
+                    <div class="step">2. Payment</div>
+                    <div class="step">3. Review</div>
+                </div>
+            </div>
+            
+            <div class="checkout-form">
+                <form id="checkout-form">
+                    <!-- Shipping Information -->
+                    <div class="checkout-section active" id="shipping-section">
+                        <h3>Shipping Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="first-name" required>
+                                <label for="first-name">First Name</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="last-name" required>
+                                <label for="last-name">Last Name</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" id="checkout-email" required>
+                            <label for="checkout-email">Email Address</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="tel" id="checkout-phone" required>
+                            <label for="checkout-phone">Phone Number</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" id="address" required>
+                            <label for="address">Street Address</label>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="city" required>
+                                <label for="city">City</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="postal-code" required>
+                                <label for="postal-code">Postal Code</label>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="btn btn-primary next-step">Continue to Payment</button>
+                    </div>
+                    
+                    <!-- Payment Information -->
+                    <div class="checkout-section" id="payment-section">
+                        <h3>Payment Information</h3>
+                        <div class="payment-methods-checkout">
+                            <label class="payment-method">
+                                <input type="radio" name="payment" value="card" checked>
+                                <span class="payment-option">
+                                    <i class="fas fa-credit-card"></i>
+                                    Credit/Debit Card
+                                </span>
+                            </label>
+                            <label class="payment-method">
+                                <input type="radio" name="payment" value="paypal">
+                                <span class="payment-option">
+                                    <i class="fab fa-paypal"></i>
+                                    PayPal
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div class="card-details">
+                            <div class="form-group">
+                                <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                                <label for="card-number">Card Number</label>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" id="expiry" placeholder="MM/YY">
+                                    <label for="expiry">Expiry Date</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="cvv" placeholder="123">
+                                    <label for="cvv">CVV</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="checkout-navigation">
+                            <button type="button" class="btn btn-secondary prev-step">Back</button>
+                            <button type="button" class="btn btn-primary next-step">Review Order</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Order Review -->
+                    <div class="checkout-section" id="review-section">
+                        <h3>Order Review</h3>
+                        <div class="order-summary-checkout">
+                            <div id="checkout-items-review"></div>
+                            <div class="checkout-totals">
+                                <div class="total-row">
+                                    <span>Subtotal:</span>
+                                    <span id="checkout-subtotal">$0.00</span>
+                                </div>
+                                <div class="total-row">
+                                    <span>Shipping:</span>
+                                    <span id="checkout-shipping">$25.00</span>
+                                </div>
+                                <div class="total-row">
+                                    <span>Tax:</span>
+                                    <span id="checkout-tax">$0.00</span>
+                                </div>
+                                <div class="total-row final-total">
+                                    <span>Total:</span>
+                                    <span id="checkout-total">$0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="checkout-navigation">
+                            <button type="button" class="btn btn-secondary prev-step">Back</button>
+                            <button type="submit" class="btn btn-primary place-order">
+                                <i class="fas fa-lock"></i>
+                                Place Order
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-particles"></div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>GamersEdge</h3>
+                    <p>Your ultimate destination for gaming hardware and custom PC solutions.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone"></i> 0740705733 / 0765329455</p>
+                        <p><i class="fas fa-envelope"></i> sl.gamersedge@gmail.com</p>
+                        <p><i class="fas fa-map-marker-alt"></i> 207/04/03/F/2, Wilimbula, Henegama, Sri Lanka</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Stay updated with our latest products and offers</p>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Enter your email" class="newsletter-input">
+                        <button class="btn btn-primary newsletter-btn">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 GamersEdge. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Music Toggle -->
+    <button class="music-toggle" id="music-toggle">
+        <i class="fas fa-music"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
