@@ -124,9 +124,11 @@ function initializeWebsite() {
     initializeLiveSearch();
     // Loading Screen
     if (document.getElementById('loading-screen')) {
+        // Total animation time for "GAMERSEDGE" to write out is 1s.
+        // Let it display for a bit, then fade out.
         setTimeout(() => {
             hideLoadingScreen();
-        }, 3000);
+        }, 2500); // Wait for the animation to play out
     }
 
     // Initialize components
@@ -178,11 +180,11 @@ function getCurrentPage() {
 function hideLoadingScreen() {
     const loadingScreen = document.getElementById('loading-screen');
     if (loadingScreen) {
-        loadingScreen.style.opacity = '0';
+        loadingScreen.classList.add('hidden');
+        document.body.classList.add('loading-done'); // Add class to trigger main content animation
         setTimeout(() => {
-            loadingScreen.style.display = 'none';
             isLoading = false;
-        }, 500);
+        }, 1000); // Match the CSS transition time
     }
 }
 
@@ -339,6 +341,20 @@ function initializeScrollAnimations() {
                 toggleActions: 'play none none none'
             }
         });
+    });
+
+    // Staggered slide-in for feature cards
+    gsap.from(".animated-feature-card", {
+        scrollTrigger: {
+            trigger: ".features-grid",
+            start: "top 80%",
+            toggleActions: "play none none none"
+        },
+        y: 100,
+        opacity: 0,
+        stagger: 0.2,
+        duration: 0.8,
+        ease: "power2.out"
     });
 }
 
