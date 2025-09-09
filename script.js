@@ -5,125 +5,108 @@ let cart = JSON.parse(localStorage.getItem('gamersedge-cart')) || [];
 let isLoading = true;
 let particles = [];
 let musicPlaying = false;
+let currentProductGallery = {
+    images: [],
+    currentIndex: 0
+};
 
 // Product Database
 const products = {
     'rtx-4090': {
         name: 'NVIDIA RTX 4090',
         price: 1599,
-        image: 'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400',
+        images: [
+            'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400',
+            'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400',
+            'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400'
+        ],
         description: 'The ultimate gaming graphics card with unparalleled performance for 4K gaming and ray tracing.',
         category: 'gpu'
     },
     'rtx-4080': {
         name: 'NVIDIA RTX 4080',
         price: 1199,
-        image: 'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400',
+        images: ['https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400'],
         description: 'High-performance graphics card perfect for 1440p and 4K gaming with excellent ray tracing capabilities.',
         category: 'gpu'
     },
     'gaming-pc-ultimate': {
         name: 'Ultimate Gaming PC',
         price: 2499,
-        image: 'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400',
+        images: [
+            'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400',
+            'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400'
+        ],
         description: 'Top-tier gaming PC with RTX 4090, Intel i9, 32GB RAM, and liquid cooling for maximum performance.',
         category: 'pc'
     },
     'gaming-pc-pro': {
         name: 'Pro Gaming PC',
         price: 1899,
-        image: 'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400',
+        images: ['https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400'],
         description: 'High-performance gaming PC with RTX 4080, Intel i7, 16GB RAM, perfect for competitive gaming.',
         category: 'pc'
     },
     'monitor-4k': {
         name: '4K Gaming Monitor 32"',
         price: 599,
-        image: 'https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=400',
+        images: ['https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=400'],
         description: '32-inch 4K gaming monitor with 144Hz refresh rate, HDR support, and ultra-low input lag.',
         category: 'monitor'
     },
     'monitor-ultrawide': {
         name: 'Ultrawide Gaming Monitor',
         price: 799,
-        image: 'https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=400',
+        images: ['https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=400'],
         description: '34-inch ultrawide curved gaming monitor with 165Hz refresh rate and G-Sync compatibility.',
         category: 'monitor'
     },
     'keyboard-mechanical': {
         name: 'RGB Mechanical Keyboard',
         price: 149,
-        image: 'https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400',
+        images: ['https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400'],
         description: 'Premium mechanical gaming keyboard with RGB backlighting and programmable keys.',
         category: 'keyboard'
     },
     'headset-pro': {
         name: 'Pro Gaming Headset',
         price: 199,
-        image: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=400',
+        images: ['https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=400'],
         description: 'Professional gaming headset with 7.1 surround sound and noise-canceling microphone.',
         category: 'headset'
     },
     'cooling-liquid': {
         name: 'Liquid Cooling System',
         price: 299,
-        image: 'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400',
+        images: ['https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400'],
         description: 'Advanced liquid cooling system with RGB lighting and whisper-quiet operation.',
         category: 'cooling'
-    },
-    'gaming-pc-1': {
-        name: 'Ultimate Gaming PC',
-        price: 2499,
-        image: 'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400',
-        description: 'Top-tier gaming PC with RTX 4090, Intel i9, 32GB RAM, and liquid cooling.',
-        category: 'pc'
-    },
-    'monitor-1': {
-        name: '4K Gaming Monitor',
-        price: 599,
-        image: 'https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=400',
-        description: '32-inch 4K gaming monitor with 144Hz refresh rate and HDR support.',
-        category: 'monitor'
-    },
-    'keyboard-1': {
-        name: 'Mechanical Keyboard',
-        price: 149,
-        image: 'https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400',
-        description: 'Premium mechanical gaming keyboard with RGB backlighting.',
-        category: 'keyboard'
-    },
-    'headset-1': {
-        name: 'Pro Gaming Headset',
-        price: 199,
-        image: 'https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=400',
-        description: 'Professional gaming headset with 7.1 surround sound.',
-        category: 'headset'
     },
     'gaming-mouse': {
         name: 'Gaming Mouse',
         price: 79,
-        image: 'https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400',
+        images: ['https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400'],
         description: 'High-precision gaming mouse with RGB lighting and programmable buttons.',
         category: 'accessories'
     },
     'mouse-pad': {
         name: 'RGB Mouse Pad',
         price: 39,
-        image: 'https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400',
+        images: ['https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400'],
         description: 'Large RGB mouse pad with smooth surface and customizable lighting.',
         category: 'accessories'
     },
     'webcam': {
         name: '4K Webcam',
         price: 129,
-        image: 'https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400',
+        images: ['https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400'],
         description: '4K streaming webcam with auto-focus and built-in microphone.',
         category: 'accessories'
     },
     'cable-management': {
         name: 'Cable Management Kit',
         price: 25,
-        image: 'https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400',
+        images: ['https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400'],
         description: 'Complete cable management solution for clean PC builds.',
         category: 'accessories'
     }
@@ -148,6 +131,7 @@ function initializeWebsite() {
     initializeClock();
     initializeParticles();
     initializeScrollAnimations();
+    initializeParallax();
     initializeCart();
     initializeTilt();
     initializeModals();
@@ -319,6 +303,18 @@ function initializeScrollAnimations() {
     });
 }
 
+// Initialize Parallax Effect
+function initializeParallax() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        // Move the background slower than the scroll speed
+        hero.style.backgroundPositionY = `${scrollY * 0.5}px`;
+    });
+}
+
 // Initialize Cart
 function initializeCart() {
     updateCartCount();
@@ -353,7 +349,7 @@ function addToCart(productId) {
             id: productId,
             name: product.name,
             price: product.price,
-            image: product.image,
+            image: product.images[0], // Use the first image as the thumbnail
             quantity: 1
         });
     }
@@ -575,6 +571,28 @@ function initializeModals() {
             closeModals();
         }
     });
+
+    // Gallery navigation
+    const prevBtn = document.getElementById('modal-prev-btn');
+    const nextBtn = document.getElementById('modal-next-btn');
+
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+            currentProductGallery.currentIndex--;
+            if (currentProductGallery.currentIndex < 0) {
+                currentProductGallery.currentIndex = currentProductGallery.images.length - 1;
+            }
+            updateModalImage();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentProductGallery.currentIndex++;
+            if (currentProductGallery.currentIndex >= currentProductGallery.images.length) {
+                currentProductGallery.currentIndex = 0;
+            }
+            updateModalImage();
+        });
+    }
 }
 
 // Show Product Modal
@@ -585,8 +603,11 @@ function showProductModal(productId) {
     const modal = document.getElementById('product-modal');
     if (!modal) return;
 
-    // Update modal content
-    document.getElementById('modal-product-image').src = product.image;
+    // Initialize gallery state
+    currentProductGallery.images = product.images;
+    currentProductGallery.currentIndex = 0;
+
+    // Update static content
     document.getElementById('modal-product-name').textContent = product.name;
     document.getElementById('modal-product-price').textContent = `$${product.price}`;
     document.getElementById('modal-product-description').textContent = product.description;
@@ -602,7 +623,33 @@ function showProductModal(productId) {
         closeModals();
     };
 
+    // Update image and controls
+    updateModalImage();
+
     modal.style.display = 'block';
+}
+
+// Update Modal Image
+function updateModalImage() {
+    const { images, currentIndex } = currentProductGallery;
+
+    const imageElement = document.getElementById('modal-product-image');
+    const counterElement = document.getElementById('modal-counter');
+    const prevBtn = document.getElementById('modal-prev-btn');
+    const nextBtn = document.getElementById('modal-next-btn');
+
+    if (images.length > 1) {
+        imageElement.src = images[currentIndex];
+        counterElement.textContent = `${currentIndex + 1} / ${images.length}`;
+        counterElement.style.display = 'block';
+        prevBtn.style.display = 'flex';
+        nextBtn.style.display = 'flex';
+    } else {
+        imageElement.src = images[0];
+        counterElement.style.display = 'none';
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+    }
 }
 
 // Show Checkout Modal
@@ -870,13 +917,23 @@ function initializeMusic() {
     const musicToggle = document.getElementById('music-toggle');
     if (!musicToggle) return;
 
+    // NOTE: Replace with a real, copyright-free audio file URL
+    const musicUrl = 'https://archive.org/download/cyberpunk-underground/cyberpunk-underground.mp3';
+    const audio = new Audio(musicUrl);
+    audio.loop = true;
+    audio.volume = 0.3; // Start with a lower volume
+
     musicToggle.addEventListener('click', () => {
         if (musicPlaying) {
-            // Stop music (placeholder)
+            audio.pause();
             musicToggle.classList.remove('playing');
             musicPlaying = false;
         } else {
-            // Start music (placeholder)
+            audio.play().catch(error => {
+                console.error("Audio playback failed:", error);
+                // Autoplay is often blocked by browsers, we can't do much here.
+                // The user has to interact with the page first.
+            });
             musicToggle.classList.add('playing');
             musicPlaying = true;
         }
