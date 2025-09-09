@@ -1,0 +1,100 @@
+{
+    "rtx-4090": {
+        "name": "NVIDIA RTX 4090",
+        "price": 1599,
+        "images": [
+            "https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400",
+            "https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400",
+            "https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400"
+        ],
+        "description": "The ultimate gaming graphics card with unparalleled performance for 4K gaming and ray tracing.",
+        "category": "gpu"
+    },
+    "rtx-4080": {
+        "name": "NVIDIA RTX 4080",
+        "price": 1199,
+        "images": ["https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400"],
+        "description": "High-performance graphics card perfect for 1440p and 4K gaming with excellent ray tracing capabilities.",
+        "category": "gpu"
+    },
+    "gaming-pc-ultimate": {
+        "name": "Ultimate Gaming PC",
+        "price": 2499,
+        "images": [
+            "https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400",
+            "https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400"
+        ],
+        "description": "Top-tier gaming PC with RTX 4090, Intel i9, 32GB RAM, and liquid cooling for maximum performance.",
+        "category": "pc"
+    },
+    "gaming-pc-pro": {
+        "name": "Pro Gaming PC",
+        "price": 1899,
+        "images": ["https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400"],
+        "description": "High-performance gaming PC with RTX 4080, Intel i7, 16GB RAM, perfect for competitive gaming.",
+        "category": "pc"
+    },
+    "monitor-4k": {
+        "name": "4K Gaming Monitor 32\"",
+        "price": 599,
+        "images": ["https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=400"],
+        "description": "32-inch 4K gaming monitor with 144Hz refresh rate, HDR support, and ultra-low input lag.",
+        "category": "monitor"
+    },
+    "monitor-ultrawide": {
+        "name": "Ultrawide Gaming Monitor",
+        "price": 799,
+        "images": ["https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=400"],
+        "description": "34-inch ultrawide curved gaming monitor with 165Hz refresh rate and G-Sync compatibility.",
+        "category": "monitor"
+    },
+    "keyboard-mechanical": {
+        "name": "RGB Mechanical Keyboard",
+        "price": 149,
+        "images": ["https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400"],
+        "description": "Premium mechanical gaming keyboard with RGB backlighting and programmable keys.",
+        "category": "keyboard"
+    },
+    "headset-pro": {
+        "name": "Pro Gaming Headset",
+        "price": 199,
+        "images": ["https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=400"],
+        "description": "Professional gaming headset with 7.1 surround sound and noise-canceling microphone.",
+        "category": "headset"
+    },
+    "cooling-liquid": {
+        "name": "Liquid Cooling System",
+        "price": 299,
+        "images": ["https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400"],
+        "description": "Advanced liquid cooling system with RGB lighting and whisper-quiet operation.",
+        "category": "cooling"
+    },
+    "gaming-mouse": {
+        "name": "Gaming Mouse",
+        "price": 79,
+        "images": ["https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400"],
+        "description": "High-precision gaming mouse with RGB lighting and programmable buttons.",
+        "category": "accessories"
+    },
+    "mouse-pad": {
+        "name": "RGB Mouse Pad",
+        "price": 39,
+        "images": ["https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400"],
+        "description": "Large RGB mouse pad with smooth surface and customizable lighting.",
+        "category": "accessories"
+    },
+    "webcam": {
+        "name": "4K Webcam",
+        "price": 129,
+        "images": ["https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400"],
+        "description": "4K streaming webcam with auto-focus and built-in microphone.",
+        "category": "accessories"
+    },
+    "cable-management": {
+        "name": "Cable Management Kit",
+        "price": 25,
+        "images": ["https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400"],
+        "description": "Complete cable management solution for clean PC builds.",
+        "category": "accessories"
+    }
+}
