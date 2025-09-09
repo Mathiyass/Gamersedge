@@ -541,7 +541,7 @@ function renderCartItems() {
             <div class="cart-item-controls">
                 <div class="quantity-controls">
                     <button class="quantity-btn" onclick="updateCartQuantity('${item.id}', ${item.quantity - 1})">-</button>
-                    <input type="number" class="quantity-input" value="${item.quantity}" min="1" 
+                    <input type="number" class="quantity-input" value="${item.quantity}" min="1"
                            onchange="updateCartQuantity('${item.id}', parseInt(this.value))">
                     <button class="quantity-btn" onclick="updateCartQuantity('${item.id}', ${item.quantity + 1})">+</button>
                 </div>
