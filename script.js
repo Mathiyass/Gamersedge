@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Initialize Website
 function initializeWebsite() {
+    // Initialize components
+    initializeTooltips();
+    initializeLiveSearch();
     // Loading Screen
     if (document.getElementById('loading-screen')) {
         setTimeout(() => {
@@ -127,6 +130,7 @@ function initializeWebsite() {
     }
 
     // Initialize components
+    initializeCursor();
     initializeNavigation();
     initializeClock();
     initializeParticles();
@@ -279,39 +283,91 @@ function createParticles(container) {
 
 // Initialize Scroll Animations
 function initializeScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    gsap.registerPlugin(ScrollTrigger);
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+    // Fade in animation
+    gsap.utils.toArray('.gsap-fade-in').forEach(el => {
+        gsap.from(el, {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            scrollTrigger: {
+                trigger: el,
+                start: 'top 80%',
+                toggleActions: 'play none none none'
             }
         });
-    }, observerOptions);
-
-    // Observe elements for animation
-    document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .zoom-in').forEach(el => {
-        observer.observe(el);
     });
 
-    // Add animation classes to elements
-    document.querySelectorAll('.product-card, .feature-card, .service-card, .value-card, .team-member, .stat-item').forEach(el => {
-        el.classList.add('fade-in');
+    // Slide from left animation
+    gsap.utils.toArray('.gsap-slide-from-left').forEach(el => {
+        gsap.from(el, {
+            opacity: 0,
+            x: -100,
+            duration: 1,
+            scrollTrigger: {
+                trigger: el,
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            }
+        });
+    });
+
+    // Slide from right animation
+    gsap.utils.toArray('.gsap-slide-from-right').forEach(el => {
+        gsap.from(el, {
+            opacity: 0,
+            x: 100,
+            duration: 1,
+            scrollTrigger: {
+                trigger: el,
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            }
+        });
+    });
+
+    // Zoom in animation
+    gsap.utils.toArray('.gsap-zoom-in').forEach(el => {
+        gsap.from(el, {
+            opacity: 0,
+            scale: 0.8,
+            duration: 1,
+            scrollTrigger: {
+                trigger: el,
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            }
+        });
     });
 }
 
 // Initialize Parallax Effect
 function initializeParallax() {
-    const hero = document.querySelector('.hero');
-    if (!hero) return;
+    gsap.utils.toArray('.hero').forEach(hero => {
+        gsap.to(hero, {
+            backgroundPosition: '50% 100%',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: hero,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            }
+        });
+    });
 
-    window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY;
-        // Move the background slower than the scroll speed
-        hero.style.backgroundPositionY = `${scrollY * 0.5}px`;
+    gsap.utils.toArray('.page-header').forEach(header => {
+        gsap.to(header, {
+            backgroundPosition: '50% 100%',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: header,
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            }
+        });
     });
 }
 
@@ -623,6 +679,22 @@ function showProductModal(productId) {
         closeModals();
     };
 
+    // Update thumbnails
+    const thumbnailsContainer = document.getElementById('modal-thumbnails');
+    thumbnailsContainer.innerHTML = product.images.map((img, index) => `
+        <div class="modal-thumbnail" data-index="${index}">
+            <img src="${img}" alt="Thumbnail ${index + 1}">
+        </div>
+    `).join('');
+
+    thumbnailsContainer.addEventListener('click', (e) => {
+        const thumb = e.target.closest('.modal-thumbnail');
+        if (thumb) {
+            currentProductGallery.currentIndex = parseInt(thumb.dataset.index);
+            updateModalImage();
+        }
+    });
+
     // Update image and controls
     updateModalImage();
 
@@ -637,6 +709,7 @@ function updateModalImage() {
     const counterElement = document.getElementById('modal-counter');
     const prevBtn = document.getElementById('modal-prev-btn');
     const nextBtn = document.getElementById('modal-next-btn');
+    const thumbnails = document.querySelectorAll('.modal-thumbnail');
 
     if (images.length > 1) {
         imageElement.src = images[currentIndex];
@@ -650,6 +723,11 @@ function updateModalImage() {
         prevBtn.style.display = 'none';
         nextBtn.style.display = 'none';
     }
+
+    // Update active thumbnail
+    thumbnails.forEach((thumb, index) => {
+        thumb.classList.toggle('active', index === currentIndex);
+    });
 }
 
 // Show Checkout Modal
@@ -979,6 +1057,89 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 function initializeCheckout() {
     // This function handles checkout-specific functionality
     updateCartSummary();
+}
+
+// Initialize Custom Cursor
+function initializeCursor() {
+    const cursorDot = document.querySelector('[data-cursor-dot]');
+    const cursorOutline = document.querySelector('[data-cursor-outline]');
+
+    window.addEventListener('mousemove', function(e) {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
+
+        cursorOutline.animate({
+            left: `${posX}px`,
+            top: `${posY}px`
+        }, { duration: 500, fill: 'forwards' });
+    });
+
+    document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseover', () => {
+            cursorOutline.style.transform = 'scale(1.5)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursorOutline.style.transform = 'scale(1)';
+        });
+    });
+}
+
+// Initialize Live Search
+function initializeLiveSearch() {
+    const searchIcon = document.getElementById('search-icon');
+    const searchContainer = document.querySelector('.search-input-container');
+    const searchInput = document.getElementById('nav-search-input');
+    const searchResults = document.getElementById('nav-search-results');
+
+    if (!searchIcon) return;
+
+    searchIcon.addEventListener('click', (e) => {
+        e.stopPropagation();
+        searchContainer.classList.toggle('active');
+        if (searchContainer.classList.contains('active')) {
+            searchInput.focus();
+        }
+    });
+
+    searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.toLowerCase();
+        if (searchTerm.length < 2) {
+            searchResults.innerHTML = '';
+            return;
+        }
+
+        const results = Object.entries(products).filter(([id, product]) => {
+            return product.name.toLowerCase().includes(searchTerm);
+        });
+
+        if (results.length > 0) {
+            searchResults.innerHTML = results.map(([id, product]) => {
+                return `<a href="products.html#${id}">${product.name}</a>`;
+            }).join('');
+        } else {
+            searchResults.innerHTML = '<a>No results found</a>';
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!searchContainer.contains(e.target)) {
+            searchContainer.classList.remove('active');
+        }
+    });
+}
+
+// Initialize Tooltips
+function initializeTooltips() {
+    document.querySelectorAll('[data-tooltip]').forEach(el => {
+        const tooltipText = el.getAttribute('data-tooltip');
+        const tooltip = document.createElement('span');
+        tooltip.className = 'tooltip';
+        tooltip.textContent = tooltipText;
+        el.appendChild(tooltip);
+    });
 }
 
 // Utility Functions

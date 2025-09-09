@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products - GamersEdge</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="enhancements.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -20,10 +27,17 @@
                 <li><a href="services.html" class="nav-link">Services</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
-                <li><a href="cart.html" class="nav-link cart-link">
+                <li data-tooltip="View Cart"><a href="cart.html" class="nav-link cart-link">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count" id="cart-count">0</span>
                 </a></li>
+                <li class="nav-search">
+                    <i class="fas fa-search" id="search-icon"></i>
+                    <div class="search-input-container">
+                        <input type="text" id="nav-search-input" placeholder="Search...">
+                        <div id="nav-search-results"></div>
+                    </div>
+                </li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -36,10 +50,11 @@
     <!-- Live Clock -->
     <div class="live-clock" id="live-clock"></div>
 
-    <!-- Products Header -->
-    <section class="page-header">
-        <div class="particles-container"></div>
-        <div class="container">
+    <main>
+        <!-- Products Header -->
+        <section class="page-header">
+            <div class="particles-container"></div>
+            <div class="container">
             <h1 class="page-title">Gaming Products</h1>
             <p class="page-subtitle">Discover our premium collection of gaming hardware</p>
         </div>
@@ -49,7 +64,7 @@
     <section class="products-section">
         <div class="container">
             <!-- Search and Filter -->
-            <div class="products-controls">
+            <div class="products-controls gsap-fade-in">
                 <div class="search-container">
                     <input type="text" id="search-input" placeholder="Search products..." class="search-input">
                     <i class="fas fa-search search-icon"></i>
@@ -69,7 +84,7 @@
             <!-- Products Grid -->
             <div class="products-grid" id="products-grid">
                 <!-- GPU Products -->
-                <div class="product-card" data-category="gpu" data-tilt>
+                <div class="product-card gsap-zoom-in" data-category="gpu" data-tilt>
                     <div class="product-image">
                         <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400" alt="RTX 4090">
                         <div class="product-overlay">
@@ -90,7 +105,7 @@
                     </div>
                 </div>
 
-                <div class="product-card" data-category="gpu" data-tilt>
+                <div class="product-card gsap-zoom-in" data-category="gpu" data-tilt>
                     <div class="product-image">
                         <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400" alt="RTX 4080">
                         <div class="product-overlay">
@@ -112,7 +127,7 @@
                 </div>
 
                 <!-- PC Products -->
-                <div class="product-card" data-category="pc" data-tilt>
+                <div class="product-card gsap-zoom-in" data-category="pc" data-tilt>
                     <div class="product-image">
                         <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Gaming PC Ultimate">
                         <div class="product-overlay">
@@ -133,7 +148,7 @@
                     </div>
                 </div>
 
-                <div class="product-card" data-category="pc" data-tilt>
+                <div class="product-card gsap-zoom-in" data-category="pc" data-tilt>
                     <div class="product-image">
                         <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Gaming PC Pro">
                         <div class="product-overlay">
@@ -155,7 +170,7 @@
                 </div>
 
                 <!-- Monitor Products -->
-                <div class="product-card" data-category="monitor" data-tilt>
+                <div class="product-card gsap-zoom-in" data-category="monitor" data-tilt>
                     <div class="product-image">
                         <img src="https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=400" alt="4K Gaming Monitor">
                         <div class="product-overlay">
@@ -176,7 +191,7 @@
                     </div>
                 </div>
 
-                <div class="product-card" data-category="monitor" data-tilt>
+                <div class="product-card gsap-zoom-in" data-category="monitor" data-tilt>
                     <div class="product-image">
                         <img src="https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Ultrawide Monitor">
                         <div class="product-overlay">
@@ -198,7 +213,7 @@
                 </div>
 
                 <!-- Keyboard Products -->
-                <div class="product-card" data-category="keyboard" data-tilt>
+                <div class="product-card gsap-zoom-in" data-category="keyboard" data-tilt>
                     <div class="product-image">
                         <img src="https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Mechanical Keyboard">
                         <div class="product-overlay">
@@ -220,7 +235,7 @@
                 </div>
 
                 <!-- Headset Products -->
-                <div class="product-card" data-category="headset" data-tilt>
+                <div class="product-card gsap-zoom-in" data-category="headset" data-tilt>
                     <div class="product-image">
                         <img src="https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Gaming Headset">
                         <div class="product-overlay">
@@ -242,7 +257,7 @@
                 </div>
 
                 <!-- Cooling Products -->
-                <div class="product-card" data-category="cooling" data-tilt>
+                <div class="product-card gsap-zoom-in" data-category="cooling" data-tilt>
                     <div class="product-image">
                         <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Liquid Cooling">
                         <div class="product-overlay">
@@ -265,6 +280,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Product Modal -->
     <div class="modal" id="product-modal">
@@ -273,6 +289,7 @@
             <div class="modal-body">
                 <div class="modal-image">
                     <img id="modal-product-image" src="" alt="">
+                    <div class="modal-thumbnails" id="modal-thumbnails"></div>
                     <button class="modal-gallery-btn prev" id="modal-prev-btn"><i class="fas fa-chevron-left"></i></button>
                     <button class="modal-gallery-btn next" id="modal-next-btn"><i class="fas fa-chevron-right"></i></button>
                     <div class="modal-gallery-counter" id="modal-counter"></div>
@@ -300,10 +317,10 @@
                     <h3>GamersEdge</h3>
                     <p>Your ultimate destination for gaming hardware and custom PC solutions.</p>
                     <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="YouTube"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 
@@ -344,15 +361,17 @@
     </footer>
 
     <!-- Back to Top Button -->
-    <button class="back-to-top" id="back-to-top">
+    <button class="back-to-top" id="back-to-top" data-tooltip="Back to Top">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <!-- Music Toggle -->
-    <button class="music-toggle" id="music-toggle">
+    <button class="music-toggle" id="music-toggle" data-tooltip="Toggle Music">
         <i class="fas fa-music"></i>
     </button>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services - GamersEdge</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="enhancements.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -20,10 +27,17 @@
                 <li><a href="services.html" class="nav-link active">Services</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
-                <li><a href="cart.html" class="nav-link cart-link">
+                <li data-tooltip="View Cart"><a href="cart.html" class="nav-link cart-link">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count" id="cart-count">0</span>
                 </a></li>
+                <li class="nav-search">
+                    <i class="fas fa-search" id="search-icon"></i>
+                    <div class="search-input-container">
+                        <input type="text" id="nav-search-input" placeholder="Search...">
+                        <div id="nav-search-results"></div>
+                    </div>
+                </li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -36,10 +50,11 @@
     <!-- Live Clock -->
     <div class="live-clock" id="live-clock"></div>
 
-    <!-- Services Header -->
-    <section class="page-header">
-        <div class="particles-container"></div>
-        <div class="container">
+    <main>
+        <!-- Services Header -->
+        <section class="page-header">
+            <div class="particles-container"></div>
+            <div class="container">
             <h1 class="page-title">Our Services</h1>
             <p class="page-subtitle">Professional gaming solutions tailored for you</p>
         </div>
@@ -48,8 +63,9 @@
     <!-- Services Section -->
     <section class="services-section">
         <div class="container">
+            <h2 class="section-title gsap-fade-in">Our Services</h2>
             <div class="services-grid">
-                <div class="service-card">
+                <div class="service-card gsap-zoom-in">
                     <div class="service-icon">
                         <i class="fas fa-desktop"></i>
                     </div>
@@ -66,7 +82,7 @@
                     <button class="btn btn-primary service-btn">Get Quote</button>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card gsap-zoom-in">
                     <div class="service-icon">
                         <i class="fas fa-tools"></i>
                     </div>
@@ -83,7 +99,7 @@
                     <button class="btn btn-primary service-btn">Book Service</button>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card gsap-zoom-in">
                     <div class="service-icon">
                         <i class="fas fa-arrow-up"></i>
                     </div>
@@ -100,7 +116,7 @@
                     <button class="btn btn-primary service-btn">Upgrade Now</button>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card gsap-zoom-in">
                     <div class="service-icon">
                         <i class="fas fa-tint"></i>
                     </div>
@@ -117,7 +133,7 @@
                     <button class="btn btn-primary service-btn">Install Now</button>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card gsap-zoom-in">
                     <div class="service-icon">
                         <i class="fas fa-gamepad"></i>
                     </div>
@@ -134,7 +150,7 @@
                     <button class="btn btn-primary service-btn">Design Setup</button>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card gsap-zoom-in">
                     <div class="service-icon">
                         <i class="fas fa-headset"></i>
                     </div>
@@ -157,9 +173,9 @@
     <!-- Process Section -->
     <section class="process-section">
         <div class="container">
-            <h2 class="section-title">Our Process</h2>
+            <h2 class="section-title gsap-fade-in">Our Process</h2>
             <div class="process-steps">
-                <div class="process-step">
+                <div class="process-step gsap-fade-in">
                     <div class="step-number">1</div>
                     <div class="step-content">
                         <h3>Consultation</h3>
@@ -167,7 +183,7 @@
                     </div>
                 </div>
                 
-                <div class="process-step">
+                <div class="process-step gsap-fade-in">
                     <div class="step-number">2</div>
                     <div class="step-content">
                         <h3>Planning</h3>
@@ -175,7 +191,7 @@
                     </div>
                 </div>
                 
-                <div class="process-step">
+                <div class="process-step gsap-fade-in">
                     <div class="step-number">3</div>
                     <div class="step-content">
                         <h3>Implementation</h3>
@@ -183,7 +199,7 @@
                     </div>
                 </div>
                 
-                <div class="process-step">
+                <div class="process-step gsap-fade-in">
                     <div class="step-number">4</div>
                     <div class="step-content">
                         <h3>Testing</h3>
@@ -191,7 +207,7 @@
                     </div>
                 </div>
                 
-                <div class="process-step">
+                <div class="process-step gsap-fade-in">
                     <div class="step-number">5</div>
                     <div class="step-content">
                         <h3>Support</h3>
@@ -201,6 +217,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -211,10 +228,10 @@
                     <h3>GamersEdge</h3>
                     <p>Your ultimate destination for gaming hardware and custom PC solutions.</p>
                     <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="YouTube"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 
@@ -255,15 +272,17 @@
     </footer>
 
     <!-- Back to Top Button -->
-    <button class="back-to-top" id="back-to-top">
+    <button class="back-to-top" id="back-to-top" data-tooltip="Back to Top">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <!-- Music Toggle -->
-    <button class="music-toggle" id="music-toggle">
+    <button class="music-toggle" id="music-toggle" data-tooltip="Toggle Music">
         <i class="fas fa-music"></i>
     </button>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

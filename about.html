@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - GamersEdge</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="enhancements.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -20,10 +27,17 @@
                 <li><a href="services.html" class="nav-link">Services</a></li>
                 <li><a href="about.html" class="nav-link active">About</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
-                <li><a href="cart.html" class="nav-link cart-link">
+                <li data-tooltip="View Cart"><a href="cart.html" class="nav-link cart-link">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count" id="cart-count">0</span>
                 </a></li>
+                <li class="nav-search">
+                    <i class="fas fa-search" id="search-icon"></i>
+                    <div class="search-input-container">
+                        <input type="text" id="nav-search-input" placeholder="Search...">
+                        <div id="nav-search-results"></div>
+                    </div>
+                </li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -36,10 +50,11 @@
     <!-- Live Clock -->
     <div class="live-clock" id="live-clock"></div>
 
-    <!-- About Header -->
-    <section class="page-header">
-        <div class="particles-container"></div>
-        <div class="container">
+    <main>
+        <!-- About Header -->
+        <section class="page-header">
+            <div class="particles-container"></div>
+            <div class="container">
             <h1 class="page-title">About GamersEdge</h1>
             <p class="page-subtitle">Pioneering the future of gaming technology</p>
         </div>
@@ -48,7 +63,7 @@
     <!-- About Content -->
     <section class="about-content">
         <div class="container">
-            <div class="about-intro">
+            <div class="about-intro gsap-fade-in">
                 <h2 class="section-title">Our Story</h2>
                 <p class="about-text">
                     GamersEdge was founded with a simple mission: to provide gamers with the ultimate hardware experience. 
@@ -59,7 +74,7 @@
 
             <!-- Mission, Vision, Values -->
             <div class="values-grid">
-                <div class="value-card">
+                <div class="value-card gsap-zoom-in">
                     <div class="value-icon">
                         <i class="fas fa-bullseye"></i>
                     </div>
@@ -67,7 +82,7 @@
                     <p>To empower gamers with cutting-edge technology and exceptional service, creating the ultimate gaming experience for every customer.</p>
                 </div>
 
-                <div class="value-card">
+                <div class="value-card gsap-zoom-in">
                     <div class="value-icon">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -75,7 +90,7 @@
                     <p>To be the leading gaming hardware destination in Sri Lanka, known for innovation, quality, and customer satisfaction.</p>
                 </div>
 
-                <div class="value-card">
+                <div class="value-card gsap-zoom-in">
                     <div class="value-icon">
                         <i class="fas fa-heart"></i>
                     </div>
@@ -89,9 +104,9 @@
     <!-- Timeline Section -->
     <section class="timeline-section">
         <div class="container">
-            <h2 class="section-title">Our Journey</h2>
+            <h2 class="section-title gsap-fade-in">Our Journey</h2>
             <div class="timeline">
-                <div class="timeline-item">
+                <div class="timeline-item gsap-slide-from-left">
                     <div class="timeline-date">2020</div>
                     <div class="timeline-content">
                         <h3>The Beginning</h3>
@@ -99,7 +114,7 @@
                     </div>
                 </div>
 
-                <div class="timeline-item">
+                <div class="timeline-item gsap-slide-from-right">
                     <div class="timeline-date">2021</div>
                     <div class="timeline-content">
                         <h3>First Milestone</h3>
@@ -107,7 +122,7 @@
                     </div>
                 </div>
 
-                <div class="timeline-item">
+                <div class="timeline-item gsap-slide-from-left">
                     <div class="timeline-date">2022</div>
                     <div class="timeline-content">
                         <h3>Expansion</h3>
@@ -115,7 +130,7 @@
                     </div>
                 </div>
 
-                <div class="timeline-item">
+                <div class="timeline-item gsap-slide-from-right">
                     <div class="timeline-date">2023</div>
                     <div class="timeline-content">
                         <h3>Innovation</h3>
@@ -123,7 +138,7 @@
                     </div>
                 </div>
 
-                <div class="timeline-item">
+                <div class="timeline-item gsap-slide-from-left">
                     <div class="timeline-date">2024</div>
                     <div class="timeline-content">
                         <h3>Digital Transformation</h3>
@@ -131,7 +146,7 @@
                     </div>
                 </div>
 
-                <div class="timeline-item">
+                <div class="timeline-item gsap-slide-from-right">
                     <div class="timeline-date">2025</div>
                     <div class="timeline-content">
                         <h3>Future Ready</h3>
@@ -145,9 +160,9 @@
     <!-- Team Section -->
     <section class="team-section">
         <div class="container">
-            <h2 class="section-title">Meet Our Team</h2>
+            <h2 class="section-title gsap-fade-in">Meet Our Team</h2>
             <div class="team-grid">
-                <div class="team-member">
+                <div class="team-member gsap-zoom-in">
                     <div class="member-image">
                         <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=300" alt="CEO">
                         <div class="member-overlay">
@@ -164,7 +179,7 @@
                     </div>
                 </div>
 
-                <div class="team-member">
+                <div class="team-member gsap-zoom-in">
                     <div class="member-image">
                         <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=300" alt="CTO">
                         <div class="member-overlay">
@@ -181,7 +196,7 @@
                     </div>
                 </div>
 
-                <div class="team-member">
+                <div class="team-member gsap-zoom-in">
                     <div class="member-image">
                         <img src="https://images.pexels.com/photos/2379006/pexels-photo-2379006.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Lead Technician">
                         <div class="member-overlay">
@@ -198,7 +213,7 @@
                     </div>
                 </div>
 
-                <div class="team-member">
+                <div class="team-member gsap-zoom-in">
                     <div class="member-image">
                         <img src="https://images.pexels.com/photos/2379007/pexels-photo-2379007.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Customer Success">
                         <div class="member-overlay">
@@ -222,28 +237,29 @@
     <section class="stats-section">
         <div class="container">
             <div class="stats-grid">
-                <div class="stat-item">
+                <div class="stat-item gsap-fade-in">
                     <div class="stat-number" data-target="5000">0</div>
                     <div class="stat-label">Happy Customers</div>
                 </div>
                 
-                <div class="stat-item">
+                <div class="stat-item gsap-fade-in">
                     <div class="stat-number" data-target="1500">0</div>
                     <div class="stat-label">PCs Built</div>
                 </div>
                 
-                <div class="stat-item">
+                <div class="stat-item gsap-fade-in">
                     <div class="stat-number" data-target="50">0</div>
                     <div class="stat-label">Brand Partners</div>
                 </div>
                 
-                <div class="stat-item">
+                <div class="stat-item gsap-fade-in">
                     <div class="stat-number" data-target="99">0</div>
                     <div class="stat-label">Satisfaction Rate</div>
                 </div>
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -254,10 +270,10 @@
                     <h3>GamersEdge</h3>
                     <p>Your ultimate destination for gaming hardware and custom PC solutions.</p>
                     <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="YouTube"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 
@@ -298,15 +314,17 @@
     </footer>
 
     <!-- Back to Top Button -->
-    <button class="back-to-top" id="back-to-top">
+    <button class="back-to-top" id="back-to-top" data-tooltip="Back to Top">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <!-- Music Toggle -->
-    <button class="music-toggle" id="music-toggle">
+    <button class="music-toggle" id="music-toggle" data-tooltip="Toggle Music">
         <i class="fas fa-music"></i>
     </button>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

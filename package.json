@@ -1,7 +1,21 @@
-@@ .. @@
-   "scripts": {
--    "test": "echo \"Error: no test specified\" && exit 1"
-+    "test": "echo \"Error: no test specified\" && exit 1",
-+    "start": "http-server . -p 8000 -c-1",
-+    "dev": "http-server . -p 8000 -c-1"
-   },
+{
+  "name": "gamersedge",
+  "version": "1.0.0",
+  "description": "A futuristic gaming hardware website.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server . -p 8000 -c-1",
+    "dev": "http-server . -p 8000 -c-1"
+  },
+  "keywords": [
+    "gaming",
+    "hardware",
+    "cyberpunk"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - GamersEdge</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="enhancements.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -20,10 +27,17 @@
                 <li><a href="services.html" class="nav-link">Services</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
                 <li><a href="contact.html" class="nav-link active">Contact</a></li>
-                <li><a href="cart.html" class="nav-link cart-link">
+                <li data-tooltip="View Cart"><a href="cart.html" class="nav-link cart-link">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count" id="cart-count">0</span>
                 </a></li>
+                <li class="nav-search">
+                    <i class="fas fa-search" id="search-icon"></i>
+                    <div class="search-input-container">
+                        <input type="text" id="nav-search-input" placeholder="Search...">
+                        <div id="nav-search-results"></div>
+                    </div>
+                </li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -36,10 +50,11 @@
     <!-- Live Clock -->
     <div class="live-clock" id="live-clock"></div>
 
-    <!-- Contact Header -->
-    <section class="page-header">
-        <div class="particles-container"></div>
-        <div class="container">
+    <main>
+        <!-- Contact Header -->
+        <section class="page-header">
+            <div class="particles-container"></div>
+            <div class="container">
             <h1 class="page-title">Contact Us</h1>
             <p class="page-subtitle">Get in touch with our gaming experts</p>
         </div>
@@ -50,7 +65,7 @@
         <div class="container">
             <div class="contact-content">
                 <!-- Contact Form -->
-                <div class="contact-form-container">
+                <div class="contact-form-container gsap-slide-from-left">
                     <h2>Send us a Message</h2>
                     <form class="contact-form" id="contact-form">
                         <div class="form-group">
@@ -93,7 +108,7 @@
                 </div>
 
                 <!-- Contact Info -->
-                <div class="contact-info-container">
+                <div class="contact-info-container gsap-slide-from-right">
                     <h2>Get in Touch</h2>
                     
                     <div class="contact-info-grid">
@@ -243,6 +258,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -253,10 +269,10 @@
                     <h3>GamersEdge</h3>
                     <p>Your ultimate destination for gaming hardware and custom PC solutions.</p>
                     <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon" data-tooltip="YouTube"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 
@@ -297,15 +313,17 @@
     </footer>
 
     <!-- Back to Top Button -->
-    <button class="back-to-top" id="back-to-top">
+    <button class="back-to-top" id="back-to-top" data-tooltip="Back to Top">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <!-- Music Toggle -->
-    <button class="music-toggle" id="music-toggle">
+    <button class="music-toggle" id="music-toggle" data-tooltip="Toggle Music">
         <i class="fas fa-music"></i>
     </button>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
