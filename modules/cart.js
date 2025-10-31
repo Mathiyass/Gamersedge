@@ -147,7 +147,7 @@ export function renderCartItems() {
             </div>
             <div class="cart-item-details">
                 <h3>${item.name}</h3>
-                <p class="cart-item-price">$${item.price}</p>
+                <p class="cart-item-price">LKR ${item.price.toLocaleString()}</p>
             </div>
             <div class="cart-item-controls">
                 <div class="quantity-controls">
@@ -174,14 +174,14 @@ function updateCartSummary() {
 
     // Update summary elements
     const elements = {
-        'cart-subtotal': `$${subtotal.toFixed(2)}`,
-        'cart-shipping': `$${shipping.toFixed(2)}`,
-        'cart-tax': `$${tax.toFixed(2)}`,
-        'cart-total': `$${total.toFixed(2)}`,
-        'checkout-subtotal': `$${subtotal.toFixed(2)}`,
-        'checkout-shipping': `$${shipping.toFixed(2)}`,
-        'checkout-tax': `$${tax.toFixed(2)}`,
-        'checkout-total': `$${total.toFixed(2)}`
+        'cart-subtotal': `LKR ${subtotal.toLocaleString()}`,
+        'cart-shipping': `LKR ${shipping.toLocaleString()}`,
+        'cart-tax': `LKR ${tax.toLocaleString()}`,
+        'cart-total': `LKR ${total.toLocaleString()}`,
+        'checkout-subtotal': `LKR ${subtotal.toLocaleString()}`,
+        'checkout-shipping': `LKR ${shipping.toLocaleString()}`,
+        'checkout-tax': `LKR ${tax.toLocaleString()}`,
+        'checkout-total': `LKR ${total.toLocaleString()}`
     };
 
     Object.entries(elements).forEach(([id, value]) => {

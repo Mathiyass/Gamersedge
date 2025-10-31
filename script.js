@@ -2,6 +2,7 @@
 import { initializeUI } from './modules/ui.js';
 import { initializeCart, renderCartItems } from './modules/cart.js';
 import { initializeProductSearch } from './modules/product.js';
+import { debounce } from './modules/utils.js';
 
 // Global Variables
 let products = {};
@@ -34,6 +35,9 @@ async function initializeWebsite() {
         case 'products':
             initializeUI(products);
             initializeProductSearch(products);
+            break;
+        default:
+            initializeLiveSearch(products);
             break;
         case 'cart':
             renderCartItems();
@@ -76,17 +80,4 @@ function hideLoadingScreen() {
             isLoading = false;
         }, 1000); // Match the CSS transition time
     }
-}
-
-// Utility Functions
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
 }
