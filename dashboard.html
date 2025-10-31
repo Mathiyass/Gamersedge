@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GamersEdge - User Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#06f9d8",
+            "background-light": "#f5f8f8",
+            "background-dark": "#0f2320",
+          },
+          fontFamily: {
+            "display": ["Space Grotesk"]
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #0A0F1E;
+    }
+  </style>
+</head>
+<body class="font-display bg-[#0A0F1E] text-[#EAEAEA]">
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+<!-- Main Container -->
+<div class="flex h-full min-h-screen w-full">
+<!-- Vertical Navigation Sidebar -->
+<aside class="w-64 flex-shrink-0 p-4">
+<div class="flex h-full flex-col justify-between rounded-xl border border-primary/20 bg-white/5 p-4 backdrop-blur-lg" style="box-shadow: 0 0 15px rgba(6, 249, 216, 0.1);">
+<div class="flex flex-col gap-8">
+<div class="flex items-center gap-3 px-2 text-primary">
+<span class="material-symbols-outlined text-3xl"> incomplete_circle </span>
+<h2 class="text-xl font-bold">GamersEdge</h2>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAuHM95Yf_90LuuS24XirNvGwLtMqJjE2jG95-vucdv23ueMPufVh8rmjYXEAUab2gnB_nBeuSTwsg6BrqB2q144fJhdDqjhLWw2-7VnC7wtj_Vf2rFj_b15DGTB7FkYEw4Wdw1R0awaKt4S7x-kjiD6qCgM217ZV381HxPXns23Xi9C18AR_2nQnmEDk0Mk-p8LKFlAtCqmUndFVQTDDyXdoMvGFkLkXW8qAWrBu0qPfaZ_70_hbRl86qQaT6KBIrosTqLfGr6IlG-"); box-shadow: 0 0 10px #06f9d8, 0 0 20px #06f9d8 inset;'></div>
+<div class="flex flex-col">
+<h1 class="text-white text-base font-medium leading-tight">PlayerOne</h1>
+<p class="text-primary text-sm font-normal leading-tight">Edge Tier Member</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 mt-4">
+<a class="flex items-center gap-3 rounded-full bg-primary/20 px-3 py-2 text-primary shadow-[0_0_8px_rgba(6,249,216,0.5)]" href="dashboard.html">
+<span class="material-symbols-outlined"> dashboard </span>
+<p class="text-sm font-medium">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/80 hover:bg-white/5 hover:text-white rounded-full transition-all" href="#">
+<span class="material-symbols-outlined"> receipt_long </span>
+<p class="text-sm font-medium">Order History</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/80 hover:bg-white/5 hover:text-white rounded-full transition-all" href="#">
+<span class="material-symbols-outlined"> favorite </span>
+<p class="text-sm font-medium">Wishlist</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/80 hover:bg-white/5 hover:text-white rounded-full transition-all" href="#">
+<span class="material-symbols-outlined"> settings </span>
+<p class="text-sm font-medium">Settings</p>
+</a>
+</nav>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-white/80 hover:bg-white/5 hover:text-white rounded-full transition-all" href="contact.html">
+<span class="material-symbols-outlined"> help </span>
+<p class="text-sm font-medium">Support</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-white/80 hover:bg-white/5 hover:text-white rounded-full transition-all" href="index.html">
+<span class="material-symbols-outlined"> logout </span>
+<p class="text-sm font-medium">Log Out</p>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 p-4 pl-0">
+<div class="flex h-full w-full flex-col gap-6 overflow-y-auto rounded-xl border border-primary/20 bg-white/5 p-6 backdrop-blur-lg" style="box-shadow: 0 0 15px rgba(6, 249, 216, 0.1);">
+<!-- Top Nav Bar -->
+<header class="flex items-center justify-between">
+<div class="flex flex-1 max-w-lg">
+<label class="flex w-full flex-col">
+<div class="flex w-full flex-1 items-stretch rounded-full h-11">
+<div class="text-primary flex border-none bg-black/20 items-center justify-center pl-4 rounded-l-full border-r-0">
+<span class="material-symbols-outlined"> search </span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-full text-white/90 focus:outline-0 focus:ring-2 focus:ring-primary border-none bg-black/20 focus:border-none h-full placeholder:text-white/40 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search orders, items, settings..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex h-11 w-11 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-black/20 text-white/80 hover:bg-primary/20 hover:text-primary transition-all">
+<span class="material-symbols-outlined"> shopping_cart </span>
+</button>
+<button class="flex h-11 w-11 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-black/20 text-white/80 hover:bg-primary/20 hover:text-primary transition-all">
+<span class="material-symbols-outlined"> notifications </span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 border-2 border-primary" data-alt="User avatar with a glowing border" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCRp0dyPIeVX-T20H_QexBM-6hIuyZhERJgNg2go1dHV4HASSr7-5S7O8IWihUAfflqjDET_ITorhumi3p82dQ6vEFaoQ91QeH1m07lxpwGJckDDWLGIf-nBBSysaHuVM8yWWE40xIoyFqK4nEEGL7laP6hN4PdypetjAjGk6LrbJTP4OFwqlP-cNIFrAjPJD_YSt5ZqQEBymTyZPKb6VosAMKY_2z_aaYqZPzHjbkNmLKIWPUwunBW7ptcI-_v3T59BZcfJmsAGtxB");'></div>
+</div>
+</header>
+<!-- Page Heading -->
+<div class="flex flex-wrap justify-between gap-3 pt-4">
+<div class="flex flex-col gap-2">
+<p class="text-4xl font-black leading-tight tracking-[-0.033em] text-white">Welcome back, <span class="text-primary">PlayerOne!</span></p>
+<p class="text-white/60 text-base font-normal leading-normal">Here's a quick look at your account dashboard.</p>
+</div>
+</div>
+<!-- Content Section: Recent Orders -->
+<section class="flex flex-col gap-4">
+<h2 class="text-primary text-[22px] font-bold leading-tight tracking-[-0.015em] pt-5">Recent Orders</h2>
+<!-- Table Card -->
+<div class="flex overflow-hidden rounded-xl border border-primary/20 bg-black/20 backdrop-blur-sm" style="box-shadow: 0 0 10px rgba(6, 249, 216, 0.1);">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-black/20">
+<th class="px-5 py-3 text-sm font-medium text-white/80">Order ID</th>
+<th class="px-5 py-3 text-sm font-medium text-white/80">Date</th>
+<th class="px-5 py-3 text-sm font-medium text-white/80">Total</th>
+<th class="px-5 py-3 text-sm font-medium text-white/80">Status</th>
+<th class="px-5 py-3 text-sm font-medium text-primary text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-primary/20">
+<tr class="hover:bg-primary/10 transition-colors">
+<td class="h-[72px] px-5 py-2 text-white/70">#GE-1138-9</td>
+<td class="h-[72px] px-5 py-2 text-white/70">2024-10-26</td>
+<td class="h-[72px] px-5 py-2 text-white/70">$249.99</td>
+<td class="h-[72px] px-5 py-2">
+<div class="inline-flex items-center justify-center rounded-full bg-primary/20 px-3 py-1 text-xs font-medium text-primary">Shipped</div>
+</td>
+<td class="h-[72px] px-5 py-2 text-right">
+<a class="font-bold text-primary hover:underline" href="#">View Details</a>
+</td>
+</tr>
+<tr class="hover:bg-primary/10 transition-colors">
+<td class="h-[72px] px-5 py-2 text-white/70">#GE-1137-5</td>
+<td class="h-[72px] px-5 py-2 text-white/70">2024-10-21</td>
+<td class="h-[72px] px-5 py-2 text-white/70">$89.50</td>
+<td class="h-[72px] px-5 py-2">
+<div class="inline-flex items-center justify-center rounded-full bg-green-500/20 px-3 py-1 text-xs font-medium text-green-400">Delivered</div>
+</td>
+<td class="h-[72px] px-5 py-2 text-right">
+<a class="font-bold text-primary hover:underline" href="#">View Details</a>
+</td>
+</tr>
+<tr class="hover:bg-primary/10 transition-colors">
+<td class="h-[72px] px-5 py-2 text-white/70">#GE-1135-2</td>
+<td class="h-[72px] px-5 py-2 text-white/70">2024-10-15</td>
+<td class="h-[72px] px-5 py-2 text-white/70">$1299.00</td>
+<td class="h-[72px] px-5 py-2">
+<div class="inline-flex items-center justify-center rounded-full bg-green-500/20 px-3 py-1 text-xs font-medium text-green-400">Delivered</div>
+</td>
+<td class="h-[72px] px-5 py-2 text-right">
+<a class="font-bold text-primary hover:underline" href="#">View Details</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Content Section: Personal Info & Settings -->
+<section class="grid grid-cols-1 gap-6 pt-6 lg:grid-cols-2">
+<!-- Personal Information Card -->
+<div class="flex flex-col gap-4 rounded-xl border border-primary/20 bg-black/20 p-6 backdrop-blur-sm" style="box-shadow: 0 0 10px rgba(6, 249, 216, 0.1);">
+<h3 class="text-primary text-xl font-bold">Personal Information</h3>
+<form class="space-y-4">
+<div>
+<label class="text-sm font-medium text-white/70">Username</label>
+<input class="mt-1 block w-full rounded-lg border-primary/30 bg-black/30 p-2.5 text-white/90 shadow-inner shadow-primary/10 focus:border-primary focus:ring-primary" onblur="this.style.borderColor='transparent'" onfocus="this.style.borderColor='#06f9d8'" style="border-bottom: 2px solid transparent; transition: border-color 0.3s;" type="text" value="PlayerOne"/>
+</div>
+<div>
+<label class="text-sm font-medium text-white/70">Email Address</label>
+<input class="mt-1 block w-full rounded-lg border-primary/30 bg-black/30 p-2.5 text-white/90 shadow-inner shadow-primary/10 focus:border-primary focus:ring-primary" onblur="this.style.borderColor='transparent'" onfocus="this.style.borderColor='#06f9d8'" style="border-bottom: 2px solid transparent; transition: border-color 0.3s;" type="email" value="player.one@gamersedge.com"/>
+</div>
+<div class="flex justify-end gap-3 pt-2">
+<button class="cursor-pointer rounded-full h-10 px-6 border-2 border-primary text-primary text-sm font-bold hover:bg-primary/10 transition-all" type="button">Change Password</button>
+<button class="cursor-pointer rounded-full h-10 px-6 bg-primary text-[#0A0F1E] text-sm font-bold shadow-[0_0_15px_rgba(6,249,216,0.6)] hover:brightness-110 transition-all" type="submit">Save Changes</button>
+</div>
+</form>
+</div>
+<!-- Notification Settings Card -->
+<div class="flex flex-col gap-4 rounded-xl border border-primary/20 bg-black/20 p-6 backdrop-blur-sm" style="box-shadow: 0 0 10px rgba(6, 249, 216, 0.1);">
+<h3 class="text-primary text-xl font-bold">Notification Settings</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-white/80">Email Alerts for Orders</span>
+<label class="relative inline-flex cursor-pointer items-center">
+<input checked="" class="peer sr-only" type="checkbox" value=""/>
+<div class="peer h-6 w-11 rounded-full bg-gray-600 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/50"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-white/80">Promotional Offers</span>
+<label class="relative inline-flex cursor-pointer items-center">
+<input checked="" class="peer sr-only" type="checkbox" value=""/>
+<div class="peer h-6 w-11 rounded-full bg-gray-600 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/50"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-white/80">Community Updates</span>
+<label class="relative inline-flex cursor-pointer items-center">
+<input class="peer sr-only" type="checkbox" value=""/>
+<div class="peer h-6 w-11 rounded-full bg-gray-600 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/50"></div>
+</label>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</div>
+</body></html>

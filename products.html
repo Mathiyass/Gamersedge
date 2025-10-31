@@ -1,201 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products - GamersEdge</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="enhancements.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GamersEdge - Gaming Laptops</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#06f9d8",
+            "background-light": "#f5f8f8",
+            "background-dark": "#0f2320",
+          },
+          fontFamily: {
+            "display": ["Space Grotesk"]
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          boxShadow: {
+            'primary-glow': '0 0 20px -5px #06f9d8',
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    #sidebar, .product-card, .product-grid {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, opacity 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+        will-change: transform, box-shadow;
+    }
+    #sidebar.translate-x-0 {
+        transform: translateX(0);
+    }
+    #sidebar {
+        transform: translateX(-100%);
+    }
+    @media (min-width: 1024px) {
+        #sidebar {
+            transform: translateX(0);
+        }
+    }
+  </style>
 </head>
-<body>
-    <div class="cursor-dot" data-cursor-dot></div>
-    <div class="cursor-outline" data-cursor-outline></div>
-
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loading-content">
-            <div class="gamersedge-loader">
-                <span>G</span><span>A</span><span>M</span><span>E</span><span>R</span><span>S</span><span>E</span><span>D</span><span>G</span><span>E</span>
-            </div>
-        </div>
-        <div class="particles-bg"></div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">GamersEdge</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="products.html" class="nav-link active">Products</a></li>
-                <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
-                <li data-tooltip="View Cart"><a href="cart.html" class="nav-link cart-link">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count" id="cart-count">0</span>
-                </a></li>
-                <li class="nav-search">
-                    <i class="fas fa-search" id="search-icon"></i>
-                    <div class="search-input-container">
-                        <input type="text" id="nav-search-input" placeholder="Search...">
-                    </div>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Live Clock -->
-    <div class="live-clock" id="live-clock"></div>
-
-    <main>
-        <!-- Products Header -->
-        <section class="page-header">
-            <div class="particles-container"></div>
-            <div class="container">
-            <h1 class="page-title">Gaming Products</h1>
-            <p class="page-subtitle">Discover our premium collection of gaming hardware</p>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section class="products-section">
-        <div class="container">
-            <!-- Search and Filter -->
-            <div class="products-controls gsap-fade-in">
-                <div class="search-container">
-                    <input type="text" id="search-input" placeholder="Search products..." class="search-input">
-                    <i class="fas fa-search search-icon"></i>
-                </div>
-                
-                <div class="filter-container">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="motherboard">Motherboards</button>
-                    <button class="filter-btn" data-filter="cpu">Processors</button>
-                    <button class="filter-btn" data-filter="ram">RAM</button>
-                    <button class="filter-btn" data-filter="vga">Graphic Cards</button>
-                    <button class="filter-btn" data-filter="storage">Storage</button>
-                    <button class="filter-btn" data-filter="power-supply">Power Supply</button>
-                    <button class="filter-btn" data-filter="monitor">Monitors</button>
-                    <button class="filter-btn" data-filter="mouse">Mouse</button>
-                    <button class="filter-btn" data-filter="keyboard">Keyboard</button>
-                    <button class="filter-btn" data-filter="headset">Headset</button>
-                    <button class="filter-btn" data-filter="speaker">Speaker</button>
-                    <button class="filter-btn" data-filter="casing">Casing</button>
-                    <button class="filter-btn" data-filter="custom-pc">Custom PC</button>
-                    <button class="filter-btn" data-filter="accessories">Accessories</button>
-                    <button class="filter-btn" data-filter="cables">Cables</button>
-                    <button class="filter-btn" data-filter="networking">Networking</button>
-                </div>
-            </div>
-
-            <!-- Products Grid -->
-            <div class="products-grid" id="products-grid"></div>
-        </div>
-    </section>
-    </main>
-
-    <!-- Product Modal -->
-    <div class="modal" id="product-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="modal-body">
-                <div class="modal-image">
-                    <img id="modal-product-image" src="" alt="">
-                    <div class="modal-thumbnails" id="modal-thumbnails"></div>
-                    <button class="modal-gallery-btn prev" id="modal-prev-btn"><i class="fas fa-chevron-left"></i></button>
-                    <button class="modal-gallery-btn next" id="modal-next-btn"><i class="fas fa-chevron-right"></i></button>
-                    <div class="modal-gallery-counter" id="modal-counter"></div>
-                </div>
-                <div class="modal-info">
-                    <h2 id="modal-product-name"></h2>
-                    <p class="modal-price" id="modal-product-price"></p>
-                    <div class="modal-rating" id="modal-product-rating"></div>
-                    <p class="modal-description" id="modal-product-description"></p>
-                    <div class="modal-actions">
-                        <button class="btn btn-primary add-to-cart-modal" id="add-to-cart-modal">Add to Cart</button>
-                        <button class="btn btn-secondary">Buy Now</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-particles"></div>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>GamersEdge</h3>
-                    <p>Your ultimate destination for gaming hardware and custom PC solutions.</p>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon" data-tooltip="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="YouTube"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Contact Info</h4>
-                    <div class="contact-info">
-                        <p><i class="fas fa-phone"></i> 0740705733 / 0765329455</p>
-                        <p><i class="fas fa-envelope"></i> sl.gamersedge@gmail.com</p>
-                        <p><i class="fas fa-map-marker-alt"></i> 207/04/03/F/2, Wilimbula, Henegama, Sri Lanka</p>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Newsletter</h4>
-                    <p>Stay updated with our latest products and offers</p>
-                    <div class="newsletter">
-                        <input type="email" placeholder="Enter your email" class="newsletter-input">
-                        <button class="btn btn-primary newsletter-btn">Subscribe</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 GamersEdge. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="back-to-top" data-tooltip="Back to Top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- Music Toggle -->
-    <button class="music-toggle" id="music-toggle" data-tooltip="Toggle Music">
-        <i class="fas fa-music"></i>
-    </button>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
-    <script type="module" src="script.js"></script>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 w-full border-b border-solid border-white/10 bg-background-dark/80 backdrop-blur-md">
+<div class="container mx-auto px-4">
+<div class="flex h-20 items-center justify-between whitespace-nowrap">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-6">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_319)">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</g>
+<defs>
+<clipPath id="clip0_6_319">
+<rect fill="white" height="48" width="48"></rect>
+</clipPath>
+</defs>
+</svg>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">GamersEdge</h2>
+</div>
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-white/80 hover:text-primary text-sm font-medium leading-normal transition-colors" href="index.html">Home</a>
+<a class="text-primary text-sm font-bold leading-normal" href="products.html">Products</a>
+<a class="text-white/80 hover:text-primary text-sm font-medium leading-normal transition-colors" href="services.html">Services</a>
+<a class="text-white/80 hover:text-primary text-sm font-medium leading-normal transition-colors" href="about.html">About</a>
+<a class="text-white/80 hover:text-primary text-sm font-medium leading-normal transition-colors" href="contact.html">Contact</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-4">
+<label class="relative hidden sm:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-full h-full">
+<div class="text-white/50 flex border-none bg-white/5 items-center justify-center pl-4 rounded-l-full border-r-0">
+<span class="material-symbols-outlined !text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-white/5 focus:border-none h-full placeholder:text-white/50 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search for gear..." value=""/>
+</div>
+</label>
+<div class="flex gap-2">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-white/5 text-white hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined !text-2xl">shopping_cart</span>
+</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-white/5 text-white hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined !text-2xl">person</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="container mx-auto px-4 py-8">
+<div class="relative flex flex-col lg:flex-row gap-8">
+<aside class="fixed inset-y-0 left-0 z-40 w-72 xl:w-80 bg-background-dark/80 backdrop-blur-lg p-6 lg:p-0 lg:static lg:bg-transparent lg:backdrop-blur-none lg:w-72 xl:w-80 flex-shrink-0 transition-transform duration-300 ease-in-out" id="sidebar">
+<div class="sticky top-28 space-y-6">
+<div class="flex items-center justify-between">
+<h3 class="text-2xl font-bold text-white">Filters</h3>
+<div class="flex items-center gap-4">
+<button class="text-sm font-medium text-white/70 hover:text-primary">Clear All</button>
+<button class="lg:hidden text-white/70 hover:text-primary" onclick="document.getElementById('sidebar').classList.remove('translate-x-0')">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+<div class="space-y-4">
+<div class="rounded border border-white/10 bg-white/5 p-4 relative overflow-hidden">
+<div class="absolute left-0 top-0 h-full w-1 bg-primary"></div>
+<h4 class="font-bold text-white mb-3">Price Range</h4>
+<div class="relative h-1 w-full rounded-full bg-white/20">
+<div class="absolute h-1 rounded-full bg-primary" style="left: 10%; right: 40%;"></div>
+<div class="absolute -top-1.5 h-4 w-4 rounded-full bg-primary cursor-pointer"></div>
+<div class="absolute -top-1.5 h-4 w-4 rounded-full bg-primary cursor-pointer" style="right: 40%;"></div>
+</div>
+<div class="flex justify-between mt-3 text-sm text-white/70">
+<span>$1,400</span>
+<span>$3,000</span>
+</div>
+</div>
+<div class="rounded border border-white/10 bg-white/5 p-4 relative overflow-hidden">
+<div class="absolute left-0 top-0 h-full w-1 bg-primary"></div>
+<h4 class="font-bold text-white mb-3">Brand</h4>
+<div class="space-y-2">
+<label class="flex items-center gap-2 text-white/80 hover:text-white cursor-pointer"><input class="form-checkbox rounded bg-white/10 border-white/20 text-primary focus:ring-primary/50" type="checkbox"/> Alienware</label>
+<label class="flex items-center gap-2 text-white/80 hover:text-white cursor-pointer"><input checked="" class="form-checkbox rounded bg-white/10 border-white/20 text-primary focus:ring-primary/50" type="checkbox"/> Razer</label>
+<label class="flex items-center gap-2 text-white/80 hover:text-white cursor-pointer"><input class="form-checkbox rounded bg-white/10 border-white/20 text-primary focus:ring-primary/50" type="checkbox"/> ASUS ROG</label>
+<label class="flex items-center gap-2 text-white/80 hover:text-white cursor-pointer"><input class="form-checkbox rounded bg-white/10 border-white/20 text-primary focus:ring-primary/50" type="checkbox"/> MSI</label>
+<label class="flex items-center gap-2 text-white/80 hover:text-white cursor-pointer"><input checked="" class="form-checkbox rounded bg-white/10 border-white/20 text-primary focus:ring-primary/50" type="checkbox"/> Aorus</label>
+</div>
+</div>
+<div class="rounded border border-white/10 bg-white/5 p-4 relative overflow-hidden">
+<div class="absolute left-0 top-0 h-full w-1 bg-primary"></div>
+<h4 class="font-bold text-white mb-3">RAM</h4>
+<div class="space-y-2">
+<label class="flex items-center gap-2 text-white/80 hover:text-white cursor-pointer"><input class="form-checkbox rounded bg-white/10 border-white/20 text-primary focus:ring-primary/50" type="checkbox"/> 16GB</label>
+<label class="flex items-center gap-2 text-white/80 hover:text-white cursor-pointer"><input checked="" class="form-checkbox rounded bg-white/10 border-white/20 text-primary focus:ring-primary/50" type="checkbox"/> 32GB</label>
+<label class="flex items-center gap-2 text-white/80 hover:text-white cursor-pointer"><input class="form-checkbox rounded bg-white/10 border-white/20 text-primary focus:ring-primary/50" type="checkbox"/> 64GB</label>
+</div>
+</div>
+</div>
+<button class="w-full flex h-12 cursor-pointer items-center justify-center overflow-hidden rounded bg-primary text-background-dark gap-2 text-base font-bold leading-normal tracking-[0.015em] hover:bg-white hover:shadow-primary-glow transition">Apply Filters</button>
+</div>
+</aside>
+<div class="flex-1">
+<div class="mb-6 rounded-lg bg-gradient-to-r from-primary/20 to-primary/5 p-6 border border-primary/20 text-center">
+<h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] uppercase">Gaming Laptops</h1>
+<p class="text-white/60 text-base font-normal leading-normal mt-1">Unleash peak performance with our curated selection of elite gaming laptops.</p>
+</div>
+<div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+<div class="flex items-center gap-4">
+<button class="flex lg:hidden h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors px-4" onclick="document.getElementById('sidebar').classList.add('translate-x-0')">
+<span class="material-symbols-outlined text-white !text-xl">filter_list</span>
+<p class="text-white text-sm font-medium leading-normal">Filters</p>
+</button>
+<p class="text-white/60 text-sm font-normal leading-normal">Showing 128 products</p>
+</div>
+<div class="flex gap-3">
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors px-4">
+<p class="text-white text-sm font-medium leading-normal">Sort by: Popularity</p>
+<span class="material-symbols-outlined text-white !text-xl">expand_more</span>
+</button>
+</div>
+</div>
+<div class="product-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6" id="products-grid">
+<a href="product-detail.html" class="product-card group relative flex flex-col gap-3 rounded-lg border border-white/10 bg-white/5 p-4 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10 hover:shadow-primary-glow">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-md" data-alt="Aorus X9 Pro gaming laptop on a dark background" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBfn6l7kCvod3VqCJOmY8P6f42MQ_gtpkocT1LAOC8XEbn2M2q-O7qa6wufEWvjqMWiREyKOhsczaYdPmYAZNtYOLR14L2KXlfUqbFFBe1Nl18q8Hk5YGLD_noEbb3AY0umhYARVsMQXJt4and9Ozk__oCCTy_NXv4HtNEnzFoJRB_whpaY5ADRdYjJYKurRLF3EDHAavkULad5O1Ry3Ln5AswC0zDjuE68BA0EPYDY6_kqBcgZJK2OdnOf31hFf5V5TyaB3algdc6e");'></div>
+<div>
+<p class="text-white text-base font-medium leading-normal">Aorus X9 Pro</p>
+<div class="flex items-center gap-1 text-sm text-yellow-400">
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="text-white/60">4.8 (320 reviews)</span>
+</div>
+<p class="text-white/60 text-sm font-normal leading-normal mt-1">17.3" QHD 240Hz | Intel i9 | RTX 4090</p>
+<p class="text-primary text-lg font-bold mt-2">$2,499</p>
+</div>
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+<button class="flex h-12 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-background-dark gap-2 text-base font-bold leading-normal tracking-[0.015em] transform scale-90 group-hover:scale-100 transition-transform duration-300">Quick View</button>
+</div>
+</a>
+<a href="product-detail.html" class="product-card group relative flex flex-col gap-3 rounded-lg border border-white/10 bg-white/5 p-4 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10 hover:shadow-primary-glow">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-md" data-alt="Razer Blade Stealth 15 gaming laptop with green keyboard backlighting" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDcrbaG2bkNAdQeCPks4vyP3Cmr08Wd_yEE3x_J5QkHgBo5PVrxPcr6zCqibt3OxJnE_pXLe9sCLnttX1VySUTnHY1H_q6alwcGNv-ghxllglxnA3OeszyH-Y78fSRkoreMerENtS8nJrIgFqGHcffdbSPEmjDETV0NAlBEetcvztSVp8VVQHrb6XGajvE2VcOTaYCxo6HR8ic7YH2ydrKpSKFlLp74ozBJ8kxM3jD4WuegxwnzPVkc4trURvRrxV3yFbPQ7Da1QD6s");'></div>
+<div>
+<p class="text-white text-base font-medium leading-normal">Blade Stealth 15</p>
+<div class="flex items-center gap-1 text-sm text-yellow-400">
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="text-white/60">4.7 (512 reviews)</span>
+</div>
+<p class="text-white/60 text-sm font-normal leading-normal mt-1">15.6" OLED 4K | Intel i7 | RTX 4070</p>
+<p class="text-primary text-lg font-bold mt-2">$2,199</p>
+</div>
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+<button class="flex h-12 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-background-dark gap-2 text-base font-bold leading-normal tracking-[0.015em] transform scale-90 group-hover:scale-100 transition-transform duration-300">Quick View</button>
+</div>
+</a>
+<a href="product-detail.html" class="product-card group relative flex flex-col gap-3 rounded-lg border border-white/10 bg-white/5 p-4 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10 hover:shadow-primary-glow">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-md" data-alt="Alienware M17 gaming laptop with glowing logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB2DgPcW5CJt59dYD-bQA7r4ib525tIzwVpDhgSSrsf_dh3oJikpoaCPJNWFFcQSPqqLXZGnJ2fB3uYlhQhd_VigJrf4AjD9qxELE6V9_N7TqAJThqpqjYixgKnNB5m5N_XBq4HSs1PCZCkHDahg4YG0NNq_YBzncMeRE4C8KSS4BwLNZNnnr8ovexOH0Z1fgv2fRUoczSD7HKa-gmIo0i1K_JisO8io8vIwJvmmWXGZLJljjg0-mQMhUfRKrZObt6xgrcdjVX_qSA9");'></div>
+<div>
+<p class="text-white text-base font-medium leading-normal">Alienware M17</p>
+<div class="flex items-center gap-1 text-sm text-yellow-400">
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="text-white/60">4.9 (680 reviews)</span>
+</div>
+<p class="text-white/60 text-sm font-normal leading-normal mt-1">17.3" FHD 360Hz | Intel i9 | RTX 4080</p>
+<p class="text-primary text-lg font-bold mt-2">$2,899</p>
+</div>
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+<button class="flex h-12 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-background-dark gap-2 text-base font-bold leading-normal tracking-[0.015em] transform scale-90 group-hover:scale-100 transition-transform duration-300">Quick View</button>
+</div>
+</a>
+<a href="product-detail.html" class="product-card group relative flex flex-col gap-3 rounded-lg border border-white/10 bg-white/5 p-4 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10 hover:shadow-primary-glow">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-md" data-alt="ASUS ROG Zephyrus G14 laptop from an angle" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD9V31FsiB5msJV4ZqSeSxBg9dArd8NEB2NuR2Knl40BfnQzu7vOqi9jA9vnnuHuLQYZHtCGtHoyVjGdXy6oqMyX3YROr-dvaUhuY3HsAsnK4p-WlUNztQVEmM1TYoGSgH2LNJVHo3lcq2HXYcCteURW8PBm--i6Zh3nZyBG5cOUJqYmbnxCSFIZgvpxDtVVnvIVeBiCPxCenkeStHfcBh0ym9gMDIOHkJ1a5ErcsYr_In_km7NEuHXbQYnFkYk6GWkUCjkg3K6Tosz");'></div>
+<div>
+<p class="text-white text-base font-medium leading-normal">ROG Zephyrus G14</p>
+<div class="flex items-center gap-1 text-sm text-yellow-400">
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="text-white/60">4.6 (450 reviews)</span>
+</div>
+<p class="text-white/60 text-sm font-normal leading-normal mt-1">14.0" QHD 120Hz | AMD Ryzen 9 | RTX 4060</p>
+<p class="text-primary text-lg font-bold mt-2">$1,899</p>
+</div>
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+<button class="flex h-12 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-background-dark gap-2 text-base font-bold leading-normal tracking-[0.015em] transform scale-90 group-hover:scale-100 transition-transform duration-300">Quick View</button>
+</div>
+</a>
+<a href="product-detail.html" class="product-card group relative flex flex-col gap-3 rounded-lg border border-white/10 bg-white/5 p-4 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10 hover:shadow-primary-glow">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-md" data-alt="Vector Pro 2 laptop showing its screen" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA2RkPwk0JZmwYFepAP36hv4dQX6nOc_4nhoD1UUEU_X6evM5TDD-P4CiZQbpJ7TZrk8K-kw4Lh1t0_Y1qLVkac9wC_FJOHhwUuCwQ8zXNMkdMixGdilqJUUBT0dEuQA1M06NgoYNieohXG58RdJ_mt1blpAcRwLtboAdCoeCH5tpi0BWx7PTEZ1CxfhOCelCJgabI1oJfSHBbba8FJHhevB0_7yFstrEo4oh2fICM2_4mAJ2AyFQ7T0DDNB_3XU7J6TqkeG2WjTW6u");'></div>
+<div>
+<p class="text-white text-base font-medium leading-normal">Vector Pro 2</p>
+<div class="flex items-center gap-1 text-sm text-yellow-400">
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="text-white/60">4.5 (180 reviews)</span>
+</div>
+<p class="text-white/60 text-sm font-normal leading-normal mt-1">17.3" QHD 165Hz | Intel i9 | RTX 4070</p>
+<p class="text-primary text-lg font-bold mt-2">$2,099</p>
+</div>
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+<button class="flex h-12 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-background-dark gap-2 text-base font-bold leading-normal tracking-[0.015em] transform scale-90 group-hover:scale-100 transition-transform duration-300">Quick View</button>
+</div>
+</a>
+<a href="product-detail.html" class="product-card group relative flex flex-col gap-3 rounded-lg border border-white/10 bg-white/5 p-4 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10 hover:shadow-primary-glow">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-md" data-alt="Lenovo Legion 7i Gen 8 laptop from the side" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAhyYM75Q9gfjf3_20f7YFqHMrZSfs3AE5X4H-h0WaqIyS_a-GwIiod8Kl1xahe97LgfhcDXDg0Z9zsD9blxjL6E7RU77MXE1HdxFo8ADDT5uNvVJ2fzA8tQcnSCnj849rAO2zAWHMvTHABroENpu5By-9xZopNCcPdxpQ_b_pAKhkwKQVMUmUVakhr0yQ1XtwEuuDnF5NmN0wMR2rPltdymNLMYIL0NUFpUJ6F_kgjE1rvpbObjZY-xmClQ8WhUqdKkHUbY_ISw8rD");'></div>
+<div>
+<p class="text-white text-base font-medium leading-normal">Legion 7i Gen 8</p>
+<div class="flex items-center gap-1 text-sm text-yellow-400">
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="text-white/60">4.8 (240 reviews)</span>
+</div>
+<p class="text-white/60 text-sm font-normal leading-normal mt-1">16.0" WQXGA 240Hz | Intel i9 | RTX 4080</p>
+<p class="text-primary text-lg font-bold mt-2">$2,399</p>
+</div>
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
+<button class="flex h-12 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-primary px-6 text-background-dark gap-2 text-base font-bold leading-normal tracking-[0.015em] transform scale-90 group-hover:scale-100 transition-transform duration-300">Quick View</button>
+</div>
+</a>
+</div>
+<div class="flex justify-center mt-12">
+<nav class="flex items-center gap-2">
+<a class="flex h-10 w-10 items-center justify-center rounded-full text-white/60 bg-white/5 hover:bg-primary/20 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">chevron_left</span>
+</a>
+<a class="flex h-10 w-10 items-center justify-center rounded-full text-white bg-primary/20 font-bold transition-colors" href="#">1</a>
+<a class="flex h-10 w-10 items-center justify-center rounded-full text-white/60 hover:bg-white/10 transition-colors" href="#">2</a>
+<a class="flex h-10 w-10 items-center justify-center rounded-full text-white/60 hover:bg-white/10 transition-colors" href="#">3</a>
+<span class="text-white/60">...</span>
+<a class="flex h-10 w-10 items-center justify-center rounded-full text-white/60 hover:bg-white/10 transition-colors" href="#">8</a>
+<a class="flex h-10 w-10 items-center justify-center rounded-full text-white/60 bg-white/5 hover:bg-primary/20 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">chevron_right</span>
+</a>
+</nav>
+</div>
+</div>
+</div>
+</main>
+<footer class="mt-20 border-t border-solid border-white/10 bg-background-dark">
+<div class="container mx-auto px-4 py-12">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+<div class="col-span-2 lg:col-span-1">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-6">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_319_footer)">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</g>
+<defs>
+<clipPath id="clip0_6_319_footer">
+<rect fill="white" height="48" width="48"></rect>
+</clipPath>
+</defs>
+</svg>
+</div>
+<h2 class="text-white text-lg font-bold">GamersEdge</h2>
+</div>
+<p class="text-white/60 mt-4 text-sm">The ultimate destination for high-performance gaming gear.</p>
+</div>
+<div>
+<h5 class="font-bold text-white mb-4">Shop</h5>
+<ul class="space-y-2">
+<li><a class="text-white/60 hover:text-primary text-sm" href="products.html">Products</a></li>
+<li><a class="text-white/60 hover:text-primary text-sm" href="services.html">Services</a></li>
+<li><a class="text-white/60 hover:text-primary text-sm" href="about.html">About</a></li>
+<li><a class="text-white/60 hover:text-primary text-sm" href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold text-white mb-4">Support</h5>
+<ul class="space-y-2">
+<li><a class="text-white/60 hover:text-primary text-sm" href="#">Contact Us</a></li>
+<li><a class="text-white/60 hover:text-primary text-sm" href="#">Shipping Policy</a></li>
+<li><a class="text-white/60 hover:text-primary text-sm" href="#">Returns</a></li>
+<li><a class="text-white/60 hover:text-primary text-sm" href="#">FAQ</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold text-white mb-4">Company</h5>
+<ul class="space-y-2">
+<li><a class="text-white/60 hover:text-primary text-sm" href="#">About Us</a></li>
+<li><a class="text-white/60 hover:text-primary text-sm" href="#">Careers</a></li>
+<li><a class="text-white/60 hover:text-primary text-sm" href="#">Press</a></li>
+</ul>
+</div>
+<div class="col-span-2 md:col-span-4 lg:col-span-1">
+<h5 class="font-bold text-white mb-4">Join The Community</h5>
+<div class="flex gap-2">
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-none bg-white/5 h-10 placeholder:text-white/50 px-4 text-sm font-normal" placeholder="Enter your email" type="email"/>
+<button class="flex items-center justify-center rounded-full h-10 w-10 bg-primary text-background-dark flex-shrink-0">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-solid border-white/10 text-center text-sm text-white/50">
+<p>© 2024 GamersEdge. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</div>
+<script type="module" src="script.js"></script>
 </body>
 </html>

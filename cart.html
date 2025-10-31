@@ -1,420 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart - GamersEdge</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="enhancements.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GamersEdge - Your Cart</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#06f9d8",
+              "background-light": "#f5f8f8",
+              "background-dark": "#0f2320",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
 </head>
-<body>
-    <div class="cursor-dot" data-cursor-dot></div>
-    <div class="cursor-outline" data-cursor-outline></div>
-
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loading-content">
-            <div class="gamersedge-loader">
-                <span>G</span><span>A</span><span>M</span><span>E</span><span>R</span><span>S</span><span>E</span><span>D</span><span>G</span><span>E</span>
-            </div>
-        </div>
-        <div class="particles-bg"></div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">GamersEdge</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="products.html" class="nav-link">Products</a></li>
-                <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
-                <li data-tooltip="View Cart"><a href="cart.html" class="nav-link cart-link active">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count" id="cart-count">0</span>
-                </a></li>
-                <li class="nav-search">
-                    <i class="fas fa-search" id="search-icon"></i>
-                    <div class="search-input-container">
-                        <input type="text" id="nav-search-input" placeholder="Search...">
-                        <div id="nav-search-results"></div>
-                    </div>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Live Clock -->
-    <div class="live-clock" id="live-clock"></div>
-
-    <main>
-        <!-- Cart Header -->
-        <section class="page-header">
-            <div class="particles-container"></div>
-            <div class="container">
-            <h1 class="page-title">Shopping Cart</h1>
-            <p class="page-subtitle">Review your selected items</p>
-        </div>
-    </section>
-
-    <!-- Cart Section -->
-    <section class="cart-section">
-        <div class="container">
-            <div class="cart-content">
-                <!-- Cart Items -->
-                <div class="cart-items-container">
-                    <div class="cart-header">
-                        <h2>Your Items</h2>
-                        <button class="btn btn-secondary clear-cart" id="clear-cart">Clear Cart</button>
-                    </div>
-                    
-                    <div class="cart-items" id="cart-items">
-                        <!-- Cart items will be dynamically inserted here -->
-                    </div>
-                    
-                    <div class="empty-cart" id="empty-cart" style="display: none;">
-                        <div class="empty-cart-icon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <h3>Your cart is empty</h3>
-                        <p>Looks like you haven't added any items to your cart yet.</p>
-                        <a href="products.html" class="btn btn-primary">Continue Shopping</a>
-                    </div>
-                </div>
-
-                <!-- Cart Summary -->
-                <div class="cart-summary">
-                    <h2>Order Summary</h2>
-                    
-                    <div class="summary-details">
-                        <div class="summary-row">
-                            <span>Subtotal:</span>
-                            <span id="cart-subtotal">$0.00</span>
-                        </div>
-                        
-                        <div class="summary-row">
-                            <span>Shipping:</span>
-                            <span id="cart-shipping">$25.00</span>
-                        </div>
-                        
-                        <div class="summary-row">
-                            <span>Tax (8%):</span>
-                            <span id="cart-tax">$0.00</span>
-                        </div>
-                        
-                        <div class="summary-divider"></div>
-                        
-                        <div class="summary-row total">
-                            <span>Total:</span>
-                            <span id="cart-total">$0.00</span>
-                        </div>
-                    </div>
-                    
-                    <div class="promo-code">
-                        <input type="text" placeholder="Enter promo code" class="promo-input" id="promo-input">
-                        <button class="btn btn-secondary apply-promo" id="apply-promo">Apply</button>
-                    </div>
-                    
-                    <div class="checkout-actions">
-                        <button class="btn btn-primary checkout-btn" id="checkout-btn">
-                            <i class="fas fa-lock"></i>
-                            Secure Checkout
-                        </button>
-                        <a href="products.html" class="btn btn-secondary continue-shopping">Continue Shopping</a>
-                    </div>
-                    
-                    <div class="payment-methods">
-                        <h4>We Accept</h4>
-                        <div class="payment-icons">
-                            <i class="fab fa-cc-visa"></i>
-                            <i class="fab fa-cc-mastercard"></i>
-                            <i class="fab fa-cc-paypal"></i>
-                            <i class="fab fa-cc-stripe"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Recommended Products -->
-    <section class="recommended-products">
-        <div class="container">
-            <h2 class="section-title">You Might Also Like</h2>
-            <div class="products-grid">
-                <div class="product-card" data-tilt>
-                    <div class="product-image">
-                        <img src="https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Gaming Mouse">
-                        <div class="product-overlay">
-                            <button class="btn btn-small add-to-cart" data-product="gaming-mouse">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3>Gaming Mouse</h3>
-                        <p class="product-price">$79</p>
-                    </div>
-                </div>
-                
-                <div class="product-card" data-tilt>
-                    <div class="product-image">
-                        <img src="https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Mouse Pad">
-                        <div class="product-overlay">
-                            <button class="btn btn-small add-to-cart" data-product="mouse-pad">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3>RGB Mouse Pad</h3>
-                        <p class="product-price">$39</p>
-                    </div>
-                </div>
-                
-                <div class="product-card" data-tilt>
-                    <div class="product-image">
-                        <img src="https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Webcam">
-                        <div class="product-overlay">
-                            <button class="btn btn-small add-to-cart" data-product="webcam">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3>4K Webcam</h3>
-                        <p class="product-price">$129</p>
-                    </div>
-                </div>
-                
-                <div class="product-card" data-tilt>
-                    <div class="product-image">
-                        <img src="https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Cable Management">
-                        <div class="product-overlay">
-                            <button class="btn btn-small add-to-cart" data-product="cable-management">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3>Cable Management Kit</h3>
-                        <p class="product-price">$25</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    </main>
-
-    <!-- Checkout Modal -->
-    <div class="modal" id="checkout-modal">
-        <div class="modal-content checkout-modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="checkout-header">
-                <h2>Secure Checkout</h2>
-                <div class="checkout-steps">
-                    <div class="step active">1. Shipping</div>
-                    <div class="step">2. Payment</div>
-                    <div class="step">3. Review</div>
-                </div>
-            </div>
-            
-            <div class="checkout-form">
-                <form id="checkout-form">
-                    <!-- Shipping Information -->
-                    <div class="checkout-section active" id="shipping-section">
-                        <h3>Shipping Information</h3>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="text" id="first-name" required>
-                                <label for="first-name">First Name</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="last-name" required>
-                                <label for="last-name">Last Name</label>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="email" id="checkout-email" required>
-                            <label for="checkout-email">Email Address</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="tel" id="checkout-phone" required>
-                            <label for="checkout-phone">Phone Number</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="text" id="address" required>
-                            <label for="address">Street Address</label>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="text" id="city" required>
-                                <label for="city">City</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="postal-code" required>
-                                <label for="postal-code">Postal Code</label>
-                            </div>
-                        </div>
-                        
-                        <button type="button" class="btn btn-primary next-step">Continue to Payment</button>
-                    </div>
-                    
-                    <!-- Payment Information -->
-                    <div class="checkout-section" id="payment-section">
-                        <h3>Payment Information</h3>
-                        <div class="payment-methods-checkout">
-                            <label class="payment-method">
-                                <input type="radio" name="payment" value="card" checked>
-                                <span class="payment-option">
-                                    <i class="fas fa-credit-card"></i>
-                                    Credit/Debit Card
-                                </span>
-                            </label>
-                            <label class="payment-method">
-                                <input type="radio" name="payment" value="paypal">
-                                <span class="payment-option">
-                                    <i class="fab fa-paypal"></i>
-                                    PayPal
-                                </span>
-                            </label>
-                        </div>
-                        
-                        <div class="card-details">
-                            <div class="form-group">
-                                <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
-                                <label for="card-number">Card Number</label>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <input type="text" id="expiry" placeholder="MM/YY">
-                                    <label for="expiry">Expiry Date</label>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" id="cvv" placeholder="123">
-                                    <label for="cvv">CVV</label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="checkout-navigation">
-                            <button type="button" class="btn btn-secondary prev-step">Back</button>
-                            <button type="button" class="btn btn-primary next-step">Review Order</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Order Review -->
-                    <div class="checkout-section" id="review-section">
-                        <h3>Order Review</h3>
-                        <div class="order-summary-checkout">
-                            <div id="checkout-items-review"></div>
-                            <div class="checkout-totals">
-                                <div class="total-row">
-                                    <span>Subtotal:</span>
-                                    <span id="checkout-subtotal">$0.00</span>
-                                </div>
-                                <div class="total-row">
-                                    <span>Shipping:</span>
-                                    <span id="checkout-shipping">$25.00</span>
-                                </div>
-                                <div class="total-row">
-                                    <span>Tax:</span>
-                                    <span id="checkout-tax">$0.00</span>
-                                </div>
-                                <div class="total-row final-total">
-                                    <span>Total:</span>
-                                    <span id="checkout-total">$0.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="checkout-navigation">
-                            <button type="button" class="btn btn-secondary prev-step">Back</button>
-                            <button type="submit" class="btn btn-primary place-order">
-                                <i class="fas fa-lock"></i>
-                                Place Order
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-particles"></div>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>GamersEdge</h3>
-                    <p>Your ultimate destination for gaming hardware and custom PC solutions.</p>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon" data-tooltip="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="YouTube"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Contact Info</h4>
-                    <div class="contact-info">
-                        <p><i class="fas fa-phone"></i> 0740705733 / 0765329455</p>
-                        <p><i class="fas fa-envelope"></i> sl.gamersedge@gmail.com</p>
-                        <p><i class="fas fa-map-marker-alt"></i> 207/04/03/F/2, Wilimbula, Henegama, Sri Lanka</p>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Newsletter</h4>
-                    <p>Stay updated with our latest products and offers</p>
-                    <div class="newsletter">
-                        <input type="email" placeholder="Enter your email" class="newsletter-input">
-                        <button class="btn btn-primary newsletter-btn">Subscribe</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 GamersEdge. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="back-to-top" data-tooltip="Back to Top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- Music Toggle -->
-    <button class="music-toggle" id="music-toggle" data-tooltip="Toggle Music">
-        <i class="fas fa-music"></i>
-    </button>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
-    <script type="module" src="script.js"></script>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 py-5">
+<div class="flex items-center gap-4 text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_319)">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
+</g>
+<defs>
+<clippath id="clip0_6_319"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">GamersEdge</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-center gap-9">
+<a class="text-white/80 hover:text-white text-sm font-medium leading-normal transition-colors" href="index.html">Home</a>
+<a class="text-white/80 hover:text-white text-sm font-medium leading-normal transition-colors" href="products.html">Products</a>
+<a class="text-white/80 hover:text-white text-sm font-medium leading-normal transition-colors" href="services.html">Services</a>
+<a class="text-white/80 hover:text-white text-sm font-medium leading-normal transition-colors" href="about.html">About</a>
+<a class="text-white/80 hover:text-white text-sm font-medium leading-normal transition-colors" href="contact.html">Contact</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-white/10 text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-3 hover:bg-white/20 transition-colors relative">
+<span class="material-symbols-outlined text-xl">shopping_cart</span>
+<span class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-background-dark">3</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC6-aN5s2g-AwO8Rm2UHviH2VErlIydmAGaB8JH3-mMA3XloOlgRxh8GkmmyHkx6XRQTkM0kLX5v8A-g6ajIHqvQtsw37TVJK1GetLkz7etwc57aU0DUCmJbyYTPp_c2oEx8zOIWr-LRrKbKBnS-5Gb6Lw8HpqYVa0eunxNSgU2DL5t6f0OAPa412XTxK34IcWkzx_YGbYI1wSucswWIHefSdggpbssfIK1yeMggS51s2WQdDQWM23XkTm45Yk8_jUVJICEHRK-YHdd");'></div>
+</div>
+</header>
+<main class="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 flex flex-1 justify-center py-10 lg:py-16">
+<div class="layout-content-container flex flex-col w-full max-w-6xl flex-1">
+<div class="flex flex-wrap justify-between gap-4 p-4 items-baseline">
+<p class="text-white text-4xl sm:text-5xl font-black leading-tight tracking-[-0.033em] min-w-72">YOUR CART</p>
+<a class="text-white/80 hover:text-primary text-sm font-medium leading-normal transition-colors underline underline-offset-4" href="products.html">Continue Shopping</a>
+</div>
+<div class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8 xl:gap-12">
+<div class="lg:col-span-2 flex flex-col gap-4">
+<div class="flex items-center gap-4 bg-white/5 rounded p-4 justify-between border border-solid border-white/10">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded h-20 w-20" data-alt="RGB Mechanical Keyboard" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDcw4KgRP3t755tblD_ZfwO52iyyn38-PiYF7s7mxeqTP98XOEEx7KcD-o-BAN8DZbPF3-gsmHgzqhWNQbOEDK28OpOq6Vk4F6rX39WChPWC0I5NGp3-i5s6-GuqOyLO7SZeWjAbmEVbDHoBjTeDyWEhOrhOzKOdF7TA2Ml7FHN5NAqA-PoZLMJvuLtKxmMvlFkpQrYkfKG20VLauaKtXKeAH4o_exuReVm1ag62yewH5pUTXiYSjJZpqc6Cgde_zJARVpfWiGwQ3zZ");'></div>
+<div class="flex flex-col justify-center">
+<p class="text-white text-base font-medium leading-normal line-clamp-1">RGB Mechanical Keyboard</p>
+<p class="text-white/60 text-sm font-normal leading-normal line-clamp-2">$129.99</p>
+</div>
+</div>
+<div class="flex items-center gap-4 sm:gap-6">
+<div class="shrink-0">
+<div class="flex items-center gap-2 text-white bg-white/10 rounded-full p-1">
+<button class="text-base font-medium leading-normal flex h-7 w-7 items-center justify-center rounded-full bg-white/5 hover:bg-white/20 transition-colors cursor-pointer">-</button>
+<input class="text-base font-medium leading-normal w-6 p-0 text-center bg-transparent focus:outline-0 focus:ring-0 focus:border-none border-none [appearance:textfield] [&amp;::-webkit-inner-spin-button]:appearance-none [&amp;::-webkit-outer-spin-button]:appearance-none" type="number" value="1"/>
+<button class="text-base font-medium leading-normal flex h-7 w-7 items-center justify-center rounded-full bg-white/5 hover:bg-white/20 transition-colors cursor-pointer">+</button>
+</div>
+</div>
+<button class="text-white/60 hover:text-primary transition-colors"><span class="material-symbols-outlined">delete</span></button>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white/5 rounded p-4 justify-between border border-solid border-white/10">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded h-20 w-20" data-alt="Hyper-Speed Gaming Mouse" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBGNlmIETrLLLRPHjh1GDlG3IVqy8l8lPx-9v2kOey8I-nliXui7DHj4jr5N4H2Rvj0EDFJUlFrtZK_P7ddRWZLCpUEeIcpCX1CXTE8q8HCe84qWOanukya8hJ5RQiiDCQ1pLmJpsybDNIMk5Q5fp9CXX_WG4qUpaq3-E0nJQ_XB2jYyxDX6PsUkPaZOfUauwYaG3V1CDPn9H5lbJXJqaCAA-CuRHHkWATsJFUW0GAV0GZveLqS9OoWxtES50mPbQOFx_A7mSflQbj8");'></div>
+<div class="flex flex-col justify-center">
+<p class="text-white text-base font-medium leading-normal line-clamp-1">Hyper-Speed Gaming Mouse</p>
+<p class="text-white/60 text-sm font-normal leading-normal line-clamp-2">$79.99</p>
+</div>
+</div>
+<div class="flex items-center gap-4 sm:gap-6">
+<div class="shrink-0">
+<div class="flex items-center gap-2 text-white bg-white/10 rounded-full p-1">
+<button class="text-base font-medium leading-normal flex h-7 w-7 items-center justify-center rounded-full bg-white/5 hover:bg-white/20 transition-colors cursor-pointer">-</button>
+<input class="text-base font-medium leading-normal w-6 p-0 text-center bg-transparent focus:outline-0 focus:ring-0 focus:border-none border-none [appearance:textfield] [&amp;::-webkit-inner-spin-button]:appearance-none [&amp;::-webkit-outer-spin-button]:appearance-none" type="number" value="1"/>
+<button class="text-base font-medium leading-normal flex h-7 w-7 items-center justify-center rounded-full bg-white/5 hover:bg-white/20 transition-colors cursor-pointer">+</button>
+</div>
+</div>
+<button class="text-white/60 hover:text-primary transition-colors"><span class="material-symbols-outlined">delete</span></button>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white/5 rounded p-4 justify-between border border-solid border-white/10">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded h-20 w-20" data-alt="4K Ultra-Wide Monitor" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAkFZCnV_CF3nWglR29GH5rkP_IwyVA7N2C6e4FEJqrJSYkideFYnLh5HtksyeDFiubdrOlen6jcomFety3JBcZdOyG6ZrRY9p3caOniCFsZV1X9iSMR63zIMlBpBQ4uVFNl7ghaZ7RqwY96oYIp6qsH3n0brfe1VQz5VBPmH6e-uUkRpXGyhktUJf0xCEaO-wWVTiSzXw8_209pR0s-tQraQYrMG9q27H5HLnPnouY3z-NsqsZAUjy6KBqw5o7aWOzSBbo0b88mH75");'></div>
+<div class="flex flex-col justify-center">
+<p class="text-white text-base font-medium leading-normal line-clamp-1">4K Ultra-Wide Monitor</p>
+<p class="text-white/60 text-sm font-normal leading-normal line-clamp-2">$899.99</p>
+</div>
+</div>
+<div class="flex items-center gap-4 sm:gap-6">
+<div class="shrink-0">
+<div class="flex items-center gap-2 text-white bg-white/10 rounded-full p-1">
+<button class="text-base font-medium leading-normal flex h-7 w-7 items-center justify-center rounded-full bg-white/5 hover:bg-white/20 transition-colors cursor-pointer">-</button>
+<input class="text-base font-medium leading-normal w-6 p-0 text-center bg-transparent focus:outline-0 focus:ring-0 focus:border-none border-none [appearance:textfield] [&amp;::-webkit-inner-spin-button]:appearance-none [&amp;::-webkit-outer-spin-button]:appearance-none" type="number" value="1"/>
+<button class="text-base font-medium leading-normal flex h-7 w-7 items-center justify-center rounded-full bg-white/5 hover:bg-white/20 transition-colors cursor-pointer">+</button>
+</div>
+</div>
+<button class="text-white/60 hover:text-primary transition-colors"><span class="material-symbols-outlined">delete</span></button>
+</div>
+</div>
+</div>
+<div class="lg:col-span-1">
+<div class="bg-white/5 rounded border border-solid border-white/10 p-6 flex flex-col gap-6 sticky top-10">
+<h3 class="text-white text-2xl font-bold">Order Summary</h3>
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center text-white/80">
+<span>Subtotal</span>
+<span class="font-medium text-white">$1,109.97</span>
+</div>
+<div class="flex justify-between items-center text-white/80">
+<span>Shipping</span>
+<span class="text-sm">Calculated at next step</span>
+</div>
+</div>
+<div class="w-full h-px bg-white/10"></div>
+<div class="flex flex-col gap-2">
+<label class="text-sm text-white/60" for="promo-code">Promo Code</label>
+<div class="flex gap-2">
+<input class="w-full bg-white/10 border-white/20 rounded text-white placeholder:text-white/40 focus:ring-primary focus:border-primary transition-colors" id="promo-code" placeholder="Enter code" type="text"/>
+<button class="px-4 py-2 bg-white/10 rounded text-white font-semibold hover:bg-white/20 transition-colors">Apply</button>
+</div>
+</div>
+<div class="w-full h-px bg-white/10"></div>
+<div class="flex justify-between items-center text-white text-lg">
+<span class="font-bold">Total</span>
+<span class="font-bold text-xl">$1,109.97</span>
+</div>
+<a href="checkout.html" class="w-full py-3 bg-primary text-background-dark font-bold text-lg rounded-full hover:bg-opacity-90 transition-all shadow-[0_0_20px] shadow-primary/30 text-center">PROCEED TO CHECKOUT</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
 </body>
 </html>
