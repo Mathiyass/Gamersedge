@@ -38,7 +38,7 @@ export function showProductModal(productId, products) {
 
     // Update static content
     document.getElementById('modal-product-name').textContent = product.name;
-    document.getElementById('modal-product-price').textContent = `$${product.price}`;
+    document.getElementById('modal-product-price').textContent = `LKR ${product.price.toLocaleString()}`;
     document.getElementById('modal-product-description').textContent = product.description;
 
     // Update rating (dummy 5 stars for now)
