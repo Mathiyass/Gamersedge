@@ -1,253 +1,192 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GamersEdge - Ultimate Gaming Hardware</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="enhancements.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GamersEdge - Unleash Your Ultimate Rig</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        @layer base {
+          body {
+            @apply font-display bg-background-light dark:bg-background-dark text-white/90;
+          }
+        }
+        @layer utilities {
+          .glassmorphism {
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+          }
+        }
+    </style>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {primary: "#00ffdd", "background-light": "#f5f8f8", "background-dark": "#0f2320", "electric-blue": "#00BFFF", "cyber-pink": "#FF00FF", "lime-green": "#39FF14"}, fontFamily: {display: "Space Grotesk"}, borderRadius: {DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px"}, borderColor: {"white-10": "rgba(255, 255, 255, 0.1)"}}}};</script>
 </head>
-<body>
-    <div class="cursor-dot" data-cursor-dot></div>
-    <div class="cursor-outline" data-cursor-outline></div>
-
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loading-content">
-            <div class="gamersedge-loader">
-                <span>G</span><span>A</span><span>M</span><span>E</span><span>R</span><span>S</span><span>E</span><span>D</span><span>G</span><span>E</span>
-            </div>
-        </div>
-        <div class="particles-bg"></div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">GamersEdge</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link active">Home</a></li>
-                <li><a href="products.html" class="nav-link">Products</a></li>
-                <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
-                <li data-tooltip="View Cart"><a href="cart.html" class="nav-link cart-link">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count" id="cart-count">0</span>
-                </a></li>
-                <li class="nav-search">
-                    <i class="fas fa-search" id="search-icon"></i>
-                    <div class="search-input-container">
-                        <input type="text" id="nav-search-input" placeholder="Search...">
-                    </div>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Live Clock -->
-    <div class="live-clock" id="live-clock"></div>
-
-    <main>
-        <!-- Hero Section -->
-        <section class="hero" id="hero">
-            <div class="particles-container"></div>
-            <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="title-line">Welcome to the</span>
-                <span class="title-main">Future of Gaming</span>
-            </h1>
-            <p class="hero-subtitle">Experience next-generation hardware at GamersEdge</p>
-            <div class="hero-buttons">
-                <a href="products.html" class="btn btn-primary btn-pulse">Explore Products</a>
-                <a href="services.html" class="btn btn-secondary">Our Services</a>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="scroll-arrow"></div>
-        </div>
-    </section>
-
-    <!-- Featured Products Section -->
-    <section class="featured-products" id="featured">
-        <div class="container">
-            <h2 class="section-title gsap-fade-in">Featured Products</h2>
-            <div class="products-grid">
-                <div class="product-card gsap-zoom-in" data-tilt>
-                    <div class="product-image">
-                        <img src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Gaming PC">
-                        <div class="product-overlay">
-                            <button class="btn btn-small view-details" data-product="gaming-pc-ultimate">View Details</button>
-                            <button class="btn btn-small add-to-cart" data-product="gaming-pc-ultimate">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3>Ultimate Gaming PC</h3>
-                        <p class="product-price">$2,499</p>
-                    </div>
-                </div>
-                
-                <div class="product-card gsap-zoom-in" data-tilt>
-                    <div class="product-image">
-                        <img src="https://images.pexels.com/photos/1029757/pexels-photo-1029757.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Gaming Monitor">
-                        <div class="product-overlay">
-                            <button class="btn btn-small view-details" data-product="monitor-4k">View Details</button>
-                            <button class="btn btn-small add-to-cart" data-product="monitor-4k">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3>4K Gaming Monitor</h3>
-                        <p class="product-price">$599</p>
-                    </div>
-                </div>
-                
-                <div class="product-card gsap-zoom-in" data-tilt>
-                    <div class="product-image">
-                        <img src="https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Gaming Keyboard">
-                        <div class="product-overlay">
-                            <button class="btn btn-small view-details" data-product="keyboard-mechanical">View Details</button>
-                            <button class="btn btn-small add-to-cart" data-product="keyboard-mechanical">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3>Mechanical Keyboard</h3>
-                        <p class="product-price">$149</p>
-                    </div>
-                </div>
-                
-                <div class="product-card gsap-zoom-in" data-tilt>
-                    <div class="product-image">
-                        <img src="https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Gaming Headset">
-                        <div class="product-overlay">
-                            <button class="btn btn-small view-details" data-product="headset-pro">View Details</button>
-                            <button class="btn btn-small add-to-cart" data-product="headset-pro">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <h3>Pro Gaming Headset</h3>
-                        <p class="product-price">$199</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Choose Us Section -->
-    <section class="why-choose-us">
-        <div class="container">
-            <h2 class="section-title gsap-fade-in">Why Choose GamersEdge?</h2>
-            <div class="features-grid">
-                <div class="feature-card animated-feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>Cutting-Edge Technology</h3>
-                    <p>Latest gaming hardware and components from top brands</p>
-                </div>
-                
-                <div class="feature-card animated-feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3>Expert Assembly</h3>
-                    <p>Professional PC building and custom configuration services</p>
-                </div>
-                
-                <div class="feature-card animated-feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Quality Guarantee</h3>
-                    <p>Comprehensive warranty and reliable customer support</p>
-                </div>
-                
-                <div class="feature-card animated-feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shipping-fast"></i>
-                    </div>
-                    <h3>Fast Delivery</h3>
-                    <p>Quick and secure shipping across Sri Lanka</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-particles"></div>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>GamersEdge</h3>
-                    <p>Your ultimate destination for gaming hardware and custom PC solutions.</p>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon" data-tooltip="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="YouTube"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Contact Info</h4>
-                    <div class="contact-info">
-                        <p><i class="fas fa-phone"></i> 0740705733 / 0765329455</p>
-                        <p><i class="fas fa-envelope"></i> sl.gamersedge@gmail.com</p>
-                        <p><i class="fas fa-map-marker-alt"></i> 207/04/03/F/2, Wilimbula, Henegama, Sri Lanka</p>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Newsletter</h4>
-                    <p>Stay updated with our latest products and offers</p>
-                    <div class="newsletter">
-                        <input type="email" placeholder="Enter your email" class="newsletter-input">
-                        <button class="btn btn-primary newsletter-btn">Subscribe</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 GamersEdge. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="back-to-top" data-tooltip="Back to Top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- Music Toggle -->
-    <button class="music-toggle" id="music-toggle" data-tooltip="Toggle Music">
-        <i class="fas fa-music"></i>
-    </button>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
-    <script type="module" src="script.js"></script>
-</body>
-</html>
+<body class="font-display">
+<div class="relative flex min-h-screen w-full flex-col bg-background-dark group/design-root overflow-x-hidden">
+<header class="sticky top-0 z-50 w-full glassmorphism">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="flex h-20 items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-primary text-3xl">
+                               stadia_controller
+                            </span>
+<h2 class="text-white text-xl font-bold tracking-tight">GamersEdge</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-white/90 hover:text-primary text-sm font-medium transition-colors" href="products.html">Laptops</a>
+<a class="text-white/90 hover:text-primary text-sm font-medium transition-colors" href="products.html">Desktops</a>
+<a class="text-white/90 hover:text-primary text-sm font-medium transition-colors" href="products.html">Graphics Cards</a>
+<a class="text-white/90 hover:text-primary text-sm font-medium transition-colors" href="products.html">Peripherals</a>
+<a class="text-white/90 hover:text-primary text-sm font-medium transition-colors" href="products.html">Accessories</a>
+<a class="text-white/90 hover:text-primary text-sm font-medium transition-colors" href="products.html">Monitors</a>
+</nav>
+</div>
+<div class="flex flex-1 items-center justify-end gap-4">
+<label class="hidden lg:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-white/50 flex border-white-10 bg-white/5 items-center justify-center pl-3 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined !text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/50 border-white-10 bg-white/5 h-full placeholder:text-white/50 px-4 text-sm font-normal" placeholder="Search products..." value=""/>
+</div>
+</label>
+<div class="flex gap-2">
+<button class="flex cursor-pointer items-center justify-center rounded-lg h-10 w-10 bg-white/5 hover:bg-white/10 text-white/90 transition-colors">
+<span class="material-symbols-outlined">favorite_border</span>
+</button>
+<a href="cart.html" class="relative flex cursor-pointer items-center justify-center rounded-lg h-10 w-10 bg-white/5 hover:bg-white/10 text-white/90 transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span id="cart-count" class="absolute -top-1 -right-1 flex items-center justify-center w-5 h-5 text-xs font-bold text-background-dark bg-primary rounded-full">0</span>
+</a>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDee-q5RU-jve69igk8utvIcOqm3jI4jnGX1AbDsGgRCOwOUNFQfPeogkXOBR2wAXZ7c-KJTLZ_yEMkcGQb8QDn6fZzLY1iey3wv0-ImJmKcTC6IOT_gnM9Tal7M0fb2momcTnWObqkiDz-ueKVU4G3VtpOwSGoJgeMx9p4bDAa99OhtNYJSOI7BGaQ76yI5FcJSkIVj-tIZxYWkmiK7SjFgdTzlMO21CRVM6NiGPO2SNXZGjHjmMVVeZgmnaiN0OfoccJTbUnP3jeB');"></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1">
+<section class="relative">
+<div class="absolute inset-0 bg-black/50"></div>
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="flex min-h-[600px] flex-col items-center justify-center gap-6 rounded-lg bg-cover bg-center bg-no-repeat p-4 text-center" data-alt="Futuristic gaming setup with neon lights" style='background-image: linear-gradient(rgba(10, 10, 26, 0.4) 0%, rgba(10, 10, 26, 0.8) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDl_rux1WtWiXXm9xGu2AIvF29NFRP_FiJptXgi3KI1YhLIDrMkhH_uRGm3hm--ecWGtNPrF6ZdfC94i2kGqX2NuX3xB0EWG-hxImVRRLoDXI_r3BXWy-LwIf7IdGW0bQBr4AckiQuNmYqPPBforGmoSbKzjBmJXsWCuTkv3RMRgFTCDDhyxiuB0lqV-HAPBQQOCFV01d4IcfKOwkiTHnJ5m2uG1e2JJbSlHGZ0TbNFFsX2QwkvPixtYSLZYJ4_0ZYbV6My6DReDcTJ");'>
+<div class="flex flex-col gap-4">
+<h1 class="text-white text-5xl font-black tracking-tighter sm:text-6xl md:text-7xl">Unleash Your Ultimate Rig</h1>
+<h2 class="text-white/80 text-base font-normal max-w-2xl mx-auto sm:text-lg">Discover the latest in high-performance gaming hardware and accessories. Power up your gameplay with cutting-edge tech.</h2>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-background-dark text-base font-bold shadow-lg shadow-primary/20 transition-all hover:bg-opacity-90 hover:shadow-primary/40">
+<span>Explore Deals</span>
+</button>
+</div>
+</div>
+</section>
+<section class="py-16 sm:py-24">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<h2 class="text-white text-3xl font-bold tracking-tight px-4 pb-6">Featured Categories</h2>
+<div class="flex overflow-x-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
+<div class="flex items-stretch p-4 gap-6">
+<div class="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-64">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg" data-alt="A sleek gaming laptop open on a desk" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBF6TXnoHT3yfQZmZhPrtpjjG5IwWQYu6YkFQT86m04JjyzYMVjobfn1xtIIaCflT_lBIxvzO61QOGc0IflpcvGAZhE9_hHZAgGq3DybDdcVRoWtqOmNuX35ZNaxlcl_v0tGG2My7AD6sN7_0XwLcf3ZO1k6vqrICLeGo7oC8RZASU-pMVB1Gy_D2d-cF_l-bfcGI_RYG-gtp5gMiBZkhgfK_ciugGXyuxjQx4uQYOXV5rlSSbXHkyg6rpAUDv7bllA_erIaQkqV36F");'></div>
+<div>
+<p class="text-white text-lg font-medium">Laptops</p>
+<p class="text-white/60 text-sm font-normal">High-Performance Gaming</p>
+</div>
+</div>
+<div class="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-64">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg" data-alt="A powerful gaming desktop with RGB lighting" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAhPyP5ystffp6nGkzUEemZX-4DJJcsuaRYDPlNjhax6-yoi7cEdv6R_q09TJ5uy4yQiTl7aSUMFPcslfEV4nnlBBeIQ3GZwgAFro4gOdwfQP5xSnX1VT8n9gxf4mhuiFMGFhHJ8AF1-5gWTQwzZitG03rDY65Za-NSLs7ny1maqAanYYCaCRjaKuB3t11bBP-B8StXZekm8opMfhOKiSh9alW19VEGJbL6JXY1iyOZVI6GCNYXNCLUPu17V_R8bf0YtSE1poU_cbRN");'></div>
+<div>
+<p class="text-white text-lg font-medium">Desktops</p>
+<p class="text-white/60 text-sm font-normal">Pre-Built Powerhouses</p>
+</div>
+</div>
+<div class="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-64">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg" data-alt="A close-up of a modern graphics card" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBQk0_qrq-DimwkvVkEsoWVRe1kgx5zg7a_0vukQmqHYM_SGVzSU-VUNfJK1k8qceHTHwaCxKTPfUyo1E4UMVa4Wu1K5aZ4ntc8SgQtCyD1anDiQHn2vO-G_Ku2SpP329fI4H67UxILkKNrYqFEiY5UbOyVnQEYKEmWkgxL97h8EUtve_85UNVT0tnE5uqe0Uk7YaupC2KlAExEKOvOrx-ph1zWe63GKCKeDH3NMta7Lz1sHvB-Z-7nu0G9xasBcykjP4FO1AOhTj5P");'></div>
+<div>
+<p class="text-white text-lg font-medium">Graphics Cards</p>
+<p class="text-white/60 text-sm font-normal">Next-Gen Visuals</p>
+</div>
+</div>
+<div class="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-64">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg" data-alt="A gaming keyboard, mouse, and headset" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDbYPcVhnlasfpvB-NOTU1vtqHlJv23c92zk1vhLHu-KU3MCWJtTyIJXYjhGjmA_AmhAKmFrMqJjDyM-ha2DofkAWyEYykE-g_gaGedlJJqgA2j3Xy4_UWS_8CzyBXhpfK4f3QgZXfQy0d-8a0XbC7V1luNxp_Y8y82WUui8oJ6KikQAGokvIifCBdmIW3me_-YYTFg-0D8XKacqn2aCQ-1Q_8JK4JrJFOL8uSzCB6R3-U0vi6Oz-IQgqAff6iu6dqi_TTpw8aJh3Kh");'></div>
+<div>
+<p class="text-white text-lg font-medium">Peripherals</p>
+<p class="text-white/60 text-sm font-normal">Precision &amp; Control</p>
+</div>
+</div>
+<div class="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-64">
+<div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg" data-alt="A curved ultra-wide gaming monitor" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCWSsIVGHh232239pHCROtXKx0dF98SUNbd3Xdco9oT5K2wq1lU5d8bTnYikfa6Vgzg6qHR0KHyvduWQs8pmGMYmx4zN7QKNt0srMJ1zOfJ8eu27ffjKZYnBKvGLqPqPJm7Lhwr3JbJfaSzoZyXe0Eg84TrvQxdzhAHbzLkKa-9-DcVMjBoI8Lsea851X4Q5hYkxH3GWsmfp-FMXSEz0YgjWdpA8YD3MW5O05zWOrKErRqjm9nfF5wiv64cllyBHG56ZYk6ZdeUCtg2");'></div>
+<div>
+<p class="text-white text-lg font-medium">Monitors</p>
+<p class="text-white/60 text-sm font-normal">Immersive Displays</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 sm:py-24">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<h2 class="text-white text-3xl font-bold tracking-tight px-4 pb-8">New Arrivals</h2>
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4" id="new-arrivals-grid">
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-background-dark border-t border-white-10 mt-24">
+<div class="mx-auto max-w-7xl px-8 py-12">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="col-span-2 md:col-span-1">
+<div class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-primary text-3xl">
+                               stadia_controller
+                            </span>
+<h2 class="text-white text-xl font-bold tracking-tight">GamersEdge</h2>
+</div>
+<p class="mt-4 text-sm text-white/60">Powering the next generation of gamers.</p>
+</div>
+<div>
+<h3 class="text-sm font-semibold text-white/90">Shop</h3>
+<ul class="mt-4 space-y-2">
+<li><a class="text-sm text-white/60 hover:text-primary" href="products.html">New Arrivals</a></li>
+<li><a class="text-sm text-white/60 hover:text-primary" href="products.html">Best Sellers</a></li>
+<li><a class="text-sm text-white/60 hover:text-primary" href="products.html">Deals</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold text-white/90">Support</h3>
+<ul class="mt-4 space-y-2">
+<li><a class="text-sm text-white/60 hover:text-primary" href="contact.html">Contact Us</a></li>
+<li><a class="text-sm text-white/60 hover:text-primary" href="about.html">FAQ</a></li>
+<li><a class="text-sm text-white/60 hover:text-primary" href="services.html">Shipping &amp; Returns</a></li>
+</ul>
+</div>
+<div>
+<h3 class="text-sm font-semibold text-white/90">Company</h3>
+<ul class="mt-4 space-y-2">
+<li><a class="text-sm text-white/60 hover:text-primary" href="about.html">About Us</a></li>
+<li><a class="text-sm text-white/60 hover:text-primary" href="#">Careers</a></li>
+<li><a class="text-sm text-white/60 hover:text-primary" href="#">Press</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-12 border-t border-white-10 pt-8 flex items-center justify-between">
+<p class="text-sm text-white/50">© 2024 GamersEdge. All rights reserved.</p>
+<div class="flex space-x-6">
+<a class="text-white/50 hover:text-white" href="#">
+<span class="sr-only">Twitter</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
+</a>
+<a class="text-white/50 hover:text-white" href="#">
+<span class="sr-only">Twitch</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.714 0h1.715v5.143h-1.715zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0H6zm14.571 11.143l-3.428 3.428h-3.429l-2.571 2.572V14.57H8.571V1.714h12v9.43z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script type="module" src="script.js"></script>
+</body></html>
