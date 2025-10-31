@@ -1,339 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - GamersEdge</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="enhancements.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact Us - GamersEdge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#06f9d8",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2320",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
 </head>
-<body>
-    <div class="cursor-dot" data-cursor-dot></div>
-    <div class="cursor-outline" data-cursor-outline></div>
-
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loading-content">
-            <div class="gamersedge-loader">
-                <span>G</span><span>A</span><span>M</span><span>E</span><span>R</span><span>S</span><span>E</span><span>D</span><span>G</span><span>E</span>
-            </div>
-        </div>
-        <div class="particles-bg"></div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">GamersEdge</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="products.html" class="nav-link">Products</a></li>
-                <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="contact.html" class="nav-link active">Contact</a></li>
-                <li data-tooltip="View Cart"><a href="cart.html" class="nav-link cart-link">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count" id="cart-count">0</span>
-                </a></li>
-                <li class="nav-search">
-                    <i class="fas fa-search" id="search-icon"></i>
-                    <div class="search-input-container">
-                        <input type="text" id="nav-search-input" placeholder="Search...">
-                        <div id="nav-search-results"></div>
-                    </div>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Live Clock -->
-    <div class="live-clock" id="live-clock"></div>
-
-    <main>
-        <!-- Contact Header -->
-        <section class="page-header">
-            <div class="particles-container"></div>
-            <div class="container">
-            <h1 class="page-title">Contact Us</h1>
-            <p class="page-subtitle">Get in touch with our gaming experts</p>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact-section">
-        <div class="container">
-            <div class="contact-content">
-                <!-- Contact Form -->
-                <div class="contact-form-container gsap-slide-from-left">
-                    <h2>Send us a Message</h2>
-                    <form class="contact-form" id="contact-form">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" required>
-                            <label for="name">Your Name</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" required>
-                            <label for="email">Your Email</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="tel" id="phone" name="phone">
-                            <label for="phone">Phone Number</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <select id="subject" name="subject" required>
-                                <option value="">Select Subject</option>
-                                <option value="general">General Inquiry</option>
-                                <option value="support">Technical Support</option>
-                                <option value="custom-pc">Custom PC Build</option>
-                                <option value="repair">Repair Service</option>
-                                <option value="quote">Request Quote</option>
-                            </select>
-                            <label for="subject">Subject</label>
-                        </div>
-                        
-                        <div class="form-group">
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                            <label for="message">Your Message</label>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary submit-btn">
-                            <span class="btn-text">Send Message</span>
-                            <span class="btn-loading">Sending...</span>
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Contact Info -->
-                <div class="contact-info-container gsap-slide-from-right">
-                    <h2>Get in Touch</h2>
-                    
-                    <div class="contact-info-grid">
-                        <div class="contact-info-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h3>Visit Our Store</h3>
-                                <p>207/04/03/F/2, Wilimbula<br>Henegama, Wilimbula<br>Sri Lanka</p>
-                                <a href="https://www.google.com/maps?q=7.02624702453613,80.0795364379883" target="_blank" class="btn btn-secondary">View on Map</a>
-                            </div>
-                        </div>
-
-                        <div class="contact-info-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h3>Call Us</h3>
-                                <p><a href="tel:0740705733">0740705733</a></p>
-                                <p><a href="tel:0765329455">0765329455</a></p>
-                                <p class="contact-hours">Mon - Sat: 9AM - 8PM</p>
-                            </div>
-                        </div>
-
-                        <div class="contact-info-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h3>Email Us</h3>
-                                <p><a href="mailto:sl.gamersedge@gmail.com">sl.gamersedge@gmail.com</a></p>
-                                <p class="contact-hours">We reply within 24 hours</p>
-                            </div>
-                        </div>
-
-                        <div class="contact-info-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h3>Business Hours</h3>
-                                <p>Monday - Friday: 9:00 AM - 8:00 PM</p>
-                                <p>Saturday: 9:00 AM - 6:00 PM</p>
-                                <p>Sunday: Closed</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Social Media -->
-                    <div class="social-media-section">
-                        <h3>Follow Us</h3>
-                        <div class="social-icons-large">
-                            <a href="#" class="social-icon-large facebook">
-                                <i class="fab fa-facebook-f"></i>
-                                <span>Facebook</span>
-                            </a>
-                            <a href="#" class="social-icon-large twitter">
-                                <i class="fab fa-twitter"></i>
-                                <span>Twitter</span>
-                            </a>
-                            <a href="#" class="social-icon-large instagram">
-                                <i class="fab fa-instagram"></i>
-                                <span>Instagram</span>
-                            </a>
-                            <a href="#" class="social-icon-large youtube">
-                                <i class="fab fa-youtube"></i>
-                                <span>YouTube</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Map Section -->
-    <section class="map-section">
-        <div class="container">
-            <h2 class="section-title">Find Us</h2>
-            <div class="map-container">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.123456789!2d80.0795364379883!3d7.02624702453613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMDEnMzQuNSJOIDgwwrAwNCc0Ni4zIkU!5e0!3m2!1sen!2slk!4v1234567890123"
-                    width="100%" 
-                    height="400" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-                <div class="map-overlay">
-                    <div class="map-info">
-                        <h3>GamersEdge</h3>
-                        <p>207/04/03/F/2, Wilimbula, Henegama</p>
-                        <a href="https://www.google.com/maps?q=7.02624702453613,80.0795364379883" target="_blank" class="btn btn-primary">Get Directions</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <div class="container">
-            <h2 class="section-title">Frequently Asked Questions</h2>
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Do you offer warranty on custom builds?</h3>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Yes, we provide a comprehensive 1-year warranty on all custom PC builds, covering both parts and labor.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>How long does a custom PC build take?</h3>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Typically, a custom PC build takes 3-5 business days, depending on component availability and complexity.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Do you provide installation services?</h3>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Yes, we offer professional installation services for all components and complete system setups.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Can I upgrade my existing PC?</h3>
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Absolutely! We provide upgrade consultations and installation services for existing systems.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-particles"></div>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>GamersEdge</h3>
-                    <p>Your ultimate destination for gaming hardware and custom PC solutions.</p>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon" data-tooltip="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="YouTube"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Contact Info</h4>
-                    <div class="contact-info">
-                        <p><i class="fas fa-phone"></i> 0740705733 / 0765329455</p>
-                        <p><i class="fas fa-envelope"></i> sl.gamersedge@gmail.com</p>
-                        <p><i class="fas fa-map-marker-alt"></i> 207/04/03/F/2, Wilimbula, Henegama, Sri Lanka</p>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Newsletter</h4>
-                    <p>Stay updated with our latest products and offers</p>
-                    <div class="newsletter">
-                        <input type="email" placeholder="Enter your email" class="newsletter-input">
-                        <button class="btn btn-primary newsletter-btn">Subscribe</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 GamersEdge. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="back-to-top" data-tooltip="Back to Top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- Music Toggle -->
-    <button class="music-toggle" id="music-toggle" data-tooltip="Toggle Music">
-        <i class="fas fa-music"></i>
-    </button>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
-    <script type="module" src="script.js"></script>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#E0E0E0]">
+<div class="relative flex min-h-screen w-full flex-col">
+<div class="flex h-full grow flex-col">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 flex items-center justify-center border-b border-solid border-white/10 bg-background-dark/80 px-4 py-3 backdrop-blur-sm sm:px-10">
+<div class="flex w-full max-w-screen-lg items-center justify-between whitespace-nowrap">
+<div class="flex items-center gap-4">
+<div class="size-6 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_319)">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"></path>
+</g>
+<defs>
+<clippath id="clip0_6_319"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">GamersEdge</h2>
+</div>
+<nav class="hidden items-center gap-9 md:flex">
+<a class="text-white/80 hover:text-primary text-sm font-medium leading-normal transition-colors" href="index.html">Home</a>
+<a class="text-white/80 hover:text-primary text-sm font-medium leading-normal transition-colors" href="products.html">Products</a>
+<a class="text-white/80 hover:text-primary text-sm font-medium leading-normal transition-colors" href="about.html">About Us</a>
+<a class="text-primary text-sm font-bold leading-normal" href="contact.html">Contact Us</a>
+</nav>
+<div class="flex items-center gap-2">
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-white/5 text-white/80 hover:bg-white/10 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">favorite</span>
+</button>
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-white/5 text-white/80 hover:bg-white/10 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">shopping_cart</span>
+</button>
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-white/5 text-white/80 hover:bg-white/10 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">person</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex flex-1 justify-center py-10 sm:py-16 lg:py-20">
+<div class="flex w-full max-w-screen-lg flex-col gap-10 px-4 sm:gap-16">
+<!-- PageHeading -->
+<div class="flex flex-wrap justify-between gap-4">
+<h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] md:text-5xl lg:text-6xl">Get in Touch</h1>
+</div>
+<!-- Map -->
+<div class="w-full">
+<div class="w-full aspect-w-16 aspect-h-7 overflow-hidden rounded-xl border border-primary/20 shadow-[0_0_20px_theme(colors.primary/0.2)]">
+<div class="h-full w-full bg-center bg-no-repeat bg-cover" data-alt="Stylized dark mode map showing a location pin in a futuristic city grid." data-location="Neo-Kyoto" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCrKgW5CsRTQc5e08W0VOmoUClLQpQMUtIRaNIsAliNAVYeZNbuqPcMHIvtz4WzQZKiF5F6h1mwMnA4njR53KR3XAr4V7XeeP7kgJhRyRpvDOvpJvv15UHTz77HcJB-_C_mj4rTE28EESJR7avwpIW0Y8C6Jbf8KByedqXPmdg49BROGQj_sw1sQ_iKNOggO_8EGBfR1CDO7bIO4i_JpDASKlh4xTvzFC4i93_RwNjNO3wJ9cgsYFAU-Uc8WhlqESelVJaYFuCUovBP");'></div>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-10 lg:grid-cols-5 lg:gap-16">
+<!-- Contact Form Section -->
+<div class="flex flex-col gap-4 lg:col-span-3">
+<!-- SectionHeader -->
+<h2 class="text-white text-2xl font-bold leading-tight tracking-[-0.015em] md:text-3xl">Send Us a Message</h2>
+<form class="flex flex-col gap-6">
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+<!-- TextField: Name -->
+<label class="flex flex-col">
+<p class="text-white/80 text-sm font-medium leading-normal pb-2">Name</p>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-white/20 bg-white/5 text-white placeholder:text-white/40 focus:border-primary focus:ring-2 focus:ring-primary/40 h-12 px-4 text-base font-normal leading-normal transition" placeholder="Your Name" type="text" value=""/>
+</label>
+<!-- TextField: Email -->
+<label class="flex flex-col">
+<p class="text-white/80 text-sm font-medium leading-normal pb-2">Email</p>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border border-white/20 bg-white/5 text-white placeholder:text-white/40 focus:border-primary focus:ring-2 focus:ring-primary/40 h-12 px-4 text-base font-normal leading-normal transition" placeholder="your.email@example.com" type="email" value=""/>
+</label>
+</div>
+<!-- TextArea: Message -->
+<label class="flex flex-col">
+<p class="text-white/80 text-sm font-medium leading-normal pb-2">Message</p>
+<textarea class="form-textarea flex w-full min-w-0 flex-1 resize-y overflow-hidden rounded-lg border border-white/20 bg-white/5 text-white placeholder:text-white/40 focus:border-primary focus:ring-2 focus:ring-primary/40 p-4 text-base font-normal leading-normal transition" placeholder="How can we help?" rows="5"></textarea>
+</label>
+<!-- CTA Button -->
+<button class="flex w-full max-w-xs cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 bg-primary px-6 text-sm font-bold leading-normal tracking-wide text-background-dark shadow-[0_0_15px_theme(colors.primary/0.5)] transition hover:bg-opacity-90 hover:shadow-[0_0_25px_theme(colors.primary/0.7)]">
+                                    Send Message
+                                </button>
+</form>
+</div>
+<!-- Contact Info Section -->
+<div class="flex flex-col gap-8 lg:col-span-2">
+<div class="flex flex-col gap-4">
+<h2 class="text-white text-2xl font-bold leading-tight tracking-[-0.015em] md:text-3xl">Our Info</h2>
+<div class="flex flex-col gap-5">
+<div class="flex items-start gap-4">
+<div class="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-lg">location_on</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-bold text-white">Address</h3>
+<p class="text-white/70">123 Cyberpunk Lane, Neo-Kyoto, 2077</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-lg">call</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-bold text-white">Phone</h3>
+<p class="text-white/70">+1 (555) 432-1098</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-lg">email</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-bold text-white">Email</h3>
+<p class="text-white/70">support@gamersedge.gg</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="text-white text-xl font-bold leading-tight tracking-[-0.015em]">Follow Us</h3>
+<div class="flex items-center gap-3">
+<a class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/70 transition hover:bg-primary hover:text-background-dark" data-alt="Discord" href="#">
+<svg class="h-5 w-5" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.885-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4464.8258-.6675 1.2858-1.2827.0278-2.583.0278-3.8658 0-.2211-.46-.4566-.9105-.6675-1.2858a.0741.0741 0 0 0-.0785-.0371 19.7913 19.7913 0 0 0-4.885 1.5152.069.069 0 0 0-.0321.0278C.7533 9.0458-1.2216 16.291 1.4116 20.1054a.0741.0741 0 0 0 .0484.0371c.2062.0556.4172.1111.6282.1667a.0741.0741 0 0 0 .0833-.0321c.492-.681.933-1.4474 1.324-2.2921a.0741.0741 0 0 0-.0111-.0889c-.2889-.25-.5667-.5111-.8111-.7889a.0741.0741 0 0 1-.0056-.1167c.1222-.1111.2389-.2278.35-.3444a.0741.0741 0 0 1 .1167-.0111c3.8667 1.9556 8.3333 1.9556 12.2 0a.0741.0741 0 0 1 .1167.0111c.1111.1167.2278.2333.35.3444a.0741.0741 0 0 1-.0056.1167c-.2444.2778-.5222.5389-.8111.7889a.0741.0741 0 0 0-.0111.0889c.391.8448.832 1.6112 1.324 2.2921a.0741.0741 0 0 0 .0833.0321c.211.0556.4222.1111.6282.1667a.0741.0741 0 0 0 .0484-.0371c2.6332-3.8144.6582-11.0596-2.6883-15.7078a.069.069 0 0 0-.0321-.0278zM8.02 15.3312c-.94.0-1.71-.77-1.71-1.71s.77-1.71 1.71-1.71 1.71.77 1.71 1.71-.77 1.71-1.71 1.71zm7.96 0c-.94.0-1.71-.77-1.71-1.71s.77-1.71 1.71-1.71 1.71.77 1.71 1.71-.77 1.71-1.71 1.71z"></path></svg>
+</a>
+<a class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/70 transition hover:bg-primary hover:text-background-dark" data-alt="Twitch" href="#">
+<svg class="h-5 w-5" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.571 4.714h1.715v5.143H11.57zm4.714 0h1.715v5.143h-1.715zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0H6zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714v9.429z"></path></svg>
+</a>
+<a class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/70 transition hover:bg-primary hover:text-background-dark" data-alt="X/Twitter" href="#">
+<svg class="h-5 w-5" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+</a>
+<a class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/70 transition hover:bg-primary hover:text-background-dark" data-alt="Instagram" href="#">
+<svg class="h-5 w-5" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.012 3.584-.07 4.85c-.148 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.85s.012-3.584.07-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163m0-2.163C8.74 0 8.333.011 7.053.069 2.59.285.285 2.59.069 7.053.011 8.333 0 8.74 0 12s.011 3.667.069 4.947c.216 4.458 2.525 6.767 7.004 6.983 1.27.058 1.667.069 4.929.069s3.659-.011 4.929-.069c4.478-.216 6.788-2.525 6.983-7.003.058-1.28.069-1.679.069-4.947s-.011-3.667-.069-4.947C21.715 2.59 19.406.285 14.947.069 13.667.011 13.26 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
 </body>
 </html>

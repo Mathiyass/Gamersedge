@@ -1,340 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - GamersEdge</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="enhancements.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About Us - GamersEdge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    </style>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#06f9d8",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2320",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
 </head>
-<body>
-    <div class="cursor-dot" data-cursor-dot></div>
-    <div class="cursor-outline" data-cursor-outline></div>
-
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loading-content">
-            <div class="gamersedge-loader">
-                <span>G</span><span>A</span><span>M</span><span>E</span><span>R</span><span>S</span><span>E</span><span>D</span><span>G</span><span>E</span>
-            </div>
-        </div>
-        <div class="particles-bg"></div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">GamersEdge</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="products.html" class="nav-link">Products</a></li>
-                <li><a href="services.html" class="nav-link">Services</a></li>
-                <li><a href="about.html" class="nav-link active">About</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
-                <li data-tooltip="View Cart"><a href="cart.html" class="nav-link cart-link">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count" id="cart-count">0</span>
-                </a></li>
-                <li class="nav-search">
-                    <i class="fas fa-search" id="search-icon"></i>
-                    <div class="search-input-container">
-                        <input type="text" id="nav-search-input" placeholder="Search...">
-                        <div id="nav-search-results"></div>
-                    </div>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Live Clock -->
-    <div class="live-clock" id="live-clock"></div>
-
-    <main>
-        <!-- About Header -->
-        <section class="page-header">
-            <div class="particles-container"></div>
-            <div class="container">
-            <h1 class="page-title">About GamersEdge</h1>
-            <p class="page-subtitle">Pioneering the future of gaming technology</p>
-        </div>
-    </section>
-
-    <!-- About Content -->
-    <section class="about-content">
-        <div class="container">
-            <div class="about-intro gsap-fade-in">
-                <h2 class="section-title">Our Story</h2>
-                <p class="about-text">
-                    GamersEdge was founded with a simple mission: to provide gamers with the ultimate hardware experience. 
-                    What started as a passion project has evolved into Sri Lanka's premier destination for cutting-edge gaming technology. 
-                    We believe that every gamer deserves access to the best hardware, expert advice, and unparalleled service.
-                </p>
-            </div>
-
-            <!-- Mission, Vision, Values -->
-            <div class="values-grid">
-                <div class="value-card gsap-zoom-in">
-                    <div class="value-icon">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <h3>Our Mission</h3>
-                    <p>To empower gamers with cutting-edge technology and exceptional service, creating the ultimate gaming experience for every customer.</p>
-                </div>
-
-                <div class="value-card gsap-zoom-in">
-                    <div class="value-icon">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <h3>Our Vision</h3>
-                    <p>To be the leading gaming hardware destination in Sri Lanka, known for innovation, quality, and customer satisfaction.</p>
-                </div>
-
-                <div class="value-card gsap-zoom-in">
-                    <div class="value-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <h3>Our Values</h3>
-                    <p>Quality, integrity, innovation, and customer-first approach guide everything we do at GamersEdge.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Timeline Section -->
-    <section class="timeline-section">
-        <div class="container">
-            <h2 class="section-title gsap-fade-in">Our Journey</h2>
-            <div class="timeline">
-                <div class="timeline-item gsap-slide-from-left">
-                    <div class="timeline-date">2020</div>
-                    <div class="timeline-content">
-                        <h3>The Beginning</h3>
-                        <p>GamersEdge was founded with a vision to revolutionize the gaming hardware market in Sri Lanka.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item gsap-slide-from-right">
-                    <div class="timeline-date">2021</div>
-                    <div class="timeline-content">
-                        <h3>First Milestone</h3>
-                        <p>Opened our first physical store and established partnerships with major hardware manufacturers.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item gsap-slide-from-left">
-                    <div class="timeline-date">2022</div>
-                    <div class="timeline-content">
-                        <h3>Expansion</h3>
-                        <p>Launched our custom PC building service and expanded our product range significantly.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item gsap-slide-from-right">
-                    <div class="timeline-date">2023</div>
-                    <div class="timeline-content">
-                        <h3>Innovation</h3>
-                        <p>Introduced liquid cooling services and became the go-to destination for high-end gaming setups.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item gsap-slide-from-left">
-                    <div class="timeline-date">2024</div>
-                    <div class="timeline-content">
-                        <h3>Digital Transformation</h3>
-                        <p>Launched our advanced e-commerce platform and expanded our online presence.</p>
-                    </div>
-                </div>
-
-                <div class="timeline-item gsap-slide-from-right">
-                    <div class="timeline-date">2025</div>
-                    <div class="timeline-content">
-                        <h3>Future Ready</h3>
-                        <p>Continuing to innovate and lead the gaming hardware industry with cutting-edge solutions.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Team Section -->
-    <section class="team-section">
-        <div class="container">
-            <h2 class="section-title gsap-fade-in">Meet Our Team</h2>
-            <div class="team-grid">
-                <div class="team-member gsap-zoom-in">
-                    <div class="member-image">
-                        <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=300" alt="CEO">
-                        <div class="member-overlay">
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-linkedin"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="member-info">
-                        <h3>Alex Johnson</h3>
-                        <p class="member-role">CEO & Founder</p>
-                        <p class="member-bio">Passionate gamer and tech enthusiast with 10+ years in the industry.</p>
-                    </div>
-                </div>
-
-                <div class="team-member gsap-zoom-in">
-                    <div class="member-image">
-                        <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=300" alt="CTO">
-                        <div class="member-overlay">
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-linkedin"></i></a>
-                                <a href="#"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="member-info">
-                        <h3>Sarah Chen</h3>
-                        <p class="member-role">Chief Technology Officer</p>
-                        <p class="member-bio">Expert in hardware engineering and system optimization.</p>
-                    </div>
-                </div>
-
-                <div class="team-member gsap-zoom-in">
-                    <div class="member-image">
-                        <img src="https://images.pexels.com/photos/2379006/pexels-photo-2379006.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Lead Technician">
-                        <div class="member-overlay">
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-linkedin"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="member-info">
-                        <h3>Mike Rodriguez</h3>
-                        <p class="member-role">Lead Technician</p>
-                        <p class="member-bio">Master PC builder with expertise in custom cooling solutions.</p>
-                    </div>
-                </div>
-
-                <div class="team-member gsap-zoom-in">
-                    <div class="member-image">
-                        <img src="https://images.pexels.com/photos/2379007/pexels-photo-2379007.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Customer Success">
-                        <div class="member-overlay">
-                            <div class="social-links">
-                                <a href="#"><i class="fab fa-linkedin"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="member-info">
-                        <h3>Emma Wilson</h3>
-                        <p class="member-role">Customer Success Manager</p>
-                        <p class="member-bio">Dedicated to ensuring every customer has an amazing experience.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item gsap-fade-in">
-                    <div class="stat-number" data-target="5000">0</div>
-                    <div class="stat-label">Happy Customers</div>
-                </div>
-                
-                <div class="stat-item gsap-fade-in">
-                    <div class="stat-number" data-target="1500">0</div>
-                    <div class="stat-label">PCs Built</div>
-                </div>
-                
-                <div class="stat-item gsap-fade-in">
-                    <div class="stat-number" data-target="50">0</div>
-                    <div class="stat-label">Brand Partners</div>
-                </div>
-                
-                <div class="stat-item gsap-fade-in">
-                    <div class="stat-number" data-target="99">0</div>
-                    <div class="stat-label">Satisfaction Rate</div>
-                </div>
-            </div>
-        </div>
-    </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-particles"></div>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>GamersEdge</h3>
-                    <p>Your ultimate destination for gaming hardware and custom PC solutions.</p>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon" data-tooltip="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="YouTube"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Contact Info</h4>
-                    <div class="contact-info">
-                        <p><i class="fas fa-phone"></i> 0740705733 / 0765329455</p>
-                        <p><i class="fas fa-envelope"></i> sl.gamersedge@gmail.com</p>
-                        <p><i class="fas fa-map-marker-alt"></i> 207/04/03/F/2, Wilimbula, Henegama, Sri Lanka</p>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Newsletter</h4>
-                    <p>Stay updated with our latest products and offers</p>
-                    <div class="newsletter">
-                        <input type="email" placeholder="Enter your email" class="newsletter-input">
-                        <button class="btn btn-primary newsletter-btn">Subscribe</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 GamersEdge. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="back-to-top" data-tooltip="Back to Top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- Music Toggle -->
-    <button class="music-toggle" id="music-toggle" data-tooltip="Toggle Music">
-        <i class="fas fa-music"></i>
-    </button>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
-    <script type="module" src="script.js"></script>
+<body class="bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-dark overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#214a44] px-4 md:px-10 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-white">
+<div class="size-6 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_319)">
+<path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"></path>
+</g>
+<defs>
+<clippath id="clip0_6_319">
+<rect fill="white" height="48" width="48"></rect>
+</clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">GamersEdge</h2>
+</div>
+<div class="hidden md:flex items-center gap-9">
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="products.html">Products</a>
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="services.html">Services</a>
+<a class="text-primary text-sm font-medium leading-normal" href="about.html">About Us</a>
+<a class="text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="contact.html">Contact</a>
+</div>
+</div>
+<div class="hidden lg:flex flex-1 justify-end gap-8 items-center">
+<label class="flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-[#8eccc4] flex border-none bg-[#214a44] items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border-none bg-[#214a44] focus:border-none h-full placeholder:text-[#8eccc4] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search" value=""/>
+</div>
+</label>
+<div class="flex gap-2">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary/20 text-primary text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/30 transition-colors">
+<span class="truncate">Log In</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-[#102321] text-sm font-bold leading-normal tracking-[0.015em] hover:brightness-90 transition">
+<span class="truncate">Sign Up</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex flex-col gap-16 md:gap-24 mt-8 md:mt-16">
+<div class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-center justify-center p-4 md:p-8" data-alt="Abstract futuristic digital circuit board pattern" style='background-image: linear-gradient(rgba(15, 35, 32, 0.8) 0%, rgba(15, 35, 32, 0.9) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCRY3E04TsaWT50b3oniOLQqOpLmA49JnG9b74dl4uRyjD8KNgKYB2Vl1xIwicN_ILj5gtUQ3i7VMh1ZHIng78k6b7wW4HslsBudk6PgIKdkOvTOgqocELYZl1liUm_1TLjkpA2DvWCAZ8qyP368oMvbpGKN2i6mcueByKH0VyeOz_UBkoSSEZCjibbTsQ_qLoOPdGHlyjljnEKjSg2P529hIKrSJcbh9-juJJaDifzGqp6Ea8DTSLmmbV8oU_bIBxR7PhTyNMt5LHG");'>
+<div class="flex flex-col gap-4 text-center max-w-3xl">
+<h1 class="text-white text-4xl md:text-5xl font-black leading-tight tracking-[-0.033em]">Powering the Next Generation of Gamers</h1>
+<h2 class="text-[#8eccc4] text-sm md:text-base font-normal leading-normal">We are GamersEdge. Founded by gamers, for gamers. We're on a mission to provide the ultimate hardware and accessories to elevate your play.</h2>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-[#102321] text-base font-bold leading-normal tracking-[0.015em] hover:brightness-90 transition">
+<span class="truncate">Explore Our Gear</span>
+</button>
+</div>
+<section>
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Our Story</h2>
+<div class="grid grid-cols-[40px_1fr] gap-x-2 px-4">
+<div class="flex flex-col items-center gap-1 pt-3">
+<div class="text-primary"><span class="material-symbols-outlined">lightbulb</span></div>
+<div class="w-[1.5px] bg-[#2f6a62] h-2 grow"></div>
+</div>
+<div class="flex flex-1 flex-col py-3">
+<p class="text-white text-base font-medium leading-normal">The Spark</p>
+<p class="text-[#8eccc4] text-base font-normal leading-normal">2020</p>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-[1.5px] bg-[#2f6a62] h-2"></div>
+<div class="text-primary"><span class="material-symbols-outlined">group</span></div>
+<div class="w-[1.5px] bg-[#2f6a62] h-2 grow"></div>
+</div>
+<div class="flex flex-1 flex-col py-3">
+<p class="text-white text-base font-medium leading-normal">First 10K Customers</p>
+<p class="text-[#8eccc4] text-base font-normal leading-normal">2021</p>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-[1.5px] bg-[#2f6a62] h-2"></div>
+<div class="text-primary"><span class="material-symbols-outlined">storefront</span></div>
+<div class="w-[1.5px] bg-[#2f6a62] h-2 grow"></div>
+</div>
+<div class="flex flex-1 flex-col py-3">
+<p class="text-white text-base font-medium leading-normal">New HQ Unlocked</p>
+<p class="text-[#8eccc4] text-base font-normal leading-normal">2022</p>
+</div>
+<div class="flex flex-col items-center gap-1 pb-3">
+<div class="w-[1.5px] bg-[#2f6a62] h-2"></div>
+<div class="text-primary"><span class="material-symbols-outlined">public</span></div>
+</div>
+<div class="flex flex-1 flex-col py-3">
+<p class="text-white text-base font-medium leading-normal">Global Expansion</p>
+<p class="text-[#8eccc4] text-base font-normal leading-normal">2023</p>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-5 pt-5">Our Core Values</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-4">
+<div class="group/card relative flex flex-col gap-4 rounded-xl border border-[#214a44] bg-[#1a3834]/50 p-6 transition-all duration-300 hover:border-primary hover:scale-105" style="transform-style: preserve-3d;">
+<div class="flex items-center gap-3">
+<div class="text-primary"><span class="material-symbols-outlined text-3xl">bolt</span></div>
+<h3 class="text-lg font-bold text-white">Performance</h3>
+</div>
+<p class="text-[#8eccc4]">We are committed to providing the highest-performance gear that gives our users a competitive edge. No compromises.</p>
+</div>
+<div class="group/card relative flex flex-col gap-4 rounded-xl border border-[#214a44] bg-[#1a3834]/50 p-6 transition-all duration-300 hover:border-primary hover:scale-105" style="transform-style: preserve-3d;">
+<div class="flex items-center gap-3">
+<div class="text-primary"><span class="material-symbols-outlined text-3xl">hub</span></div>
+<h3 class="text-lg font-bold text-white">Community</h3>
+</div>
+<p class="text-[#8eccc4]">Built by gamers, for gamers. We foster a supportive and inclusive community where everyone can share their passion.</p>
+</div>
+<div class="group/card relative flex flex-col gap-4 rounded-xl border border-[#214a44] bg-[#1a3834]/50 p-6 transition-all duration-300 hover:border-primary hover:scale-105" style="transform-style: preserve-3d;">
+<div class="flex items-center gap-3">
+<div class="text-primary"><span class="material-symbols-outlined text-3xl">rocket_launch</span></div>
+<h3 class="text-lg font-bold text-white">Innovation</h3>
+</div>
+<p class="text-[#8eccc4]">We relentlessly push the boundaries of technology to create next-gen hardware that redefines the gaming experience.</p>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-5 pt-5">What Our Community Says</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-4">
+<div class="flex flex-col gap-4 rounded-xl border border-[#214a44] bg-[#1a3834]/50 p-6">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="Profile picture of Sarah L." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBANZCBI_hKSCe_MH4JeWLC89VijLgKlf-ARI8TTVj4SO_u5DyXcgDKy625q9FNWkssG-A05RWLVfiYMb4uXbE1YW0dNKRJFA24nXpkLzGwOF9WohHRJd1_pelsl5WfBtQAiVzXRJwCsMUaNl2wc-xx6pg3JB6i3aNDWNpC7hi0lF7nxMdEVm6Wci6kdrd8wYCud0zlInqjp5O92iNqSfH6yVMQ0v1dhdG8T5mam39FLCrXf098n3jau56P_WgJFPEsB9YAhnoWcET1");'></div>
+<div class="flex flex-col">
+<p class="font-bold text-white">Sarah L.</p>
+<div class="flex text-primary">
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+</div>
+</div>
+</div>
+<p class="text-[#8eccc4]">"The mouse from GamersEdge completely changed my aim. The responsiveness is insane. 10/10 would recommend to any serious FPS player."</p>
+</div>
+<div class="flex flex-col gap-4 rounded-xl border border-[#214a44] bg-[#1a3834]/50 p-6">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="Profile picture of Mike P." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA7X5Wn2M-M2y_ydpMelix8rFJhMFkys7UlCCnONPMPYbYleh7G9veNFEcB_EFOZFVMaiO0bRvdhwsL1R0tsxV9PLB4vo67omXtUQDCiQGlcfE7ubaed7R2l80UVocYkMvInNR0BuDLHqKLZ1KAYzIFzUDpN7k1_XW7oAbVCY6ib7Now9yk_TjfOONQjkLT_IlnWokLvvFW-Pa-Tf2ZUP5hbqEX8N2eAS0P67j835wQkrPN8yupO7hb4wLXjAVjyui6qH42xogmSFfs");'></div>
+<div class="flex flex-col">
+<p class="font-bold text-white">Mike P.</p>
+<div class="flex text-primary">
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+</div>
+</div>
+</div>
+<p class="text-[#8eccc4]">"Customer support is top-notch. Had an issue with shipping and they sorted it out in less than an hour. A company that actually cares."</p>
+</div>
+<div class="flex flex-col gap-4 rounded-xl border border-[#214a44] bg-[#1a3834]/50 p-6">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="Profile picture of Jessica Y." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCsrOb7R1EdORLn1vjw2or4bAJLpyj5COzRwWFwKc50_2qErQ26cSKND3jKcMrrPjY3DSAT5xd-mKqpN-gX2qLZA8RKmGH_qrtI_T_0Y0udewbq3KtZKvaVgaLIBmZdWc-xb_eVI8EoBCKLlpsr5jHJ54oyU6CE6UQaYW6Kro_ru3u60QmlR0t-utcZXCQhi6OeobOwcX_H-JhoXcT2wJJE69gI9MuW2H2F8X-dyBUdiVuKo7znpWrITIhW_aqsnKRO_iP6zsvNA-Q-");'></div>
+<div class="flex flex-col">
+<p class="font-bold text-white">Jessica Y.</p>
+<div class="flex text-primary">
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+</div>
+</div>
+</div>
+<p class="text-[#8eccc4]">"Finally, a keyboard that feels as good as it looks. The RGB is stunning and the mechanical keys are perfect for both gaming and typing."</p>
+</div>
+<div class="flex flex-col gap-4 rounded-xl border border-[#214a44] bg-[#1a3834]/50 p-6">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="Profile picture of David K." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB9vGeV-p1fnhWDUFYXiYZ8Ww4eGFyEG8MtoGWjFUvHDwcmT0zh9D7Vc1JXMi5Irw_0ATOAaFvdyXBLNv5gQOvQ8rn8yqxDCZwf_YCvZwBHptQ-kFdClMjiGkGIyomt9MKVZ52YmQk1Qer0FwC4CFFpBMkLLniOp0dwEsA69bjjQTJhDf2XbxiGo8FOt57FhFDTY-nC-8Mzcq-gEmZpfkxmyHXvjVpgUsb6u_aCQYNdxx_NbTh-OPr5-FvRnwOVv1P2WIAyRjPm-xtx");'></div>
+<div class="flex flex-col">
+<p class="font-bold text-white">David K.</p>
+<div class="flex text-primary">
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+<span class="material-symbols-outlined !text-base">star</span>
+</div>
+</div>
+</div>
+<p class="text-[#8eccc4]">"The build quality of their headsets is incredible. Crystal clear audio and super comfortable for long gaming sessions. Worth every penny."</p>
+</div>
+</div>
+</section>
+<section class="flex flex-col items-center gap-4 rounded-xl bg-gradient-to-tr from-primary/20 to-transparent p-8 md:p-12 text-center">
+<h2 class="text-3xl font-bold text-white">Join the Edge</h2>
+<p class="text-[#8eccc4] max-w-xl">Ready to level up your game? Explore our curated selection of high-performance gear or connect with fellow gamers in our community.</p>
+<div class="flex flex-col sm:flex-row gap-4 mt-4">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-[#102321] text-base font-bold leading-normal tracking-[0.015em] hover:brightness-90 transition">
+<span class="truncate">Shop Our Gear</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary/20 text-primary text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/30 transition">
+<span class="truncate">Join Our Community</span>
+</button>
+</div>
+</section>
+</main>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>

@@ -1,298 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services - GamersEdge</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="enhancements.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GamersEdge - Services</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#00FFFF", /* Glowing Cyan-Blue */
+              "secondary": "#FF004D", /* Vibrant Red/Magenta */
+              "background-light": "#121212",
+              "background-dark": "#121212",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #121212;
+            color: #EAEAEA;
+        }
+    </style>
 </head>
-<body>
-    <div class="cursor-dot" data-cursor-dot></div>
-    <div class="cursor-outline" data-cursor-outline></div>
-
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loading-content">
-            <div class="gamersedge-loader">
-                <span>G</span><span>A</span><span>M</span><span>E</span><span>R</span><span>S</span><span>E</span><span>D</span><span>G</span><span>E</span>
-            </div>
-        </div>
-        <div class="particles-bg"></div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">GamersEdge</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="products.html" class="nav-link">Products</a></li>
-                <li><a href="services.html" class="nav-link active">Services</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
-                <li data-tooltip="View Cart"><a href="cart.html" class="nav-link cart-link">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count" id="cart-count">0</span>
-                </a></li>
-                <li class="nav-search">
-                    <i class="fas fa-search" id="search-icon"></i>
-                    <div class="search-input-container">
-                        <input type="text" id="nav-search-input" placeholder="Search...">
-                        <div id="nav-search-results"></div>
-                    </div>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Live Clock -->
-    <div class="live-clock" id="live-clock"></div>
-
-    <main>
-        <!-- Services Header -->
-        <section class="page-header">
-            <div class="particles-container"></div>
-            <div class="container">
-            <h1 class="page-title">Our Services</h1>
-            <p class="page-subtitle">Professional gaming solutions tailored for you</p>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services-section">
-        <div class="container">
-            <h2 class="section-title gsap-fade-in">Our Services</h2>
-            <div class="services-grid">
-                <div class="service-card gsap-zoom-in">
-                    <div class="service-icon">
-                        <i class="fas fa-desktop"></i>
-                    </div>
-                    <h3>Custom PC Building</h3>
-                    <p>We build high-performance gaming PCs tailored to your specific needs and budget. From budget builds to extreme gaming rigs.</p>
-                    <ul class="service-features">
-                        <li>Component selection consultation</li>
-                        <li>Professional assembly</li>
-                        <li>Cable management</li>
-                        <li>Performance testing</li>
-                        <li>1-year warranty</li>
-                    </ul>
-                    <div class="service-price">Starting from $100</div>
-                    <button class="btn btn-primary service-btn">Get Quote</button>
-                </div>
-
-                <div class="service-card gsap-zoom-in">
-                    <div class="service-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3>PC Repairs & Diagnostics</h3>
-                    <p>Expert repair services for all types of computer issues. We diagnose and fix hardware and software problems quickly.</p>
-                    <ul class="service-features">
-                        <li>Free diagnostics</li>
-                        <li>Hardware replacement</li>
-                        <li>Software troubleshooting</li>
-                        <li>Virus removal</li>
-                        <li>Data recovery</li>
-                    </ul>
-                    <div class="service-price">Starting from $50</div>
-                    <button class="btn btn-primary service-btn">Book Service</button>
-                </div>
-
-                <div class="service-card gsap-zoom-in">
-                    <div class="service-icon">
-                        <i class="fas fa-arrow-up"></i>
-                    </div>
-                    <h3>PC Upgrades</h3>
-                    <p>Upgrade your existing system with the latest components to boost performance and extend its lifespan.</p>
-                    <ul class="service-features">
-                        <li>Performance analysis</li>
-                        <li>Upgrade recommendations</li>
-                        <li>Component installation</li>
-                        <li>System optimization</li>
-                        <li>Compatibility testing</li>
-                    </ul>
-                    <div class="service-price">Starting from $75</div>
-                    <button class="btn btn-primary service-btn">Upgrade Now</button>
-                </div>
-
-                <div class="service-card gsap-zoom-in">
-                    <div class="service-icon">
-                        <i class="fas fa-tint"></i>
-                    </div>
-                    <h3>Liquid Cooling Installation</h3>
-                    <p>Professional liquid cooling system installation for maximum performance and silent operation.</p>
-                    <ul class="service-features">
-                        <li>Custom loop design</li>
-                        <li>AIO cooler installation</li>
-                        <li>Leak testing</li>
-                        <li>Temperature monitoring</li>
-                        <li>Maintenance guide</li>
-                    </ul>
-                    <div class="service-price">Starting from $150</div>
-                    <button class="btn btn-primary service-btn">Install Now</button>
-                </div>
-
-                <div class="service-card gsap-zoom-in">
-                    <div class="service-icon">
-                        <i class="fas fa-gamepad"></i>
-                    </div>
-                    <h3>Gaming Setup Design</h3>
-                    <p>Complete gaming setup design and installation including RGB lighting, cable management, and ergonomics.</p>
-                    <ul class="service-features">
-                        <li>Setup consultation</li>
-                        <li>RGB lighting design</li>
-                        <li>Cable management</li>
-                        <li>Ergonomic optimization</li>
-                        <li>Streaming setup</li>
-                    </ul>
-                    <div class="service-price">Starting from $200</div>
-                    <button class="btn btn-primary service-btn">Design Setup</button>
-                </div>
-
-                <div class="service-card gsap-zoom-in">
-                    <div class="service-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>Technical Support</h3>
-                    <p>Ongoing technical support and maintenance services to keep your gaming system running at peak performance.</p>
-                    <ul class="service-features">
-                        <li>Remote support</li>
-                        <li>On-site visits</li>
-                        <li>System maintenance</li>
-                        <li>Performance optimization</li>
-                        <li>24/7 phone support</li>
-                    </ul>
-                    <div class="service-price">Starting from $30/month</div>
-                    <button class="btn btn-primary service-btn">Get Support</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Process Section -->
-    <section class="process-section">
-        <div class="container">
-            <h2 class="section-title gsap-fade-in">Our Process</h2>
-            <div class="process-steps">
-                <div class="process-step gsap-fade-in">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Consultation</h3>
-                        <p>We discuss your needs, budget, and preferences to create the perfect solution.</p>
-                    </div>
-                </div>
-                
-                <div class="process-step gsap-fade-in">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Planning</h3>
-                        <p>Our experts design and plan your custom solution with detailed specifications.</p>
-                    </div>
-                </div>
-                
-                <div class="process-step gsap-fade-in">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Implementation</h3>
-                        <p>Professional installation and setup with attention to every detail.</p>
-                    </div>
-                </div>
-                
-                <div class="process-step gsap-fade-in">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Testing</h3>
-                        <p>Comprehensive testing to ensure everything works perfectly.</p>
-                    </div>
-                </div>
-                
-                <div class="process-step gsap-fade-in">
-                    <div class="step-number">5</div>
-                    <div class="step-content">
-                        <h3>Support</h3>
-                        <p>Ongoing support and maintenance to keep your system running smoothly.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-particles"></div>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>GamersEdge</h3>
-                    <p>Your ultimate destination for gaming hardware and custom PC solutions.</p>
-                    <div class="social-icons">
-                        <a href="#" class="social-icon" data-tooltip="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon" data-tooltip="YouTube"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Contact Info</h4>
-                    <div class="contact-info">
-                        <p><i class="fas fa-phone"></i> 0740705733 / 0765329455</p>
-                        <p><i class="fas fa-envelope"></i> sl.gamersedge@gmail.com</p>
-                        <p><i class="fas fa-map-marker-alt"></i> 207/04/03/F/2, Wilimbula, Henegama, Sri Lanka</p>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Newsletter</h4>
-                    <p>Stay updated with our latest products and offers</p>
-                    <div class="newsletter">
-                        <input type="email" placeholder="Enter your email" class="newsletter-input">
-                        <button class="btn btn-primary newsletter-btn">Subscribe</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 GamersEdge. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="back-to-top" data-tooltip="Back to Top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- Music Toggle -->
-    <button class="music-toggle" id="music-toggle" data-tooltip="Toggle Music">
-        <i class="fas fa-music"></i>
-    </button>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
-    <script type="module" src="script.js"></script>
+<body class="font-display bg-background-dark dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<!-- TopNavBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 px-4 sm:px-10 py-3">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-6">
+<svg fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.59L6.41 12 5 13.41 11 19.41l8.41-8.41L18 9.59 11 16.59z"></path></svg>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] font-display">GamersEdge</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-white hover:text-primary text-sm font-medium leading-normal font-display" href="index.html">Home</a>
+<a class="text-white hover:text-primary text-sm font-medium leading-normal font-display" href="products.html">Products</a>
+<a class="text-primary text-sm font-bold leading-normal font-display" href="services.html">Services</a>
+<a class="text-white hover:text-primary text-sm font-medium leading-normal font-display" href="contact.html">Contact</a>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-background-dark text-sm font-bold leading-normal tracking-[0.015em] font-display hover:bg-opacity-90 transition-colors">
+<span class="truncate">Get a Free Quote</span>
+</button>
+</div>
+</header>
+<!-- HeroSection -->
+<main class="flex flex-col gap-10 md:gap-16">
+<div class="relative mt-8 @container">
+<div class="@[480px]:p-4">
+<div class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-4" data-alt="Abstract futuristic digital circuit background" style='background-image: linear-gradient(rgba(18, 18, 18, 0.7) 0%, rgba(18, 18, 18, 0.9) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDU0HvOmTFgCbKZ3P7WzXY3cyDWWtmA3PbvDd9OgYYAvHeU93roOMcp37QXqZmx3aUw-FveOwL1_loG49QT6iytzhACAwlTI2S5lmvSib0mvVDTlAa6INT80SjEuHJTJZaT3rclqYti9vscif-ecwGYZ_YVxc-fLdb9a4uMm4StOQGnPdX9cW4tN9GR1BNnX3ITQ2pB5i0o_xy2AtUv0bruS-pSmyLLWt7Bf30IaEXKMljdLJJSfuxx4qtn55cZg99YaJsoRC5tEw2T");'>
+<div class="flex flex-col gap-2 text-center max-w-2xl">
+<h1 class="text-white font-display text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]">
+                                           Your Ultimate Gaming Rig, Perfected by Experts.
+                                       </h1>
+<h2 class="text-white/80 font-display text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal">
+                                           From custom builds to performance tuning, our professional services are here to help you level up your setup.
+                                       </h2>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-primary text-background-dark text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em] font-display hover:bg-opacity-90 transition-colors">
+<span class="truncate">Explore Our Services</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Services Grid -->
+<section>
+<h2 class="text-white text-3xl font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 font-display text-center">Our Pro Services</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+<div class="flex flex-1 gap-4 rounded-xl border border-white/10 p-6 flex-col bg-white/5 backdrop-blur-lg hover:border-primary/50 transition-all duration-300">
+<div class="text-primary">
+<span class="material-symbols-outlined" style="font-size: 36px;">memory</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="text-white text-xl font-bold leading-tight font-display">Custom PC Building</h3>
+<p class="text-white/70 text-sm font-normal leading-normal font-display">Creating bespoke gaming PCs from scratch, tailored to your exact specifications and performance needs.</p>
+</div>
+<a class="text-primary font-bold text-sm mt-2 font-display hover:underline" href="#">Learn More</a>
+</div>
+<div class="flex flex-1 gap-4 rounded-xl border border-white/10 p-6 flex-col bg-white/5 backdrop-blur-lg hover:border-primary/50 transition-all duration-300">
+<div class="text-primary">
+<span class="material-symbols-outlined" style="font-size: 36px;">build</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="text-white text-xl font-bold leading-tight font-display">Hardware Upgrades &amp; Repair</h3>
+<p class="text-white/70 text-sm font-normal leading-normal font-display">Boosting your machine's performance with the latest components or fixing any hardware issues to get you back in the game.</p>
+</div>
+<a class="text-primary font-bold text-sm mt-2 font-display hover:underline" href="#">Learn More</a>
+</div>
+<div class="flex flex-1 gap-4 rounded-xl border border-white/10 p-6 flex-col bg-white/5 backdrop-blur-lg hover:border-primary/50 transition-all duration-300">
+<div class="text-primary">
+<span class="material-symbols-outlined" style="font-size: 36px;">speed</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="text-white text-xl font-bold leading-tight font-display">Pro Setup &amp; Optimization</h3>
+<p class="text-white/70 text-sm font-normal leading-normal font-display">Fine-tuning your system with software installation, cable management, and performance tweaking for maximum efficiency.</p>
+</div>
+<a class="text-primary font-bold text-sm mt-2 font-display hover:underline" href="#">Learn More</a>
+</div>
+<div class="flex flex-1 gap-4 rounded-xl border border-white/10 p-6 flex-col bg-white/5 backdrop-blur-lg hover:border-primary/50 transition-all duration-300">
+<div class="text-primary">
+<span class="material-symbols-outlined" style="font-size: 36px;">keyboard</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="text-white text-xl font-bold leading-tight font-display">Peripheral Customization</h3>
+<p class="text-white/70 text-sm font-normal leading-normal font-display">Personalizing your gear with custom keyboard builds, mouse modifications, and other aesthetic and functional mods.</p>
+</div>
+<a class="text-primary font-bold text-sm mt-2 font-display hover:underline" href="#">Learn More</a>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section>
+<h2 class="text-white text-3xl font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 font-display text-center">Frequently Asked Questions</h2>
+<div class="flex flex-col gap-4 p-4">
+<details class="group rounded-lg bg-white/5 p-4 border border-white/10 cursor-pointer">
+<summary class="flex items-center justify-between font-bold text-white font-display">
+                                        What warranty do you offer on your services?
+                                        <span class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180">expand_more</span>
+</summary>
+<p class="text-white/70 mt-3 text-sm font-display">All our custom builds and repairs come with a 1-year parts and labor warranty. We stand by the quality of our work and the components we use.</p>
+</details>
+<details class="group rounded-lg bg-white/5 p-4 border border-white/10 cursor-pointer">
+<summary class="flex items-center justify-between font-bold text-white font-display">
+                                        How long does a custom PC build take?
+                                        <span class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180">expand_more</span>
+</summary>
+<p class="text-white/70 mt-3 text-sm font-display">Typical turnaround time for a custom PC build is 7-10 business days, depending on component availability and the complexity of the build. We'll provide a more accurate timeline upon consultation.</p>
+</details>
+<details class="group rounded-lg bg-white/5 p-4 border border-white/10 cursor-pointer">
+<summary class="flex items-center justify-between font-bold text-white font-display">
+                                        Can I provide my own parts for a build or upgrade?
+                                        <span class="material-symbols-outlined transition-transform duration-300 group-open:rotate-180">expand_more</span>
+</summary>
+<p class="text-white/70 mt-3 text-sm font-display">Absolutely! We can work with parts you already own. However, our warranty will only cover the labor for parts provided by you, not the components themselves.</p>
+</details>
+</div>
+</section>
+<!-- Final CTA Section -->
+<section class="my-10 p-4">
+<div class="rounded-xl border border-secondary/50 bg-secondary/10 p-8 md:p-12 flex flex-col items-center justify-center text-center gap-6">
+<h2 class="text-white text-3xl md:text-4xl font-bold leading-tight font-display">Ready to Transform Your Gaming Experience?</h2>
+<p class="text-white/80 max-w-lg font-display">Our experts are here to help you build, upgrade, or optimize your setup. Let's create something extraordinary together.</p>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-secondary text-white text-base font-bold leading-normal tracking-[0.015em] font-display hover:bg-opacity-90 transition-colors">
+<span class="truncate">Contact Our Tech Team</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="mt-16 border-t border-white/10 py-8 px-4">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-3">
+<div class="size-5 text-primary">
+<svg fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.59L6.41 12 5 13.41 11 19.41l8.41-8.41L18 9.59 11 16.59z"></path></svg>
+</div>
+<p class="text-white font-bold font-display">GamersEdge</p>
+</div>
+<div class="text-sm text-white/60 font-display text-center">
+                                © 2024 GamersEdge. All Rights Reserved.
+                            </div>
+<div class="flex items-center gap-4 text-white/60">
+<a class="text-white/80 hover:text-primary text-sm font-medium leading-normal transition-colors" href="index.html">Home</a>
+<a class="text-white/80 hover:text-primary text-sm font-medium leading-normal transition-colors" href="products.html">Products</a>
+<a class="text-white/80 hover:text-primary text-sm font-medium leading-normal transition-colors" href="services.html">Services</a>
+<a class="text-white/80 hover:text-primary text-sm font-medium leading-normal transition-colors" href="about.html">About</a>
+<a class="text-white/80 hover:text-primary text-sm font-medium leading-normal transition-colors" href="contact.html">Contact</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>
