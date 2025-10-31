@@ -26,13 +26,13 @@ async function initializeWebsite() {
     products = await loadProducts();
 
     // Initialize components
-    initializeUI(products);
     initializeCart(products);
     
     // Page-specific initializations
     const currentPage = getCurrentPage();
     switch(currentPage) {
         case 'products':
+            initializeUI(products);
             initializeProductSearch(products);
             break;
         case 'cart':
