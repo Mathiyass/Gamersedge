@@ -19,6 +19,7 @@
     --border-radius: 12px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --font-primary: 'Orbitron', sans-serif;
+    --glass-bg: rgba(10, 10, 10, 0.5);
 }
 
 /* Reset and Base Styles */
@@ -154,16 +155,17 @@ body:not(.loading-done) .footer {
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 191, 255, 0.2);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    border-bottom: 1px solid var(--border-color);
     z-index: 1000;
     transition: var(--transition);
 }
 
 .navbar.scrolled {
-    background: rgba(0, 0, 0, 0.95);
-    box-shadow: var(--shadow-glow);
+    background: var(--glass-bg);
+    box-shadow: var(--shadow-glow-strong);
 }
 
 .nav-container {
@@ -286,15 +288,15 @@ body:not(.loading-done) .footer {
 }
 
 .hero-title {
-    font-size: 4rem;
-    font-weight: bold;
+    font-size: 5rem;
+    font-weight: 900;
     margin-bottom: 1rem;
     animation: heroSlideUp 1s ease-out;
 }
 
 .title-line {
     display: block;
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 0.5rem;
 }
@@ -379,12 +381,12 @@ body:not(.loading-done) .footer {
 .btn-primary {
     background: var(--gradient-primary);
     color: var(--secondary-color);
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 
 .btn-primary:hover {
     transform: translateY(-3px) scale(1.02);
-    box-shadow: var(--shadow-glow-strong);
+    box-shadow: 0 0 25px var(--glow-color);
 }
 
 .btn-primary.btn-pulse {
@@ -394,15 +396,15 @@ body:not(.loading-done) .footer {
 @keyframes pulse {
     0% {
         transform: scale(1);
-        box-shadow: var(--shadow-glow);
+        box-shadow: 0 0 15px var(--glow-color);
     }
     50% {
         transform: scale(1.05);
-        box-shadow: var(--shadow-glow-strong);
+        box-shadow: 0 0 25px var(--glow-color);
     }
     100% {
         transform: scale(1);
-        box-shadow: var(--shadow-glow);
+        box-shadow: 0 0 15px var(--glow-color);
     }
 }
 
@@ -410,13 +412,14 @@ body:not(.loading-done) .footer {
     background: transparent;
     color: var(--primary-color);
     border: 2px solid var(--primary-color);
+    box-shadow: 0 0 15px var(--glow-color);
     transition: all 0.3s ease;
 }
 
 .btn-secondary:hover {
     color: var(--accent-color);
     border-color: var(--accent-color);
-    box-shadow: 0 0 20px var(--accent-color);
+    box-shadow: 0 0 25px var(--accent-color);
     transform: translateY(-3px);
 }
 
@@ -463,14 +466,15 @@ body:not(.loading-done) .footer {
 
 /* Section Titles */
 .section-title {
-    font-size: 2.5rem;
-    font-weight: bold;
+    font-size: 3rem;
+    font-weight: 700;
     text-align: center;
     margin-bottom: 3rem;
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-shadow: 0 0 15px var(--glow-color);
     position: relative;
 }
 
@@ -500,18 +504,21 @@ body:not(.loading-done) .footer {
 }
 
 .product-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     overflow: hidden;
-    transition: var(--transition);
-    border: 1px solid rgba(0, 191, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
 }
 
 .product-card:hover {
-    transform: translateY(-10px) rotateX(5deg);
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--border-hover-color);
     box-shadow: var(--shadow-glow-strong);
-    border-color: var(--primary-color);
 }
 
 .product-image {
@@ -709,9 +716,11 @@ body:not(.loading-done) .footer {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: var(--bg-dark);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
     border-radius: var(--border-radius);
-    border: 1px solid var(--primary-color);
+    border: 1px solid var(--border-color);
     box-shadow: var(--shadow-glow-strong);
     max-width: 800px;
     width: 90%;
