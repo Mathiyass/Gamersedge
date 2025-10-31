@@ -1,6 +1,9 @@
 // UI Module
+import { showProductModal } from './product.js';
+import { addToCart } from './cart.js';
 
 export function initializeUI(products) {
+    renderProducts(products);
     initializeTooltips();
     initializeLiveSearch(products);
     initializeCursor();
@@ -17,6 +20,53 @@ export function initializeUI(products) {
     initializeStats();
     initializeMusic();
     initializeBackToTop();
+}
+
+// Renders the product cards in the products grid
+function renderProducts(products) {
+    const productsGrid = document.getElementById('products-grid');
+    if (!productsGrid) return;
+
+    // If there are no products, display a message
+    if (Object.keys(products).length === 0) {
+        productsGrid.innerHTML = '<p class="no-products-found">No products found. Please check back later.</p>';
+        return;
+    }
+
+    // Create the HTML for each product card
+    productsGrid.innerHTML = Object.entries(products).map(([id, product]) => `
+        <div class="product-card gsap-zoom-in" data-category="${product.category}" data-tilt>
+            <div class="product-image">
+                <img src="${product.images[0]}" alt="${product.name}">
+                <div class="product-overlay">
+                    <button class="btn btn-small view-details" data-product="${id}">View Details</button>
+                    <button class="btn btn-small add-to-cart" data-product="${id}">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-info">
+                <h3>${product.name}</h3>
+                <p class="product-price">LKR ${product.price.toLocaleString()}</p>
+                <div class="product-rating">
+                    ${Array(5).fill('<i class="fas fa-star"></i>').join('')}
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    // Re-initialize event listeners for the new elements
+    document.querySelectorAll('.view-details').forEach(button => {
+        button.addEventListener('click', () => {
+            const productId = button.getAttribute('data-product');
+            showProductModal(productId, products);
+        });
+    });
+
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', () => {
+            const productId = button.getAttribute('data-product');
+            addToCart(productId, products);
+        });
+    });
 }
 
 function initializeTooltips() {
@@ -320,15 +370,6 @@ function initializeModals(products) {
     // Product modal
     const productModal = document.getElementById('product-modal');
     const checkoutModal = document.getElementById('checkout-modal');
-
-    // View details buttons
-    document.querySelectorAll('.view-details').forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            const productId = button.getAttribute('data-product');
-            showProductModal(productId, products);
-        });
-    });
 
     // Checkout button
     const checkoutBtn = document.getElementById('checkout-btn');

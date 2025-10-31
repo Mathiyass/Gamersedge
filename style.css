@@ -2224,3 +2224,11 @@ body:not(.loading-done) .footer {
         align-items: flex-start;
     }
 }
+
+.no-products-found {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    text-align: center;
+    grid-column: 1 / -1;
+    margin-top: 50px;
+}
