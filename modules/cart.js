@@ -131,6 +131,7 @@ export function renderCartItems() {
     if (!cartItemsContainer) return;
 
     if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '';
         cartItemsContainer.style.display = 'none';
         if (emptyCart) emptyCart.style.display = 'block';
         updateCartSummary();
@@ -141,7 +142,7 @@ export function renderCartItems() {
     if (emptyCart) emptyCart.style.display = 'none';
 
     cartItemsContainer.innerHTML = cart.map(item => `
-        <div class="cart-item">
+        <div class="cart-item" data-product-id="${item.id}">
             <div class="cart-item-image">
                 <img src="${item.image}" alt="${item.name}">
             </div>
@@ -151,17 +152,40 @@ export function renderCartItems() {
             </div>
             <div class="cart-item-controls">
                 <div class="quantity-controls">
-                    <button class="quantity-btn" onclick="updateCartQuantity('${item.id}', ${item.quantity - 1})">-</button>
-                    <input type="number" class="quantity-input" value="${item.quantity}" min="1"
-                           onchange="updateCartQuantity('${item.id}', parseInt(this.value))">
-                    <button class="quantity-btn" onclick="updateCartQuantity('${item.id}', ${item.quantity + 1})">+</button>
+                    <button class="quantity-btn decrease-quantity">-</button>
+                    <input type="number" class="quantity-input" value="${item.quantity}" min="1">
+                    <button class="quantity-btn increase-quantity">+</button>
                 </div>
-                <button class="remove-btn" onclick="removeFromCart('${item.id}')">
+                <button class="remove-btn">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
         </div>
     `).join('');
+
+    // Add event listeners
+    cartItemsContainer.querySelectorAll('.cart-item').forEach(cartItemElement => {
+        const productId = cartItemElement.dataset.productId;
+        const item = cart.find(i => i.id === productId);
+
+        if (!item) return;
+
+        cartItemElement.querySelector('.decrease-quantity').addEventListener('click', () => {
+            updateCartQuantity(productId, item.quantity - 1);
+        });
+
+        cartItemElement.querySelector('.increase-quantity').addEventListener('click', () => {
+            updateCartQuantity(productId, item.quantity + 1);
+        });
+
+        cartItemElement.querySelector('.quantity-input').addEventListener('change', (e) => {
+            updateCartQuantity(productId, parseInt(e.target.value));
+        });
+
+        cartItemElement.querySelector('.remove-btn').addEventListener('click', () => {
+            removeFromCart(productId);
+        });
+    });
 
     updateCartSummary();
 }
@@ -190,7 +214,3 @@ function updateCartSummary() {
     });
 }
 
-// Export functions for global access
-window.removeFromCart = removeFromCart;
-window.updateCartQuantity = updateCartQuantity;
-window.clearCart = clearCart;
