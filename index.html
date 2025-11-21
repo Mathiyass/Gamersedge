@@ -28,12 +28,23 @@
     <div class="noise-overlay"></div>
     <div class="aurora-background"></div>
 
+    <!-- Loader -->
+    <div id="cyber-loader" class="fixed inset-0 bg-void-black z-[100] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="loader-ring"><div></div><div></div><div></div><div></div></div>
+        <div class="mt-4 text-electric-cyan font-bold tracking-widest animate-pulse">INITIALIZING SYSTEM</div>
+    </div>
+
     <!-- Header -->
     <header class="sticky top-0 z-50 glass-effect">
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="lg:hidden text-white hover:text-electric-cyan mr-4">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+
             <a href="/" class="flex items-center space-x-2">
                 <img src="assets/images/logo.webp" alt="GamersEdge Logo" class="h-10">
-                <span class="text-2xl font-extrabold text-white tracking-wider">GamersEdge</span>
+                <span class="text-2xl font-extrabold text-white tracking-wider hidden md:block">GamersEdge</span>
             </a>
             
             <!-- Mega Menu Placeholder - Desktop -->
@@ -178,8 +189,17 @@
                 <span>Subtotal:</span>
                 <span id="cart-total">Rs. 0.00</span>
             </div>
-            <button class="w-full mt-4 py-3 bg-gradient-to-r from-electric-cyan to-hyper-violet text-white font-bold rounded-lg">Checkout</button>
+            <button id="checkout-btn" class="w-full mt-4 py-3 bg-gradient-to-r from-electric-cyan to-hyper-violet text-white font-bold rounded-lg hover-levitate">Checkout</button>
         </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-void-black/95 z-[60] transform -translate-x-full lg:hidden flex flex-col justify-center items-center space-y-8 text-2xl font-bold">
+        <button id="close-mobile-menu" class="absolute top-6 right-6 text-gray-400 hover:text-white">&times;</button>
+        <a href="#featured" class="hover:text-electric-cyan transition-colors" onclick="document.getElementById('mobile-menu').classList.add('-translate-x-full')">Featured Drops</a>
+        <a href="builder.html" class="hover:text-electric-cyan transition-colors">PC Builder</a>
+        <a href="#categories" class="hover:text-electric-cyan transition-colors" onclick="document.getElementById('mobile-menu').classList.add('-translate-x-full')">Categories</a>
+        <a href="#contact" class="hover:text-electric-cyan transition-colors" onclick="document.getElementById('mobile-menu').classList.add('-translate-x-full')">Contact</a>
     </div>
 </body>
 </html>
