@@ -3,125 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - GamersEdge</title>
-    
+    <title>Fortress Admin - GamersEdge</title>
     <link rel="icon" href="assets/images/favicon.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Load Admin Logic -->
     <script src="assets/js/admin.js" type="module" defer></script>
 </head>
-<body class="bg-void-black text-light-gray">
+<body class="bg-void-black text-light-gray min-h-screen">
 
     <div class="noise-overlay"></div>
     <div class="aurora-background"></div>
 
-    <!-- Main Container -->
-    <div id="admin-container" class="container mx-auto px-6 py-12">
+    <!-- Login Section -->
+    <div id="login-section" class="fixed inset-0 flex items-center justify-center z-50 p-4">
+        <div class="glass-effect p-8 rounded-xl w-full max-w-md border border-gray-700 shadow-2xl relative overflow-hidden">
+            <!-- Decorative Glow -->
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-1 bg-gradient-to-r from-transparent via-electric-cyan to-transparent"></div>
 
-        <!-- Login Section -->
-        <section id="login-section" class="flex flex-col items-center justify-center min-h-screen">
-            <div class="w-full max-w-md">
-                <div class="glass-effect p-8 rounded-xl shadow-2xl">
-                    <div class="text-center mb-8">
-                        <img src="assets/images/logo.webp" alt="GamersEdge Logo" class="h-12 mx-auto mb-2">
-                        <h1 class="text-3xl font-extrabold text-white">Fortress - Admin Access</h1>
-                        <p class="text-gray-400">Restricted Area</p>
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-extrabold text-white tracking-wider">FORTRESS</h1>
+                <p class="text-gray-400 text-sm mt-1">Admin Access Protocol</p>
+            </div>
+
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2" for="username">Operator ID</label>
+                    <input class="w-full p-3 bg-dark-gray border border-gray-600 rounded text-white focus:border-electric-cyan focus:outline-none transition-colors" id="username" type="text" placeholder="Enter ID">
+                </div>
+                <div>
+                    <label class="block text-gray-400 text-sm font-bold mb-2" for="password">Access Key</label>
+                    <input class="w-full p-3 bg-dark-gray border border-gray-600 rounded text-white focus:border-electric-cyan focus:outline-none transition-colors" id="password" type="password" placeholder="Enter Key">
+                </div>
+                <button class="w-full py-3 bg-gradient-to-r from-electric-cyan to-hyper-violet text-white font-bold rounded hover-levitate shadow-lg">
+                    Authenticate
+                </button>
+            </form>
+            <p class="text-center text-xs text-gray-600 mt-6">Restricted Area. Unauthorized access is a crime.</p>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard-section" class="hidden flex flex-col h-screen">
+        <!-- Sidebar -->
+        <div class="flex flex-1 overflow-hidden">
+            <aside class="w-64 bg-dark-gray border-r border-gray-800 hidden md:flex flex-col">
+                <div class="p-6 border-b border-gray-800">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-gradient-to-br from-electric-cyan to-hyper-violet rounded-full"></div>
+                        <span class="font-bold text-white text-lg">Fortress</span>
                     </div>
-                    <form id="login-form">
-                        <div class="mb-4">
-                            <label for="username" class="block text-gray-300 mb-2">Username</label>
-                            <input type="text" id="username" name="username" class="w-full p-3 bg-dark-gray border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-electric-cyan focus:outline-none" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="password" class="block text-gray-300 mb-2">Password</label>
-                            <input type="password" id="password" name="password" class="w-full p-3 bg-dark-gray border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-electric-cyan focus:outline-none" required>
-                        </div>
-                        <button type="submit" class="w-full py-3 bg-gradient-to-r from-electric-cyan to-hyper-violet text-white font-bold rounded-lg hover:opacity-90 transition-opacity">Authenticate</button>
-                        <p id="login-error" class="text-red-500 text-center mt-4"></p>
-                    </form>
                 </div>
-            </div>
-        </section>
+                <nav class="flex-1 p-4 space-y-2">
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 bg-white/5 text-white rounded border-l-2 border-electric-cyan">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                        Dashboard
+                    </a>
+                    <a href="/" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        View Site
+                    </a>
+                </nav>
+                <div class="p-4 border-t border-gray-800">
+                    <button id="logout-btn" class="flex items-center gap-3 w-full px-4 py-2 text-red-400 hover:text-red-300 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                        Terminate Session
+                    </button>
+                </div>
+            </aside>
 
-        <!-- Dashboard Section (Hidden by default) -->
-        <section id="dashboard-section" class="hidden">
-            <header class="flex justify-between items-center mb-10">
+            <!-- Main Content -->
+            <main class="flex-1 overflow-y-auto p-8">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-3xl font-bold text-white">Command Center</h2>
+                    <div class="text-sm text-gray-400 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        System Online
+                    </div>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <div class="glass-effect p-6 rounded-xl border-t-4 border-electric-cyan">
+                        <h3 class="text-gray-400 text-sm uppercase font-bold tracking-wider">Total Revenue</h3>
+                        <div class="text-3xl font-mono text-white mt-2" id="total-revenue">Rs. 0</div>
+                    </div>
+                    <div class="glass-effect p-6 rounded-xl border-t-4 border-hyper-violet">
+                        <h3 class="text-gray-400 text-sm uppercase font-bold tracking-wider">Total Orders</h3>
+                        <div class="text-3xl font-mono text-white mt-2" id="total-orders">0</div>
+                    </div>
+                    <div class="glass-effect p-6 rounded-xl border-t-4 border-red-500">
+                        <h3 class="text-gray-400 text-sm uppercase font-bold tracking-wider">Low Stock Alerts</h3>
+                        <div class="text-3xl font-mono text-white mt-2" id="low-stock-count">0</div>
+                    </div>
+                </div>
+
+                <!-- Order War Room -->
+                <div class="mb-10">
+                    <h3 class="text-xl font-bold text-white mb-4">Order War Room</h3>
+                    <div class="glass-effect rounded-xl overflow-hidden border border-gray-800">
+                        <table class="w-full text-left">
+                            <thead class="bg-black/40 text-gray-400 text-xs uppercase">
+                                <tr>
+                                    <th class="p-4">Order ID</th>
+                                    <th class="p-4">Date</th>
+                                    <th class="p-4">Customer</th>
+                                    <th class="p-4">Total</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-body">
+                                <!-- Orders injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Inventory Matrix -->
                 <div>
-                    <h1 class="text-4xl font-extrabold text-white">Command Center</h1>
-                    <p class="text-gray-400">Live overview of GamersEdge operations.</p>
+                    <h3 class="text-xl font-bold text-white mb-4">Inventory Matrix</h3>
+                    <div class="glass-effect rounded-xl overflow-hidden border border-gray-800">
+                        <table class="w-full text-left">
+                            <thead class="bg-black/40 text-gray-400 text-xs uppercase">
+                                <tr>
+                                    <th class="p-4">ID</th>
+                                    <th class="p-4">Product</th>
+                                    <th class="p-4">Category</th>
+                                    <th class="p-4">Price</th>
+                                    <th class="p-4">Stock</th>
+                                    <th class="p-4">Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventory-body">
+                                <!-- Inventory injected here -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div>
-                    <span class="text-sm text-gray-500 mr-4">Session timeout in <span id="session-timer"></span>s</span>
-                    <a href="index.html" class="text-electric-cyan hover:underline mr-4">View Store</a>
-                    <button id="logout-button" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Logout</button>
-                </div>
-            </header>
 
-            <!-- Live Stats -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-                <div class="glass-effect p-6 rounded-xl">
-                    <h3 class="text-lg font-semibold text-gray-300">Live Revenue Ticker</h3>
-                    <p id="revenue-ticker" class="text-4xl font-mono font-bold text-electric-cyan mt-2">Rs. 0</p>
-                </div>
-                <div class="glass-effect p-6 rounded-xl">
-                    <h3 class="text-lg font-semibold text-gray-300">Total Orders</h3>
-                    <p id="total-orders" class="text-4xl font-mono font-bold text-white mt-2">0</p>
-                </div>
-                <div class="glass-effect p-6 rounded-xl">
-                    <h3 class="text-lg font-semibold text-gray-300">Inventory Items</h3>
-                    <p id="inventory-count" class="text-4xl font-mono font-bold text-white mt-2">0</p>
-                </div>
-            </div>
-
-            <!-- Inventory Matrix -->
-            <div class="glass-effect rounded-xl p-6 mb-10">
-                <h2 class="text-2xl font-bold mb-4">Inventory Matrix</h2>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left">
-                        <thead>
-                            <tr class="border-b border-gray-700">
-                                <th class="p-3">Product</th>
-                                <th class="p-3">Price (Rs.)</th>
-                                <th class="p-3">In Stock</th>
-                                <th class="p-3">Image URL</th>
-                                <th class="p-3">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="inventory-table-body">
-                            <!-- Product rows will be inserted here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <!-- Order War Room -->
-            <div class="glass-effect rounded-xl p-6">
-                <h2 class="text-2xl font-bold mb-4">Order War Room</h2>
-                 <div class="overflow-x-auto">
-                    <table class="w-full text-left">
-                        <thead>
-                            <tr class="border-b border-gray-700">
-                                <th class="p-3">Order ID</th>
-                                <th class="p-3">Date</th>
-                                <th class="p-3">Total</th>
-                                <th class="p-3">Status</th>
-                                <th class="p-3">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="orders-table-body">
-                            <!-- Order rows will be inserted here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </section>
-
-    </div> <!-- /admin-container -->
+            </main>
+        </div>
+    </div>
 
 </body>
 </html>

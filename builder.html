@@ -4,17 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PC Builder - GamersEdge</title>
-    
     <link rel="icon" href="assets/images/favicon.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="assets/css/style.css">
-    <!-- <script src="assets/js/builder.js" type="module" defer></script> --> <!-- Will be enabled later -->
+    <script type="module">
+        import store from './assets/js/core/store.js';
+
+        const steps = [
+            { id: 'cpu', title: 'Processor', category: 'CPU' },
+            { id: 'motherboard', title: 'Motherboard', category: 'Motherboard' },
+            { id: 'memory', title: 'Memory', category: 'Memory' },
+            { id: 'gpu', title: 'Graphics Card', category: 'GPU' },
+            { id: 'storage', title: 'Storage', category: 'Storage' },
+            { id: 'case', title: 'Case', category: 'Case' },
+            { id: 'psu', title: 'Power Supply', category: 'PSU' }
+        ];
+
+        let currentStepIndex = 0;
+        let build = {};
+
+        const formatCurrency = (amount) => 'Rs. ' + amount.toLocaleString('en-LK');
+
+        const renderStep = () => {
+            const step = steps[currentStepIndex];
+            document.getElementById('step-title').textContent = `Step ${currentStepIndex + 1}: Select ${step.title}`;
+
+            // Update Progress
+            const progress = ((currentStepIndex) / steps.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+
+            // Filter Products
+            let products = store.state.products.filter(p => p.category === step.category);
+
+            // Compatibility Logic
+            if (step.id === 'motherboard' && build.cpu) {
+                const cpuBrand = build.cpu.brand; // Intel or AMD
+                products = products.filter(p => p.compatibility === cpuBrand);
+            }
+
+            const container = document.getElementById('component-list');
+            container.innerHTML = products.map(p => `
+                <div class="holo-card glass-effect p-4 rounded-xl cursor-pointer border border-transparent hover:border-electric-cyan transition-all ${build[step.id]?.id === p.id ? 'border-electric-cyan bg-white/10' : ''}" onclick="selectComponent('${p.id}')">
+                    <img src="${p.image}" class="h-32 w-full object-contain mb-4 bg-white/5 rounded">
+                    <h3 class="font-bold text-white">${p.name}</h3>
+                    <p class="text-electric-cyan font-mono mt-2">${formatCurrency(p.price)}</p>
+                </div>
+            `).join('');
+        };
+
+        window.selectComponent = (productId) => {
+            const step = steps[currentStepIndex];
+            const product = store.state.products.find(p => p.id === productId);
+            build[step.id] = product;
+
+            updateBuildSummary();
+
+            if (currentStepIndex < steps.length - 1) {
+                currentStepIndex++;
+                renderStep();
+            } else {
+                // Done
+                document.getElementById('step-title').textContent = "Build Complete!";
+                document.getElementById('component-list').innerHTML = `
+                    <div class="col-span-full text-center py-10">
+                        <h2 class="text-3xl font-bold text-white mb-4">Your Beast is Ready.</h2>
+                        <p class="text-gray-400 mb-8">Total Build Cost: <span class="text-electric-cyan text-2xl font-bold">${formatCurrency(calculateTotal())}</span></p>
+                        <button onclick="addAllToCart()" class="px-8 py-4 bg-gradient-to-r from-electric-cyan to-hyper-violet text-white font-bold rounded-lg text-xl hover-levitate">
+                            Add Rig to Cart
+                        </button>
+                    </div>
+                `;
+                document.getElementById('progress-bar').style.width = '100%';
+            }
+        };
+
+        const updateBuildSummary = () => {
+            const summaryList = document.getElementById('build-summary-list');
+            summaryList.innerHTML = Object.values(build).map(p => `
+                <div class="flex justify-between text-sm mb-2 border-b border-gray-700 pb-1">
+                    <span class="text-gray-300">${p.category}</span>
+                    <span class="text-white font-bold truncate ml-2 w-32 text-right">${p.name}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('build-total').textContent = formatCurrency(calculateTotal());
+        };
+
+        const calculateTotal = () => {
+            return Object.values(build).reduce((acc, p) => acc + p.price, 0);
+        };
+
+        window.addAllToCart = () => {
+            Object.values(build).forEach(p => store.addToCart(p.id));
+            alert('Rig added to cart! Redirecting to store...');
+            window.location.href = '/';
+        };
+
+        window.resetBuild = () => {
+            build = {};
+            currentStepIndex = 0;
+            renderStep();
+            updateBuildSummary();
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderStep();
+        });
+    </script>
 </head>
-<body class="bg-void-black text-light-gray">
+<body class="bg-void-black text-light-gray min-h-screen flex flex-col">
 
     <div class="noise-overlay"></div>
     <div class="aurora-background"></div>
@@ -26,97 +126,53 @@
                 <img src="assets/images/logo.webp" alt="GamersEdge Logo" class="h-10">
                 <span class="text-2xl font-extrabold text-white tracking-wider">GamersEdge</span>
             </a>
-            <a href="index.html" class="px-6 py-2 bg-gradient-to-r from-electric-cyan to-hyper-violet text-white font-bold rounded-lg hover-levitate">Back to Store</a>
+            <a href="index.html" class="text-gray-400 hover:text-white">Back to Store</a>
         </nav>
     </header>
 
-    <main class="container mx-auto px-6 py-12">
-        <div class="text-center mb-12">
-            <h1 class="text-5xl font-extrabold text-white">Build Your Beast</h1>
-            <p class="text-gray-400 mt-2">Follow the steps to configure your ultimate gaming rig.</p>
+    <main class="flex-grow container mx-auto px-6 py-10 grid lg:grid-cols-4 gap-10">
+
+        <!-- Builder Area -->
+        <div class="lg:col-span-3">
+            <div class="mb-8">
+                <h1 class="text-3xl font-extrabold text-white mb-2">Build Your Beast</h1>
+                <p class="text-gray-400">Select components to configure your dream machine.</p>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-800 h-2 rounded-full mb-8 overflow-hidden">
+                <div id="progress-bar" class="h-full bg-gradient-to-r from-electric-cyan to-hyper-violet transition-all duration-500" style="width: 0%"></div>
+            </div>
+
+            <h2 id="step-title" class="text-2xl font-bold text-white mb-6">Loading...</h2>
+
+            <div id="component-list" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Components injected here -->
+            </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Left Side: Component Selection -->
-            <div class="lg:col-span-2">
-                <!-- Progress Bar -->
-                <div class="mb-8">
-                    <div class="w-full bg-dark-gray rounded-full h-2.5">
-                        <div class="bg-gradient-to-r from-electric-cyan to-hyper-violet h-2.5 rounded-full" style="width: 15%"></div>
-                    </div>
-                     <ol class="flex justify-between text-sm mt-2">
-                        <li class="font-bold text-electric-cyan">CPU</li>
-                        <li class="text-gray-500">Motherboard</li>
-                        <li class="text-gray-500">GPU</li>
-                        <li class="text-gray-500">RAM</li>
-                        <li class="text-gray-500">Storage</li>
-                        <li class="text-gray-500">Cooling</li>
-                        <li class="text-gray-500">Case</li>
-                        <li class="text-gray-500">PSU</li>
-                    </ol>
+        <!-- Summary Sidebar -->
+        <div class="lg:col-span-1">
+            <div class="glass-effect p-6 rounded-xl sticky top-24">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-white">Current Build</h3>
+                    <button onclick="resetBuild()" class="text-xs text-red-400 hover:text-red-300">Reset</button>
                 </div>
 
-                <!-- Component Step -->
-                <div id="builder-steps">
-                    <div class="glass-effect rounded-xl p-6">
-                        <h2 class="text-3xl font-bold mb-4">Step 1: Select Your CPU</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- CPU Options will be dynamically loaded here -->
-                            <div class="border border-gray-700 p-4 rounded-lg hover:border-electric-cyan cursor-pointer">
-                                <h3 class="font-bold text-lg">Intel Core i9-14900K</h3>
-                                <p class="text-gray-400">Brand: Intel</p>
-                                <p class="text-electric-cyan mt-2">Rs. 240,000</p>
-                            </div>
-                            <div class="border border-gray-700 p-4 rounded-lg hover:border-electric-cyan cursor-pointer">
-                                <h3 class="font-bold text-lg">AMD Ryzen 9 7950X3D</h3>
-                                <p class="text-gray-400">Brand: AMD</p>
-                                <p class="text-electric-cyan mt-2">Rs. 260,000</p>
-                            </div>
-                             <div class="border border-gray-700 p-4 rounded-lg opacity-50 cursor-not-allowed">
-                                <h3 class="font-bold text-lg">Intel Core i5-14600K</h3>
-                                <p class="text-gray-400">Selected</p>
-                                <p class="text-electric-cyan mt-2">Rs. 120,000</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Other steps would be added here, likely hidden until the previous is complete -->
+                <div id="build-summary-list" class="mb-6 min-h-[200px]">
+                    <p class="text-gray-500 text-sm italic">No components selected.</p>
                 </div>
-            </div>
 
-            <!-- Right Side: Summary -->
-            <div class="lg:col-span-1">
-                <div class="sticky top-24">
-                    <div class="glass-effect rounded-xl p-6">
-                        <h2 class="text-2xl font-bold border-b border-gray-700 pb-3 mb-4">Your Beast</h2>
-                        <div class="space-y-3 mb-6">
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-400">CPU:</span>
-                                <span class="font-semibold">Intel Core i5-14600K</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-gray-400">Motherboard:</span>
-                                <span class="text-gray-500">Select...</span>
-                            </div>
-                             <div class="flex justify-between items-center">
-                                <span class="text-gray-400">GPU:</span>
-                                <span class="text-gray-500">Select...</span>
-                            </div>
-                            <!-- ... other components ... -->
-                        </div>
-
-                        <div class="border-t border-gray-700 pt-4">
-                            <div class="flex justify-between items-center text-2xl font-bold">
-                                <span>Total:</span>
-                                <span class="text-electric-cyan">Rs. 120,000</span>
-                            </div>
-                             <button class="w-full mt-6 py-3 bg-gradient-to-r from-electric-cyan to-hyper-violet text-white font-bold rounded-lg disabled:opacity-50" disabled>Add Rig to Cart</button>
-                        </div>
+                <div class="border-t border-gray-700 pt-4">
+                    <div class="flex justify-between items-center text-lg font-bold text-white">
+                        <span>Total</span>
+                        <span id="build-total">Rs. 0.00</span>
                     </div>
                 </div>
             </div>
-
         </div>
 
     </main>
+
 </body>
 </html>
