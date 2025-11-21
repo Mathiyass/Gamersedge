@@ -1,0 +1,249 @@
+/*
+  GamersEdge - Cyber-Lux Visual Language
+  ---
+  Primary Palette:
+  - Void Black: #000000
+  - Electric Cyan: #00AEEF
+  - Hyper-Violet: #7c3aed
+*/
+
+:root {
+    --color-void-black: #000000;
+    --color-electric-cyan: #00AEEF;
+    --color-hyper-violet: #7c3aed;
+    --color-light-gray: #f3f4f6;
+    --color-medium-gray: #4b5563;
+    --color-dark-gray: #111827;
+    --font-primary: 'Inter', sans-serif; /* A clean, modern font */
+}
+
+body {
+    background-color: var(--color-void-black);
+    color: var(--color-light-gray);
+    font-family: var(--font-primary);
+    overflow-x: hidden;
+}
+
+/* === NOISE OVERLAY === */
+/* This creates a subtle, static-like texture over the background */
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.03;
+    background: url('https://media.pepenero.gg/v2/noise.8a0038a8.png');
+}
+
+/* === AURORA GRADIENTS === */
+/* Animated gradients that shift and flow in the background */
+.aurora-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.aurora-background::before,
+.aurora-background::after {
+    content: '';
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    border-radius: 50%;
+    opacity: 0.2;
+    mix-blend-mode: screen;
+    animation: aurora-flow 25s infinite linear;
+    filter: blur(100px);
+}
+
+.aurora-background::before {
+    background: radial-gradient(circle, var(--color-electric-cyan), transparent 60%);
+    top: -20%;
+    left: -20%;
+}
+
+.aurora-background::after {
+    background: radial-gradient(circle, var(--color-hyper-violet), transparent 60%);
+    bottom: -20%;
+    right: -20%;
+    animation-delay: -12.5s;
+}
+
+@keyframes aurora-flow {
+    0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+    50% { transform: translateX(50px) translateY(100px) rotate(180deg); }
+}
+
+
+/* === GLASSMORPHISM EFFECT === */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* === GLITCH TEXT EFFECT === */
+.glitch-text {
+    position: relative;
+    color: white;
+    font-size: 4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    animation: glitch-scan 5s infinite linear;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-void-black);
+    overflow: hidden;
+}
+
+.glitch-text::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--color-hyper-violet);
+    animation: glitch-anim-1 2s infinite linear reverse;
+}
+
+.glitch-text::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--color-electric-cyan);
+    animation: glitch-anim-2 2s infinite linear reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% { clip-path: inset(10% 0 80% 0); }
+    20% { clip-path: inset(50% 0 20% 0); }
+    40% { clip-path: inset(25% 0 60% 0); }
+    60% { clip-path: inset(70% 0 10% 0); }
+    80% { clip-path: inset(40% 0 35% 0); }
+    100% { clip-path: inset(90% 0 5% 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip-path: inset(75% 0 10% 0); }
+    20% { clip-path: inset(20% 0 55% 0); }
+    40% { clip-path: inset(80% 0 5% 0); }
+    60% { clip-path: inset(30% 0 40% 0); }
+    80% { clip-path: inset(60% 0 20% 0); }
+    100% { clip-path: inset(5% 0 90% 0); }
+}
+
+@keyframes glitch-scan {
+    0%, 100% { clip-path: inset(0 100% 0 0); }
+    50% { clip-path: inset(0 0 0 0); }
+    
+}
+
+
+/* === ENTRANCE & HOVER ANIMATIONS === */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+}
+
+@keyframes hover-levitate {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.hover-levitate:hover {
+    animation: hover-levitate 2s ease-in-out infinite;
+}
+
+/* === HOLOGRAPHIC CARD SCAN EFFECT === */
+.holographic-card {
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease-out;
+}
+
+.holographic-card:hover {
+    transform: perspective(1000px) rotateY(var(--rotateY)) rotateX(var(--rotateX)) scale3d(1.05, 1.05, 1.05);
+}
+
+.holographic-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, 0) 60%,
+        rgba(255, 255, 255, 0.2) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+.holographic-card:hover::before {
+    opacity: 1;
+}
+
+.holographic-card::after {
+    content: "";
+    position: absolute;
+    top: -150%;
+    left: -50%;
+    width: 200%;
+    height: 400%;
+    opacity: 0;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 48%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0.1) 52%,
+        transparent 100%
+    );
+    transform: rotate(25deg);
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+
+.holographic-card:hover::after {
+    opacity: 1;
+    animation: scan-effect 1.5s ease-in-out infinite;
+    animation-delay: 0.2s;
+}
+
+@keyframes scan-effect {
+    0% {
+        top: -150%;
+    }
+    100% {
+        top: 150%;
+    }
+}
