@@ -1,225 +1,217 @@
-const STORE_KEY = 'gamersedge.store';
+/**
+ * assets/js/core/store.js
+ * The Brain - Centralized State Management
+ */
 
 class Store {
     constructor() {
-        this.state = this.loadState();
-        if (!this.state.products || this.state.products.length === 0) {
-            this.seedData();
-        }
-    }
-
-    loadState() {
-        try {
-            const serializedState = localStorage.getItem(STORE_KEY);
-            if (serializedState === null) {
-                return this.getInitialState();
-            }
-            return JSON.parse(serializedState);
-        } catch (err) {
-            console.error("Error loading state from localStorage:", err);
-            return this.getInitialState();
-        }
-    }
-
-    saveState() {
-        try {
-            const serializedState = JSON.stringify(this.state);
-            localStorage.setItem(STORE_KEY, serializedState);
-        } catch (err) {
-            console.error("Error saving state to localStorage:", err);
-        }
-    }
-
-    getInitialState() {
-        return {
+        this.state = {
             products: [],
             cart: [],
-            userSession: {
-                isLoggedIn: false,
-                username: null,
-                sessionStart: null,
-            },
             orders: [],
+            userSession: null, // { username: 'admin', expiresAt: timestamp }
+            filters: {
+                category: 'all',
+                search: ''
+            }
+        };
+        this.listeners = [];
+        this.loadFromStorage();
+    }
+
+    // --- Pub/Sub ---
+    subscribe(listener) {
+        this.listeners.push(listener);
+        return () => {
+            this.listeners = this.listeners.filter(l => l !== listener);
         };
     }
 
-    getState() {
-        return this.state;
-    }
-    
-    // The "commit" in Redux terms, but simplified.
-    setState(newState) {
-        this.state = { ...this.state, ...newState };
-        this.saveState();
-        // In a more complex app, we'd dispatch events here to update the UI.
-    }
-    
-    // --- Product Management ---
-    getProducts() {
-        return this.state.products;
+    notify() {
+        this.listeners.forEach(listener => listener(this.state));
+        this.saveToStorage();
     }
 
-    getProductById(id) {
-        return this.state.products.find(p => p.id === id);
-    }
-    
-    updateProduct(productId, updatedProductData) {
-        const products = this.state.products.map(p => 
-            p.id === productId ? { ...p, ...updatedProductData } : p
-        );
-        this.setState({ products });
+    // --- Persistence ---
+    saveToStorage() {
+        localStorage.setItem('gamersedge_products', JSON.stringify(this.state.products));
+        localStorage.setItem('gamersedge_cart', JSON.stringify(this.state.cart));
+        localStorage.setItem('gamersedge_orders', JSON.stringify(this.state.orders));
+        localStorage.setItem('gamersedge_session', JSON.stringify(this.state.userSession));
     }
 
-    // --- Cart Management ---
-    getCart() {
-        return this.state.cart;
+    loadFromStorage() {
+        const products = localStorage.getItem('gamersedge_products');
+        const cart = localStorage.getItem('gamersedge_cart');
+        const orders = localStorage.getItem('gamersedge_orders');
+        const session = localStorage.getItem('gamersedge_session');
+
+        if (products) {
+            this.state.products = JSON.parse(products);
+        } else {
+            this.seedData();
+        }
+
+        if (cart) this.state.cart = JSON.parse(cart);
+        if (orders) this.state.orders = JSON.parse(orders);
+        if (session) this.state.userSession = JSON.parse(session);
     }
+
+    // --- Seeding ---
+    seedData() {
+        const initialProducts = [
+            // GPUs
+            { id: 'gpu-1', name: 'NVIDIA GeForce RTX 4090', category: 'GPU', price: 650000, image: 'https://dlcdnwebimgs.asus.com/gain/9d545e52-6e39-4322-87eb-31b54312933f/w800', stock: 5, brand: 'ASUS' },
+            { id: 'gpu-2', name: 'NVIDIA GeForce RTX 4080 Super', category: 'GPU', price: 420000, image: 'https://dlcdnwebimgs.asus.com/gain/59b5083e-5c11-4b23-821f-801663035547/w800', stock: 8, brand: 'ASUS' },
+            { id: 'gpu-3', name: 'AMD Radeon RX 7900 XTX', category: 'GPU', price: 380000, image: 'https://dlcdnwebimgs.asus.com/gain/41d60197-6350-4400-945a-484542511223/w800', stock: 10, brand: 'ASUS' },
+            { id: 'gpu-4', name: 'NVIDIA GeForce RTX 4070 Ti', category: 'GPU', price: 290000, image: 'https://dlcdnwebimgs.asus.com/gain/2560d09f-6456-4d26-931d-137265272340/w800', stock: 12, brand: 'MSI' },
+
+            // CPUs
+            { id: 'cpu-1', name: 'Intel Core i9-14900K', category: 'CPU', price: 210000, image: 'https://m.media-amazon.com/images/I/6125J75cv3L._AC_SL1000_.jpg', stock: 15, brand: 'Intel' },
+            { id: 'cpu-2', name: 'AMD Ryzen 9 7950X3D', category: 'CPU', price: 225000, image: 'https://m.media-amazon.com/images/I/51f2hk81wmL._AC_SL1000_.jpg', stock: 10, brand: 'AMD' },
+            { id: 'cpu-3', name: 'Intel Core i7-14700K', category: 'CPU', price: 145000, image: 'https://m.media-amazon.com/images/I/61sYd6lP4PL._AC_SL1000_.jpg', stock: 20, brand: 'Intel' },
+            { id: 'cpu-4', name: 'AMD Ryzen 7 7800X3D', category: 'CPU', price: 135000, image: 'https://m.media-amazon.com/images/I/516X8fVvXnL._AC_SL1000_.jpg', stock: 25, brand: 'AMD' },
+
+            // Motherboards
+            { id: 'mobo-1', name: 'ASUS ROG Maximus Z790 Hero', category: 'Motherboard', price: 230000, image: 'https://dlcdnwebimgs.asus.com/gain/02936472-7797-4c64-9994-04425402009a/w800', stock: 7, brand: 'ASUS', compatibility: 'Intel' },
+            { id: 'mobo-2', name: 'MSI MEG Z790 GODLIKE', category: 'Motherboard', price: 350000, image: 'https://storage-asset.msi.com/global/picture/image/feature/mb/MEG-Z790-GODLIKE/board01.png', stock: 3, brand: 'MSI', compatibility: 'Intel' },
+            { id: 'mobo-3', name: 'ASUS ROG Crosshair X670E Hero', category: 'Motherboard', price: 215000, image: 'https://dlcdnwebimgs.asus.com/gain/4e6d7e0e-1926-4d0e-93c6-6e5689266066/w800', stock: 6, brand: 'ASUS', compatibility: 'AMD' },
+            { id: 'mobo-4', name: 'Gigabyte X670E AORUS Master', category: 'Motherboard', price: 180000, image: 'https://static.gigabyte.com/StaticFile/Image/Global/63333a5091196057d739311576099f78/Product/32623/png/1000', stock: 8, brand: 'Gigabyte', compatibility: 'AMD' },
+
+            // RAM
+            { id: 'ram-1', name: 'G.SKILL Trident Z5 RGB 32GB (2x16GB) DDR5-7200', category: 'Memory', price: 75000, image: 'https://www.gskill.com/img/pr/trident_z5_rgb_silver.png', stock: 30, brand: 'G.SKILL' },
+            { id: 'ram-2', name: 'Corsair Dominator Titanium RGB 64GB (2x32GB) DDR5-6000', category: 'Memory', price: 110000, image: 'https://assets.corsair.com/image/upload/f_auto,q_auto/products/Memory/Dominator-Titanium-First-Edition/Gallery/DOMINATOR_TITANIUM_FIRST_EDITION_01.webp', stock: 15, brand: 'Corsair' },
+
+            // Storage
+            { id: 'ssd-1', name: 'Samsung 990 PRO 2TB NVMe SSD', category: 'Storage', price: 65000, image: 'https://image-us.samsung.com/SamsungUS/home/computing/memory-and-storage/solid-state-drives/10042022/990PRO_1.jpg', stock: 40, brand: 'Samsung' },
+            { id: 'ssd-2', name: 'WD_BLACK SN850X 4TB NVMe SSD', category: 'Storage', price: 120000, image: 'https://www.westerndigital.com/content/dam/store/en-us/assets/products/internal-storage/wd-black-sn850x-nvme-ssd/gallery/wd-black-sn850x-nvme-ssd-4tb-front.png', stock: 10, brand: 'WD' },
+
+            // Cases
+            { id: 'case-1', name: 'Lian Li O11 Dynamic EVO XL', category: 'Case', price: 85000, image: 'https://lian-li.com/wp-content/uploads/2023/09/o11d-evo-xl-black-01.png', stock: 12, brand: 'Lian Li' },
+            { id: 'case-2', name: 'HYTE Y70 Touch', category: 'Case', price: 125000, image: 'https://hyte.com/store/y70-touch/black/main.png', stock: 5, brand: 'HYTE' },
+
+            // PSU
+            { id: 'psu-1', name: 'ASUS ROG Thor 1200W P2', category: 'PSU', price: 115000, image: 'https://dlcdnwebimgs.asus.com/gain/99581428-0342-464e-8502-046286639138/w800', stock: 8, brand: 'ASUS' },
+
+            // Monitors
+            { id: 'mon-1', name: 'Samsung Odyssey Neo G9 57"', category: 'Monitor', price: 780000, image: 'https://image-us.samsung.com/SamsungUS/home/computing/monitors/gaming/08232023/G95NC_001_Front_Black_S.jpg', stock: 2, brand: 'Samsung' },
+            { id: 'mon-2', name: 'Alienware 34 QD-OLED AW3423DW', category: 'Monitor', price: 350000, image: 'https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/peripherals/monitors/alienware/aw3423dw/media-gallery/monitor-alienware-aw3423dw-gallery-1.psd?fmt=png-alpha&pscan=auto&scl=1&hei=402&wid=494&qlt=100,1&resMode=sharp2&size=494,402&chrss=full', stock: 6, brand: 'Dell' }
+        ];
+
+        this.state.products = initialProducts;
+        this.saveToStorage();
+    }
+
+    // --- Actions ---
 
     addToCart(productId, quantity = 1) {
-        const product = this.getProductById(productId);
-        if (!product || !product.inStock) {
-            console.error("Product not found or out of stock.");
-            return;
-        }
+        const product = this.state.products.find(p => p.id === productId);
+        if (!product) return;
 
-        const cartItem = this.state.cart.find(item => item.productId === productId);
-
-        if (cartItem) {
-            cartItem.quantity += quantity;
+        const existingItem = this.state.cart.find(item => item.productId === productId);
+        if (existingItem) {
+            existingItem.quantity += quantity;
         } else {
-            this.state.cart.push({ productId, quantity });
+            this.state.cart.push({
+                productId,
+                quantity,
+                name: product.name,
+                price: product.price,
+                image: product.image
+            });
         }
-        this.saveState();
-    }
-
-    updateCartItemQuantity(productId, quantity) {
-        if (quantity <= 0) {
-            this.removeFromCart(productId);
-            return;
-        }
-        const cartItem = this.state.cart.find(item => item.productId === productId);
-        if (cartItem) {
-            cartItem.quantity = quantity;
-            this.saveState();
-        }
+        this.notify();
     }
 
     removeFromCart(productId) {
         this.state.cart = this.state.cart.filter(item => item.productId !== productId);
-        this.saveState();
-    }
-    
-    getCartTotal() {
-        return this.state.cart.reduce((total, item) => {
-            const product = this.getProductById(item.productId);
-            return total + (product ? product.price * item.quantity : 0);
-        }, 0);
+        this.notify();
     }
 
-    // --- User Session ---
+    updateCartQuantity(productId, quantity) {
+        const item = this.state.cart.find(item => item.productId === productId);
+        if (item) {
+            item.quantity = quantity;
+            if (item.quantity <= 0) {
+                this.removeFromCart(productId);
+            } else {
+                this.notify();
+            }
+        }
+    }
+
+    clearCart() {
+        this.state.cart = [];
+        this.notify();
+    }
+
+    createOrder(customerDetails) {
+        const order = {
+            id: 'ORD-' + Date.now(),
+            date: new Date().toISOString(),
+            items: [...this.state.cart],
+            total: this.getCartTotal(),
+            status: 'Processing', // Processing -> Dispatching -> Delivered
+            customer: customerDetails
+        };
+        this.state.orders.unshift(order);
+        this.clearCart();
+        return order;
+    }
+
+    getCartTotal() {
+        return this.state.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    }
+
+    // --- Admin Actions ---
+
     login(username, password) {
-        // Simulated login
         if (username === 'admin' && password === 'admin') {
-            this.setState({
-                userSession: {
-                    isLoggedIn: true,
-                    username: 'admin',
-                    sessionStart: Date.now(),
-                }
-            });
+            const session = {
+                username,
+                expiresAt: Date.now() + (30 * 60 * 1000) // 30 mins
+            };
+            this.state.userSession = session;
+            this.notify();
             return true;
         }
         return false;
     }
 
     logout() {
-        this.setState({
-            userSession: this.getInitialState().userSession
-        });
+        this.state.userSession = null;
+        this.notify();
     }
 
-    // --- Order Management ---
-    createOrder(cart, customerDetails) {
-        const newOrder = {
-            id: `ORD-${Date.now()}`,
-            date: new Date().toISOString(),
-            items: cart,
-            total: this.getCartTotal(),
-            status: 'Processing', // Processing -> Dispatching -> Delivered
-            customer: customerDetails,
-        };
-        this.setState({ orders: [...this.state.orders, newOrder] });
-        this.setState({ cart: [] }); // Clear cart after order
+    checkSession() {
+        if (!this.state.userSession) return false;
+        if (Date.now() > this.state.userSession.expiresAt) {
+            this.logout();
+            return false;
+        }
+        // Refresh session
+        this.state.userSession.expiresAt = Date.now() + (30 * 60 * 1000);
+        this.saveToStorage();
+        return true;
     }
-    
+
+    updateProduct(productId, updates) {
+        const index = this.state.products.findIndex(p => p.id === productId);
+        if (index !== -1) {
+            this.state.products[index] = { ...this.state.products[index], ...updates };
+            this.notify();
+        }
+    }
+
     updateOrderStatus(orderId, status) {
-        const orders = this.state.orders.map(o => 
-            o.id === orderId ? { ...o, status } : o
-        );
-        this.setState({ orders });
-    }
-
-
-    seedData() {
-        console.log("Seeding initial product data...");
-        const products = [
-            // CPUs
-            { id: 'cpu001', name: 'Intel Core i9-14900K', category: 'CPU', brand: 'Intel', price: 240000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=i9-14900K' },
-            { id: 'cpu002', name: 'AMD Ryzen 9 7950X3D', category: 'CPU', brand: 'AMD', price: 260000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=7950X3D' },
-            { id: 'cpu003', name: 'Intel Core i5-14600K', category: 'CPU', brand: 'Intel', price: 120000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=i5-14600K' },
-            { id: 'cpu004', name: 'AMD Ryzen 7 7800X3D', category: 'CPU', brand: 'AMD', price: 150000, inStock: false, imageUrl: 'https://via.placeholder.com/300x300.png?text=7800X3D' },
-            
-            // GPUs
-            { id: 'gpu001', name: 'NVIDIA GeForce RTX 4090', category: 'GPU', brand: 'NVIDIA', price: 650000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=RTX+4090' },
-            { id: 'gpu002', name: 'NVIDIA GeForce RTX 4080 Super', category: 'GPU', brand: 'NVIDIA', price: 450000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=RTX+4080S' },
-            { id: 'gpu003', name: 'AMD Radeon RX 7900 XTX', category: 'GPU', brand: 'AMD', price: 400000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=RX+7900XTX' },
-            { id: 'gpu004', name: 'NVIDIA GeForce RTX 4070 Ti Super', category: 'GPU', brand: 'NVIDIA', price: 350000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=RTX+4070TiS' },
-
-            // Motherboards
-            { id: 'mobo001', name: 'ASUS ROG MAXIMUS Z790 (Intel)', category: 'Motherboard', brand: 'ASUS', price: 220000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=Z790+Maximus' },
-            { id: 'mobo002', name: 'MSI MEG X670E GODLIKE (AMD)', category: 'Motherboard', brand: 'MSI', price: 250000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=X670E+Godlike' },
-            { id: 'mobo003', name: 'Gigabyte AORUS Z790 ELITE (Intel)', category: 'Motherboard', brand: 'Gigabyte', price: 95000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=Z790+Aorus' },
-            { id: 'mobo004', name: 'ASRock X670E Taichi (AMD)', category: 'Motherboard', brand: 'ASRock', price: 180000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=X670E+Taichi' },
-
-            // RAM
-            { id: 'ram001', name: 'Corsair Dominator Platinum 32GB DDR5 6000MHz', category: 'RAM', brand: 'Corsair', price: 65000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=Dominator+RAM' },
-            { id: 'ram002', name: 'G.Skill Trident Z5 RGB 32GB DDR5 6400MHz', category: 'RAM', brand: 'G.Skill', price: 70000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=TridentZ5+RAM' },
-            
-            // Storage
-            { id: 'ssd001', name: 'Samsung 990 Pro 2TB NVMe SSD', category: 'Storage', brand: 'Samsung', price: 80000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=990+Pro+SSD' },
-            { id: 'ssd002', name: 'Crucial T700 2TB Gen5 NVMe SSD', category: 'Storage', brand: 'Crucial', price: 110000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=T700+Gen5' },
-
-            // PSU
-            { id: 'psu001', name: 'Corsair AX1600i 1600W 80+ Titanium', category: 'PSU', brand: 'Corsair', price: 150000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=AX1600i' },
-            { id: 'psu002', name: 'Seasonic PRIME TX-1000 1000W 80+ Titanium', category: 'PSU', brand: 'Seasonic', price: 90000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=PRIME+TX-1000' },
-
-            // Case
-            { id: 'case001', name: 'Lian Li O11 Dynamic EVO', category: 'Case', brand: 'Lian Li', price: 60000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=O11+Dynamic' },
-            { id: 'case002', name: 'Fractal Design Meshify 2', category: 'Case', brand: 'Fractal Design', price: 55000, inStock: false, imageUrl: 'https://via.placeholder.com/300x300.png?text=Meshify+2' },
-            
-            // Peripherals
-            { id: 'peri001', name: 'Razer Huntsman V3 Pro Keyboard', category: 'Peripherals', brand: 'Razer', price: 90000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=Huntsman+V3' },
-            { id: 'peri002', name: 'Logitech G Pro X Superlight 2 Mouse', category: 'Peripherals', brand: 'Logitech', price: 55000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=G+Pro+X+2' },
-            { id: 'peri003', name: 'SteelSeries Arctis Nova Pro Wireless Headset', category: 'Peripherals', brand: 'SteelSeries', price: 130000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=Arctis+Nova' },
-            
-            // Monitors
-            { id: 'mon001', name: 'Alienware AW3423DWF 34" QD-OLED', category: 'Monitor', brand: 'Dell', price: 450000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=AW3423DWF' },
-            { id: 'mon002', name: 'ASUS ROG Swift PG27AQDM 27" OLED', category: 'Monitor', brand: 'ASUS', price: 380000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=PG27AQDM' },
-            
-            // Laptops
-            { id: 'lap001', name: 'Razer Blade 16 (RTX 4090)', category: 'Laptop', brand: 'Razer', price: 1800000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=Razer+Blade+16' },
-            { id: 'lap002', name: 'ASUS ROG Zephyrus G14 (RTX 4070)', category: 'Laptop', brand: 'ASUS', price: 950000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=Zephyrus+G14' },
-            
-            // Cooling
-            { id: 'cool001', name: 'Corsair iCUE LINK H150i LCD AIO Cooler', category: 'Cooling', brand: 'Corsair', price: 110000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=H150i+AIO' },
-            { id: 'cool002', name: 'Noctua NH-D15 chromax.black', category: 'Cooling', brand: 'Noctua', price: 45000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=NH-D15' },
-            { id: 'cool003', name: 'Lian Li UNI FAN SL-INF 120 (3-Pack)', category: 'Cooling', brand: 'Lian Li', price: 38000, inStock: true, imageUrl: 'https://via.placeholder.com/300x300.png?text=UNI+FAN+SL' },
-
-        ];
-        this.setState({ products });
+        const order = this.state.orders.find(o => o.id === orderId);
+        if (order) {
+            order.status = status;
+            this.notify();
+        }
     }
 }
 
-// Export a singleton instance
+// Singleton instance
 const store = new Store();
 export default store;
