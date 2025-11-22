@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PC Builder - GamersEdge</title>
+
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="Build your dream PC with GamersEdge PC Builder. Ensure compatibility and performance.">
+
     <link rel="icon" href="assets/images/favicon.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -45,8 +49,8 @@
 
             const container = document.getElementById('component-list');
             container.innerHTML = products.map(p => `
-                <div class="holo-card glass-effect p-4 rounded-xl cursor-pointer border border-transparent hover:border-electric-cyan transition-all ${build[step.id]?.id === p.id ? 'border-electric-cyan bg-white/10' : ''}" onclick="selectComponent('${p.id}')">
-                    <img src="${p.image}" class="h-32 w-full object-contain mb-4 bg-white/5 rounded">
+                <div class="holo-card glass-effect p-4 rounded-xl cursor-pointer border border-transparent hover:border-electric-cyan transition-all ${build[step.id]?.id === p.id ? 'border-electric-cyan bg-white/10' : ''}" onclick="window.selectComponent('${p.id}')">
+                    <img src="${p.image}" onerror="this.src='https://placehold.co/200x200/000000/FFF?text=No+Image'" class="h-32 w-full object-contain mb-4 bg-white/5 rounded">
                     <h3 class="font-bold text-white">${p.name}</h3>
                     <p class="text-electric-cyan font-mono mt-2">${formatCurrency(p.price)}</p>
                 </div>
@@ -97,8 +101,10 @@
 
         window.addAllToCart = () => {
             Object.values(build).forEach(p => store.addToCart(p.id));
-            alert('Rig added to cart! Redirecting to store...');
-            window.location.href = '/';
+            ui.showToast('Rig added to cart! Redirecting to store...', 'success');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
         };
 
         window.resetBuild = () => {
@@ -115,6 +121,11 @@
     </script>
 </head>
 <body class="bg-void-black text-light-gray min-h-screen flex flex-col">
+
+    <!-- Global Preloader -->
+    <div id="global-preloader">
+        <div class="loader"></div>
+    </div>
 
     <div class="noise-overlay"></div>
     <div class="aurora-background"></div>
