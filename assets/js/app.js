@@ -1,4 +1,5 @@
 import store from './core/store.js';
+import ui from './core/ui.js';
 
 /**
  * assets/js/app.js
@@ -16,7 +17,7 @@ const renderProductCard = (product) => {
     return `
         <div class="holo-card glass-effect p-4 rounded-xl flex flex-col group" data-id="${product.id}">
             <div class="relative h-48 w-full overflow-hidden rounded-lg mb-4 bg-white/5 flex items-center justify-center">
-                <img src="${product.image}" alt="${product.name}" class="object-contain h-full w-full transition-transform duration-500 group-hover:scale-110">
+                <img src="${product.image}" alt="${product.name}" onerror="this.src='https://placehold.co/400x400/000000/FFF?text=No+Image'" class="object-contain h-full w-full transition-transform duration-500 group-hover:scale-110">
                 <div class="absolute top-2 right-2 bg-black/80 text-white text-xs font-bold px-2 py-1 rounded border border-electric-cyan">
                     ${product.brand}
                 </div>
@@ -241,16 +242,20 @@ const initCartDrawer = () => {
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', () => {
             if (store.state.cart.length === 0) {
-                alert('Your cart is empty!');
+                ui.showToast('Your cart is empty!', 'error');
                 return;
             }
 
             // Simulate Checkout Process
-            if (confirm(`Proceed to checkout for ${formatCurrency(store.getCartTotal())}?`)) {
-                const order = store.createOrder({ name: 'Guest User', email: 'guest@example.com' });
-                alert(`Order Placed Successfully! Order ID: ${order.id}`);
-                toggleCart(); // Close drawer
-            }
+            ui.confirm(
+                'Confirm Purchase',
+                `Proceed to checkout for ${formatCurrency(store.getCartTotal())}?`,
+                () => {
+                    const order = store.createOrder({ name: 'Guest User', email: 'guest@example.com' });
+                    ui.showToast(`Order Placed Successfully! Order ID: ${order.id}`, 'success');
+                    toggleCart(); // Close drawer
+                }
+            );
         });
     }
 };

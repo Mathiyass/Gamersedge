@@ -16,6 +16,41 @@ body {
     overflow-x: hidden;
 }
 
+/* --- Preloader --- */
+#global-preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--void-black);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease-out;
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--dark-gray);
+    border-top: 4px solid var(--electric-cyan);
+    border-right: 4px solid var(--hyper-violet);
+    border-radius: 50%;
+    animation: spin 1s linear infinite, glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px var(--electric-cyan); }
+    100% { box-shadow: 0 0 20px var(--hyper-violet); }
+}
+
 /* --- Background Effects --- */
 .noise-overlay {
     position: fixed;

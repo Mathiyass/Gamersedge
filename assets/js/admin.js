@@ -1,4 +1,5 @@
 import store from './core/store.js';
+import ui from './core/ui.js';
 
 /**
  * assets/js/admin.js
@@ -31,7 +32,7 @@ const renderInventoryRow = (product) => {
             <td class="p-4 text-sm text-white font-bold">#${product.id}</td>
             <td class="p-4">
                 <div class="flex items-center gap-3">
-                    <img src="${product.image}" class="w-10 h-10 object-contain bg-white/5 rounded">
+                    <img src="${product.image}" onerror="this.src='https://placehold.co/100x100/000000/FFF?text=X'" class="w-10 h-10 object-contain bg-white/5 rounded">
                     <span class="text-sm text-gray-300">${product.name}</span>
                 </div>
             </td>
@@ -43,7 +44,7 @@ const renderInventoryRow = (product) => {
                 </span>
             </td>
             <td class="p-4">
-                <button class="text-gray-400 hover:text-white transition-colors" onclick="alert('Edit feature coming in V2')">
+                <button class="text-gray-400 hover:text-white transition-colors edit-product-btn" data-id="${product.id}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                 </button>
             </td>
@@ -101,6 +102,13 @@ const updateDashboard = () => {
     const inventoryBody = document.getElementById('inventory-body');
     if (inventoryBody) {
         inventoryBody.innerHTML = products.map(renderInventoryRow).join('');
+
+        // Attach edit listeners
+        document.querySelectorAll('.edit-product-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                ui.showToast('Edit feature coming in V2', 'info');
+            });
+        });
     }
 
     // Order War Room
@@ -135,8 +143,9 @@ const initAdmin = () => {
             if (store.login(username, password)) {
                 checkAuth();
                 updateDashboard();
+                ui.showToast('Welcome back, Commander.', 'success');
             } else {
-                alert('Invalid Credentials (try admin/admin)');
+                ui.showToast('Invalid Credentials (try admin/admin)', 'error');
             }
         });
     }
