@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Admin Panel</title>
+    <link rel="icon" href="../assets/images/favicon.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'void': '#050505', 'surface': '#0a0a0f', 'surface-light': '#12121a', 'neon-cyan': '#00AEEF', 'text-primary': '#ffffff', 'text-secondary': 'rgba(255, 255, 255, 0.7)', 'text-muted': 'rgba(255, 255, 255, 0.4)'},
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'], 'mono': ['JetBrains Mono', 'monospace'] },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-text-primary font-sans">
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-void p-6 flex flex-col">
+            <a href="dashboard.html" class="flex items-center gap-2 mb-10"><img src="../assets/images/logo.webp" alt="Logo" class="w-10 h-10"><span class="font-bold text-lg">GamersEdge</span></a>
+            <nav class="flex flex-col gap-2">
+                <a href="dashboard.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard</a>
+                <a href="products.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="package" class="w-5 h-5"></i> Products</a>
+                <a href="categories.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="folder" class="w-5 h-5"></i> Categories</a>
+                <a href="orders.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="list-ordered" class="w-5 h-5"></i> Orders</a>
+                <a href="settings.html" class="flex items-center gap-3 px-4 py-2 rounded-md bg-surface-light text-neon-cyan"><i data-lucide="settings" class="w-5 h-5"></i> Settings</a>
+            </nav>
+            <div class="mt-auto">
+                 <button id="logout-btn" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light text-text-secondary w-full mt-2"><i data-lucide="log-out" class="w-5 h-5"></i> Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <header class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold">Store Settings</h1>
+                <button form="settings-form" type="submit" class="bg-neon-cyan text-void font-bold py-2 px-6 rounded-lg">Save Changes</button>
+            </header>
+
+            <form id="settings-form" class="space-y-8">
+                <!-- General Settings -->
+                <div class="bg-surface-light p-6 rounded-xl">
+                    <h2 class="text-xl font-semibold mb-4 border-b border-surface pb-2">General</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="storeName" class="block text-sm text-text-secondary mb-1">Store Name</label>
+                            <input type="text" id="storeName" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                        </div>
+                         <div>
+                            <label for="tagline" class="block text-sm text-text-secondary mb-1">Tagline</label>
+                            <input type="text" id="tagline" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                        </div>
+                        <div>
+                            <label for="logo" class="block text-sm text-text-secondary mb-1">Logo URL</label>
+                            <input type="text" id="logo" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm text-text-secondary mb-1">Contact Email</label>
+                            <input type="email" id="email" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                        </div>
+                         <div>
+                            <label for="phone" class="block text-sm text-text-secondary mb-1">Primary Phone</label>
+                            <input type="text" id="phone" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                        </div>
+                         <div>
+                            <label for="address" class="block text-sm text-text-secondary mb-1">Address</label>
+                            <input type="text" id="address" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                        </div>
+                    </div>
+                </div>
+                
+                 <!-- Homepage Settings -->
+                <div class="bg-surface-light p-6 rounded-xl">
+                    <h2 class="text-xl font-semibold mb-4 border-b border-surface pb-2">Homepage</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="heroTitle" class="block text-sm text-text-secondary mb-1">Hero Title</label>
+                            <input type="text" id="heroTitle" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                        </div>
+                         <div>
+                            <label for="heroSubtitle" class="block text-sm text-text-secondary mb-1">Hero Subtitle</label>
+                            <input type="text" id="heroSubtitle" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                        </div>
+                        <div>
+                            <label for="heroBackground" class="block text-sm text-text-secondary mb-1">Hero Background URL</label>
+                            <input type="text" id="heroBackground" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                        </div>
+                        <div>
+                            <label for="featuredCount" class="block text-sm text-text-secondary mb-1">Featured Products Count</label>
+                            <input type="number" id="featuredCount" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E-commerce Settings -->
+                <div class="bg-surface-light p-6 rounded-xl">
+                    <h2 class="text-xl font-semibold mb-4 border-b border-surface pb-2">E-commerce</h2>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div>
+                            <label for="taxRate" class="block text-sm text-text-secondary mb-1">Tax Rate (%)</label>
+                            <input type="number" id="taxRate" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                        </div>
+                        <div>
+                            <label for="shippingRate" class="block text-sm text-text-secondary mb-1">Shipping Flat Rate (LKR)</label>
+                            <input type="number" id="shippingRate" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                        </div>
+                        <div>
+                            <label for="freeShippingThreshold" class="block text-sm text-text-secondary mb-1">Free Shipping Threshold (LKR)</label>
+                            <input type="number" id="freeShippingThreshold" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                        </div>
+                    </div>
+                </div>
+                
+                 <!-- Security Settings -->
+                <div class="bg-surface-light p-6 rounded-xl">
+                    <h2 class="text-xl font-semibold mb-4 border-b border-surface pb-2">Security</h2>
+                    <div class="max-w-md space-y-4">
+                         <div>
+                            <label for="adminUsername" class="block text-sm text-text-secondary mb-1">Admin Username</label>
+                            <input type="text" id="adminUsername" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                        </div>
+                        <div>
+                            <label for="currentPassword" class="block text-sm text-text-secondary mb-1">Current Password</label>
+                            <input type="password" id="currentPassword" class="w-full bg-surface p-2 rounded-md border border-surface-light" placeholder="Leave blank to keep unchanged">
+                        </div>
+                        <div>
+                            <label for="newPassword" class="block text-sm text-text-secondary mb-1">New Password</label>
+                            <input type="password" id="newPassword" class="w-full bg-surface p-2 rounded-md border border-surface-light" placeholder="Leave blank to keep unchanged">
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Data Management -->
+                <div class="bg-surface-light p-6 rounded-xl">
+                    <h2 class="text-xl font-semibold mb-4 border-b border-surface pb-2">Data Management</h2>
+                    <div class="flex gap-4">
+                        <button type="button" id="export-data" class="bg-green-500 text-white font-bold py-2 px-4 rounded-md">Export Data</button>
+                        <button type="button" id="import-data-btn" class="bg-amber-500 text-white font-bold py-2 px-4 rounded-md">Import Data</button>
+                        <input type="file" id="import-file" class="hidden" accept=".json">
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+    
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/core/store.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const Admin = {
+            defaultCredentials: { username: 'admin', password: 'admin' },
+            checkAuth() {
+                const session = Store.getAdminAuth();
+                if (!session.loggedIn || new Date(session.expiresAt) < new Date()) {
+                    window.location.href = 'index.html';
+                }
+            },
+            logout() {
+                Store.saveAdminAuth({});
+                window.location.href = 'index.html';
+            },
+            getCredentials() {
+                const settings = Store.getSettings();
+                return {
+                    username: settings.adminUsername || this.defaultCredentials.username,
+                    password: settings.adminPassword || this.defaultCredentials.password
+                };
+            },
+            exportData() {
+                const data = {
+                    products: Store.getProducts(),
+                    categories: Store.getCategories(),
+                    settings: Store.getSettings(),
+                };
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `gamersedge_backup_${Date.now()}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            },
+            importData(file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (data.products) Store.saveProducts(data.products);
+                        if (data.categories) Store.saveCategories(data.categories);
+                        if (data.settings) Store.saveSettings(data.settings);
+                        Utils.showToast('Data imported successfully!', 'success');
+                        setTimeout(() => window.location.reload(), 1000);
+                    } catch (err) {
+                        Utils.showToast('Invalid JSON file.', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        };
+
+        const SettingsPage = {
+            init() {
+                this.loadSettings();
+                document.getElementById('settings-form').addEventListener('submit', (e) => this.saveSettings(e));
+                document.getElementById('export-data').addEventListener('click', () => Admin.exportData());
+                document.getElementById('import-data-btn').addEventListener('click', () => document.getElementById('import-file').click());
+                document.getElementById('import-file').addEventListener('change', (e) => Admin.importData(e.target.files[0]));
+            },
+            loadSettings() {
+                const settings = Store.getSettings();
+                const creds = Admin.getCredentials();
+
+                document.getElementById('storeName').value = settings.storeName || '';
+                document.getElementById('tagline').value = settings.tagline || '';
+                document.getElementById('logo').value = settings.logo || '';
+                document.getElementById('email').value = settings.email || '';
+                document.getElementById('phone').value = settings.phone || '';
+                document.getElementById('address').value = settings.address || '';
+                document.getElementById('heroTitle').value = settings.heroTitle || '';
+                document.getElementById('heroSubtitle').value = settings.heroSubtitle || '';
+                document.getElementById('heroBackground').value = settings.heroBackground || '';
+                document.getElementById('featuredCount').value = settings.featuredCount || 8;
+                document.getElementById('taxRate').value = settings.taxRate || 0;
+                document.getElementById('shippingRate').value = settings.shippingRate || 0;
+                document.getElementById('freeShippingThreshold').value = settings.freeShippingThreshold || 0;
+                document.getElementById('adminUsername').value = creds.username;
+            },
+            saveSettings(e) {
+                e.preventDefault();
+                const currentSettings = Store.getSettings();
+                
+                const newSettings = {
+                    ...currentSettings,
+                    storeName: document.getElementById('storeName').value,
+                    tagline: document.getElementById('tagline').value,
+                    logo: document.getElementById('logo').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    address: document.getElementById('address').value,
+                    heroTitle: document.getElementById('heroTitle').value,
+                    heroSubtitle: document.getElementById('heroSubtitle').value,
+                    heroBackground: document.getElementById('heroBackground').value,
+                    featuredCount: parseInt(document.getElementById('featuredCount').value),
+                    taxRate: parseFloat(document.getElementById('taxRate').value),
+                    shippingRate: parseFloat(document.getElementById('shippingRate').value),
+                    freeShippingThreshold: parseFloat(document.getElementById('freeShippingThreshold').value),
+                    adminUsername: document.getElementById('adminUsername').value,
+                };
+
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const creds = Admin.getCredentials();
+
+                if (newPassword) {
+                    if (currentPassword === creds.password) {
+                        newSettings.adminPassword = newPassword;
+                        Utils.showToast('Password updated successfully.', 'success');
+                    } else {
+                        Utils.showToast('Current password incorrect. Password not changed.', 'error');
+                    }
+                }
+                
+                Store.saveSettings(newSettings);
+                Utils.showToast('Settings saved successfully!', 'success');
+            }
+        };
+
+        lucide.createIcons();
+        Admin.checkAuth();
+        document.getElementById('logout-btn').addEventListener('click', () => Admin.logout());
+        SettingsPage.init();
+    });
+    </script>
+</body>
+</html>

@@ -3,207 +3,399 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GamersEdge - Architect Your Destiny</title>
-    
-    <!-- Meta Tags for SEO -->
-    <meta name="description" content="GamersEdge - The ultimate destination for elite gaming hardware. Custom PC Builder, GPUs, CPUs, and more. Architect your destiny.">
-    <meta name="keywords" content="gaming pc, pc builder, graphics card, rtx 4090, gaming hardware, sri lanka, gamersedge">
-    <meta name="author" content="GamersEdge">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://gamersedge.lk/">
-    <meta property="og:title" content="GamersEdge - Architect Your Destiny">
-    <meta property="og:description" content="The ultimate destination for elite gaming hardware. Forge your path to victory.">
-    <meta property="og:image" content="assets/images/banner-main.jpg">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://gamersedge.lk/">
-    <meta property="twitter:title" content="GamersEdge - Architect Your Destiny">
-    <meta property="twitter:description" content="The ultimate destination for elite gaming hardware. Forge your path to victory.">
-    <meta property="twitter:image" content="assets/images/banner-main.jpg">
-
-    <!-- Favicon -->
+    <title>GamersEdge - Dominate the Digital Realm</title>
     <link rel="icon" href="assets/images/favicon.jpg">
 
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Google Fonts (Inter) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Fuse.js for Fuzzy Search -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/7.0.0/fuse.min.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- ES6 Module Script -->
-    <script src="assets/js/app.js" type="module" defer></script>
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'void': '#050505',
+                        'surface': '#0a0a0f',
+                        'surface-light': '#12121a',
+                        'neon-cyan': '#00AEEF',
+                        'hyper-violet': '#7c3aed',
+                        'electric-pink': '#ec4899',
+                        'success-green': '#10b981',
+                        'warning-amber': '#f59e0b',
+                        'error-red': '#ef4444',
+                        'text-primary': '#ffffff',
+                        'text-secondary': 'rgba(255, 255, 255, 0.7)',
+                        'text-muted': 'rgba(255, 255, 255, 0.4)',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { boxShadow: '0 0 20px rgba(0, 174, 239, 0.3)' },
+                            '100%': { boxShadow: '0 0 40px rgba(0, 174, 239, 0.6)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
 </head>
-<body class="bg-void-black text-light-gray">
+<body class="bg-void text-text-primary font-sans">
 
-    <!-- Global Preloader -->
-    <div id="global-preloader">
-        <div class="loader"></div>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-void z-[100] flex flex-col items-center justify-center font-mono">
+        <img src="assets/images/logo.webp" alt="GamersEdge Logo" class="w-32 h-32 loader-logo mb-8">
+        
+        <div class="w-72 relative mb-4">
+            <div class="w-full bg-surface h-2 rounded-full overflow-hidden">
+                <div class="bg-neon-cyan h-full rounded-full loader-progress" style="width: 0%;"></div>
+            </div>
+            <span id="loader-percentage" class="absolute -right-12 top-1/2 -translate-y-1/2 text-neon-cyan">0%</span>
+        </div>
+        
+        <p id="loader-status-text" class="mt-4 text-text-secondary h-6">Initializing Systems...</p>
+
+        <div id="loader-tasks" class="text-left text-text-muted mt-4 w-72 h-24 overflow-hidden relative">
+            <div class="absolute top-0 left-0">
+                <p class="loader-task opacity-0 transform translate-y-4">&gt; Loading Assets</p>
+                <p class="loader-task opacity-0 transform translate-y-4">&gt; Configuring Store</p>
+                <p class="loader-task opacity-0 transform translate-y-4">&gt; Ready to Dominate</p>
+            </div>
+        </div>
+
+        <button id="skip-loader" class="absolute bottom-10 text-text-muted hover:text-white opacity-0 transition-opacity duration-300">Skip</button>
     </div>
 
-    <!-- Background Effects -->
-    <div class="noise-overlay"></div>
-    <div class="aurora-background"></div>
-
     <!-- Header -->
-    <header class="sticky top-0 z-50 glass-effect">
-        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="/" class="flex items-center space-x-2">
-                <img src="assets/images/logo.webp" alt="GamersEdge Logo" class="h-10">
-                <span class="text-2xl font-extrabold text-white tracking-wider">GamersEdge</span>
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="assets/images/logo.webp" alt="GamersEdge Logo" class="w-10 h-10">
+                <span class="text-xl font-bold">GamersEdge</span>
             </a>
-            
-            <!-- Mega Menu Placeholder - Desktop -->
-            <div class="hidden lg:flex items-center space-x-8 text-lg">
-                <a href="#featured" class="hover:text-electric-cyan transition-colors">Featured Drops</a>
-                <a href="builder.html" class="hover:text-electric-cyan transition-colors">PC Builder</a>
-                <a href="#categories" class="hover:text-electric-cyan transition-colors">Categories</a>
-                <a href="#contact" class="hover:text-electric-cyan transition-colors">Contact</a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-white hover:text-neon-cyan transition-colors">Home</a>
+                <a href="shop.html" class="text-white hover:text-neon-cyan transition-colors">Shop</a>
+                <a href="about.html" class="text-white hover:text-neon-cyan transition-colors">About</a>
+                <a href="contact.html" class="text-white hover:text-neon-cyan transition-colors">Contact</a>
             </div>
-
-            <div class="flex items-center space-x-4">
-                <button id="search-button" aria-label="Open Search" class="hover:text-electric-cyan transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                </button>
-                <button id="cart-button" aria-label="Open Cart" class="relative hover:text-electric-cyan transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                    <span id="cart-item-count" class="absolute -top-2 -right-2 bg-hyper-violet text-xs text-white rounded-full w-5 h-5 flex items-center justify-center">0</span>
-                </button>
-                 <a href="admin.html" aria-label="Admin Panel" class="hover:text-electric-cyan transition-colors">
-                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
-                      </svg>                      
+            <div class="flex items-center gap-4">
+                <button id="search-btn" class="hover:text-neon-cyan transition-colors"><i data-lucide="search"></i></button>
+                <a href="wishlist.html" class="hover:text-neon-cyan transition-colors relative">
+                    <i data-lucide="heart"></i>
+                    <span id="wishlist-count" class="absolute -top-2 -right-2 bg-electric-pink text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold" style="display: none;">0</span>
                 </a>
+                <button data-open-cart class="relative hover:text-neon-cyan transition-colors">
+                    <i data-lucide="shopping-cart" id="cart-icon"></i>
+                    <span class="cart-count absolute -top-2 -right-2 bg-neon-cyan text-void text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                </button>
             </div>
         </nav>
     </header>
 
+    <!-- Cart Drawer -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/50 z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-surface-dark z-[60] transform translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="flex justify-between items-center p-6 border-b border-surface-light">
+            <h3 class="text-xl font-bold">Your Rig 🛒</h3>
+            <button data-close-cart class="text-text-muted hover:text-white"><i data-lucide="x"></i></button>
+        </div>
+        <div id="cart-items" class="flex-1 p-6 overflow-y-auto">
+            <!-- Cart items will be rendered here by JavaScript -->
+        </div>
+        <div class="p-6 border-t border-surface-light">
+            <div class="flex justify-between text-lg">
+                <span>Subtotal:</span>
+                <span id="cart-total" class="font-mono">Rs. 0</span>
+            </div>
+            <a href="cart.html" class="block text-center w-full bg-neon-cyan text-void font-bold py-3 rounded-lg mt-4 hover:bg-opacity-80 transition-all">Checkout Now</a>
+            <button data-close-cart class="block text-center w-full text-text-secondary mt-2">or Continue Shopping</button>
+        </div>
+    </div>
+    
+    <!-- Search Modal -->
+    <div id="search-modal" class="fixed inset-0 bg-void/80 backdrop-blur-lg z-[70] hidden items-center justify-center p-4">
+      <div class="w-full max-w-2xl bg-surface-dark rounded-xl border border-surface-light shadow-2xl shadow-neon-cyan/10">
+        <div class="p-4">
+          <div class="relative">
+            <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted"></i>
+            <input type="text" id="search-input" placeholder="Search products, categories, brands..." class="w-full bg-surface-light border-2 border-transparent focus:border-neon-cyan rounded-lg pl-12 pr-4 py-3 text-white outline-none transition-all">
+          </div>
+        </div>
+        <div id="search-results" class="p-4 border-t border-surface-light max-h-[60vh] overflow-y-auto">
+          <!-- Instant results will appear here -->
+        </div>
+        <div class="px-4 py-2 bg-surface-dark rounded-b-xl text-xs text-text-muted flex justify-between">
+            <span>Press <kbd class="px-2 py-1 bg-surface-light rounded">ESC</kbd> to close</span>
+            <span><kbd class="px-2 py-1 bg-surface-light rounded">↵</kbd> View All</span>
+        </div>
+      </div>
+    </div>
+
     <main>
         <!-- Hero Section -->
-        <section class="relative h-[80vh] flex items-center justify-center text-center overflow-hidden">
-            <div class="absolute inset-0 z-0">
-                <img src="assets/images/banner-main.jpg" alt="Cyberpunk city" class="w-full h-full object-cover object-center opacity-40" style="transform: scale(1.1);">
-                <div class="absolute inset-0 bg-gradient-to-t from-void-black to-transparent"></div>
-            </div>
-            <div class="relative z-10 flex flex-col items-center">
-                <h1 class="glitch-text" data-text="Architect Your Destiny">Architect Your Destiny</h1>
-                <p class="mt-4 text-xl max-w-2xl text-gray-300">The ultimate destination for elite gaming hardware. Forge your path to victory with components that redefine performance.</p>
-                <a href="#featured" class="mt-8 px-8 py-3 bg-gradient-to-r from-electric-cyan to-hyper-violet text-white font-bold rounded-lg hover-levitate transition-all transform hover:scale-105">Explore Builds</a>
+        <section class="relative h-screen bg-cover bg-center flex items-center justify-center text-center" style="background-image: url('assets/images/banner-main.jpg');">
+            <div class="absolute inset-0 bg-black/60"></div>
+            <div class="relative z-10 px-4">
+                <h1 id="hero-title" class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4 animate-on-scroll">Build Your Dream Setup</h1>
+                <p id="hero-subtitle" class="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-8 animate-on-scroll" style="animation-delay: 0.2s;">Premium gaming hardware at unbeatable prices, delivered to your doorstep in Sri Lanka.</p>
+                <a href="shop.html" id="hero-cta" class="bg-neon-cyan text-void font-bold py-3 px-8 rounded-lg text-lg hover:bg-opacity-80 transition-all magnetic-btn animate-on-scroll" style="animation-delay: 0.4s;">Shop Now</a>
             </div>
         </section>
 
-        <!-- Featured Drops Section -->
-        <section id="featured" class="container mx-auto px-6 py-20">
-            <h2 class="text-4xl font-extrabold text-center mb-12">Featured Drops</h2>
-            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <!-- Product cards will be dynamically inserted here by app.js -->
-            </div>
-        </section>
-
-        <!-- Bento Grid Categories -->
-        <section id="categories" class="container mx-auto px-6 py-20">
-             <h2 class="text-4xl font-extrabold text-center mb-12">Core Components</h2>
-             <div class="grid grid-cols-3 grid-rows-2 gap-4 h-96">
-                <div class="col-span-1 row-span-2 rounded-xl glass-effect p-6 flex flex-col justify-end hover:border-electric-cyan transition-all" style="background-image: url('https://via.placeholder.com/400x800.png?text=GPUs'); background-size: cover;">
-                    <h3 class="text-2xl font-bold">GPUs</h3><p>The Heart of Your Rig</p>
-                </div>
-                <div class="col-span-1 row-span-1 rounded-xl glass-effect p-6 flex flex-col justify-end hover:border-electric-cyan transition-all" style="background-image: url('https://via.placeholder.com/400x400.png?text=CPUs'); background-size: cover;">
-                    <h3 class="text-2xl font-bold">CPUs</h3><p>Unleash Raw Power</p>
-                </div>
-                <div class="col-span-1 row-span-1 rounded-xl glass-effect p-6 flex flex-col justify-end hover:border-hyper-violet transition-all" style="background-image: url('https://via.placeholder.com/400x400.png?text=RAM'); background-size: cover;">
-                    <h3 class="text-2xl font-bold">Memory</h3><p>Max Out Your Speed</p>
-                </div>
-                <div class="col-span-2 row-span-1 rounded-xl glass-effect p-6 flex flex-col justify-end hover:border-hyper-violet transition-all" style="background-image: url('https://via.placeholder.com/800x400.png?text=Monitors'); background-size: cover;">
-                    <h3 class="text-2xl font-bold">Displays</h3><p>See The Victory</p>
-                </div>
-             </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section class="py-20">
-            <h2 class="text-4xl font-extrabold text-center mb-12">From The Community</h2>
-            <div class="container mx-auto px-6 grid lg:grid-cols-3 gap-8">
-                <div class="glass-effect p-8 rounded-xl">
-                    <p>"GamersEdge isn't just a store; it's an experience. The quality of their curated components is unmatched. My new rig is a monster!"</p>
-                    <div class="mt-4 font-bold text-electric-cyan">- Alex "Cypher" T.</div>
-                </div>
-                <div class="glass-effect p-8 rounded-xl">
-                    <p>"The PC Builder tool was a game-changer. It made a complex process incredibly simple and intuitive. 10/10 would recommend."</p>
-                    <div class="mt-4 font-bold text-electric-cyan">- Maya "Glitch" S.</div>
-                </div>
-                <div class="glass-effect p-8 rounded-xl">
-                    <p>"From browsing to unboxing, the entire process felt premium. The customer support is top-notch. Found my go-to spot for all future upgrades."</p>
-                    <div class="mt-4 font-bold text-electric-cyan">- Jordan "Hex" W.</div>
+        <!-- Featured Categories -->
+        <section class="py-20 bg-surface">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold mb-12 animate-on-scroll">Browse by Category</h2>
+                <div id="category-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4 stagger-children">
+                    <!-- Categories will be rendered by JS -->
                 </div>
             </div>
         </section>
+        
+        <!-- Featured Products -->
+        <section class="py-20 bg-void">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 animate-on-scroll">Featured Products</h2>
+                <div id="featured-products" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 stagger-children">
+                    <!-- Product cards will be rendered by JS -->
+                </div>
+                <div class="text-center mt-12">
+                    <a href="shop.html" class="border border-neon-cyan text-neon-cyan font-bold py-3 px-8 rounded-lg hover:bg-neon-cyan hover:text-void transition-all magnetic-btn">View All Products</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Why Choose Us -->
+        <section class="py-20 bg-surface">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 animate-on-scroll">Why GamersEdge?</h2>
+                <div class="grid md:grid-cols-3 gap-12 text-center stagger-children">
+                    <div class="animate-on-scroll">
+                        <div class="flex justify-center mb-4"><i data-lucide="truck" class="text-neon-cyan" size="48"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Island-Wide Delivery</h3>
+                        <p class="text-text-secondary">Get your gear delivered fast, anywhere in Sri Lanka. Track your order every step of the way.</p>
+                    </div>
+                    <div class="animate-on-scroll" style="animation-delay: 0.2s;">
+                        <div class="flex justify-center mb-4"><i data-lucide="shield-check" class="text-neon-cyan" size="48"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Genuine Warranty</h3>
+                        <p class="text-text-secondary">We only sell 100% genuine products with official manufacturer warranties. Your investment is safe.</p>
+                    </div>
+                    <div class="animate-on-scroll" style="animation-delay: 0.4s;">
+                        <div class="flex justify-center mb-4"><i data-lucide="wrench" class="text-neon-cyan" size="48"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Expert Support</h3>
+                        <p class="text-text-secondary">Our team of passionate gamers is here to help you build your perfect rig and troubleshoot any issues.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Mega-Footer -->
-    <footer id="contact" class="bg-dark-gray/50 border-t border-gray-700/50 mt-20">
-        <div class="container mx-auto px-6 py-12 grid lg:grid-cols-3 gap-10">
-            <div>
-                <h3 class="text-2xl font-extrabold text-white">GamersEdge</h3>
-                <p class="mt-2 text-gray-400">Architect Your Destiny.</p>
-                <div class="mt-4 flex space-x-4">
-                    <a href="https://www.facebook.com/profile.php?id=61580407830126" target="_blank" class="text-gray-400 hover:text-electric-cyan"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path></svg></a>
+    <!-- Footer -->
+    <footer class="bg-surface-dark py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="font-bold text-lg mb-4">GamersEdge</h4>
+                    <p class="text-text-secondary">Dominate the Digital Realm. The #1 source for premium PC hardware in Sri Lanka.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="shop.html" class="text-text-secondary hover:text-white">Shop</a></li>
+                        <a href="about.html" class="text-text-secondary hover:text-white">About Us</a>
+                        <li><a href="admin/index.html" class="text-text-secondary hover:text-white">Admin Login</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Contact Us</h4>
+                    <ul class="space-y-2 text-text-secondary">
+                        <li id="footer-email">sl.gamersedge@gmail.com</li>
+                        <li id="footer-phone">074 070 5733</li>
+                        <li id="footer-address">Wilimbula, Henegama, Sri Lanka</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-text-secondary hover:text-white"><i data-lucide="facebook"></i></a>
+                        <a href="#" class="text-text-secondary hover:text-white"><i data-lucide="instagram"></i></a>
+                        <a href="#" class="text-text-secondary hover:text-white"><i data-lucide="youtube"></i></a>
+                    </div>
                 </div>
             </div>
-            <div>
-                <h3 class="text-lg font-semibold text-white">Contact (Sri Lanka)</h3>
-                <ul class="mt-4 space-y-2 text-gray-400">
-                    <li>Phone: 074 070 5733 / 076 532 9455</li>
-                    <li>Email: sl.gamersedge@gmail.com</li>
-                    <li>HQ: 207/04/03/F/2, Wilimbula, Henegama, Sri Lanka.</li>
-                </ul>
+            <div class="border-t border-surface-light pt-8 text-center text-text-muted">
+                &copy; <span id="footer-year">2024</span> GamersEdge. All Rights Reserved.
             </div>
-            <div class="h-48 w-full">
-                <iframe 
-                    class="w-full h-full rounded-lg"
-                    loading="lazy"
-                    allowfullscreen
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d990.0331006122657!2d80.0790000290158!3d7.02625299971037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2fd7722253e6b%3A0x3bfe14e493302720!2sWilimbula!5e0!3m2!1sen!2slk!4v1672522500000">
-                </iframe>
-            </div>
-        </div>
-        <div class="text-center py-4 border-t border-gray-800/50 text-gray-500">
-            &copy; 2025 GamersEdge. All Rights Reserved.
         </div>
     </footer>
 
-    <!-- Neural Search Overlay -->
-    <div id="search-overlay" class="fixed inset-0 bg-void-black/80 backdrop-blur-sm z-50 hidden flex items-start justify-center pt-20">
-        <div class="w-full max-w-2xl">
-            <input type="text" id="search-input" placeholder="Search for components, builds, or brands..." class="w-full p-4 bg-dark-gray border border-gray-600 rounded-lg text-white text-lg focus:ring-2 focus:ring-electric-cyan focus:outline-none">
-            <div id="search-results" class="mt-4">
-                <!-- Search results will be populated here -->
-            </div>
-        </div>
-    </div>
 
-    <!-- Infinite Cart Drawer -->
-    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-dark-gray shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
-        <div class="flex justify-between items-center p-6 border-b border-gray-700">
-            <h2 class="text-2xl font-bold">Your Rig</h2>
-            <button id="close-cart-button" class="text-gray-400 hover:text-white">&times;</button>
-        </div>
-        <div id="cart-items" class="p-6 overflow-y-auto h-[calc(100vh-160px)]">
-            <!-- Cart items will be populated here -->
-        </div>
-        <div class="p-6 border-t border-gray-700 absolute bottom-0 w-full">
-            <div class="flex justify-between items-center text-xl">
-                <span>Subtotal:</span>
-                <span id="cart-total">Rs. 0.00</span>
-            </div>
-            <button id="checkout-btn" class="w-full mt-4 py-3 bg-gradient-to-r from-electric-cyan to-hyper-violet text-white font-bold rounded-lg hover-levitate">Checkout</button>
-        </div>
-    </div>
+    <!-- Core Scripts -->
+    <script src="assets/js/core/store.js"></script>
+    <script src="assets/js/core/ui.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const App = {
+                init() {
+                    if(window.Seeder) Seeder.run();
+                    this.loadSettings();
+                    this.renderFeaturedCategories();
+                    this.renderFeaturedProducts();
+                    if(window.Animations) Animations.init();
+                    if(window.Cart) Cart.init();
+                    this.initUI();
+                },
+                loadSettings() {
+                    const settings = Store.getSettings();
+                    if (settings.heroTitle) document.getElementById('hero-title').textContent = settings.heroTitle;
+                    if (settings.heroSubtitle) document.getElementById('hero-subtitle').textContent = settings.heroSubtitle;
+                    if (settings.heroCTA) document.getElementById('hero-cta').textContent = settings.heroCTA;
+                    if (settings.heroBackground) {
+                        const hero = document.querySelector('.h-screen.bg-cover');
+                        if(hero) hero.style.backgroundImage = `url('${settings.heroBackground}')`;
+                    }
+                    if(settings.email) {
+                        const emailEl = document.getElementById('footer-email');
+                        if(emailEl) emailEl.textContent = settings.email;
+                    }
+                    if(settings.phone) {
+                        const phoneEl = document.getElementById('footer-phone');
+                        if(phoneEl) phoneEl.textContent = settings.phone;
+                    }
+                    if(settings.address) {
+                        const addressEl = document.getElementById('footer-address');
+                        if(addressEl) addressEl.textContent = settings.address;
+                    }
+                },
+                renderFeaturedCategories() {
+                    const categories = Store.getCategories();
+                    const container = document.getElementById('category-grid');
+                    if (container) {
+                        container.innerHTML = categories.slice(0, 7).map(category => UI.createCategoryCard(category)).join('');
+                    }
+                },
+                renderFeaturedProducts() {
+                    const products = Store.getProducts();
+                    const container = document.getElementById('featured-products');
+                    if (container) {
+                        const featuredCount = Store.getSettings().featuredCount || 8;
+                        container.innerHTML = products.filter(p => p.featured).slice(0, featuredCount).map(product => UI.createProductCard(product)).join('');
+                        if(window.Animations) Animations.init3DCards();
+                    }
+                },
+                initUI() {
+                    lucide.createIcons();
+                    document.getElementById('footer-year').textContent = new Date().getFullYear();
+                    // Search Modal Logic
+                    const searchBtn = document.getElementById('search-btn');
+                    const searchModal = document.getElementById('search-modal');
+                    const searchInput = document.getElementById('search-input');
+                    if(searchBtn && searchModal && searchInput) {
+                        const openSearch = () => searchModal.classList.add('flex');
+                        const closeSearch = () => searchModal.classList.remove('flex');
+                        searchBtn.addEventListener('click', openSearch);
+                        searchModal.addEventListener('click', (e) => { if(e.target === searchModal) closeSearch(); });
+                        document.addEventListener('keydown', (e) => {
+                            if (e.key === 'Escape') closeSearch();
+                            if (e.ctrlKey && e.key === 'k') { e.preventDefault(); openSearch(); }
+                        });
+                        if(window.Search) Search.init(searchInput, document.getElementById('search-results'));
+                    }
+                }
+            };
+
+            const Wishlist = {
+                items: [],
+                init() {
+                    this.items = Store._get(STORAGE_KEYS.WISHLIST, []);
+                    this.updateCount();
+                },
+                save() {
+                    Store._set(STORAGE_KEYS.WISHLIST, this.items);
+                    this.updateCount();
+                },
+                toggle(product) {
+                    const inWishlist = this.items.some(p => p.id === product.id);
+                    if (inWishlist) {
+                        this.items = this.items.filter(p => p.id !== product.id);
+                        Utils.showToast(`${product.name} removed from wishlist.`, 'info');
+                    } else {
+                        this.items.push(product);
+                        Utils.showToast(`${product.name} added to wishlist!`, 'info');
+                    }
+                    this.save();
+                },
+                updateCount() {
+                    const count = this.items.length;
+                    document.querySelectorAll('.wishlist-count').forEach(el => {
+                        el.textContent = count;
+                        el.style.display = count > 0 ? 'flex' : 'none';
+                    });
+                }
+            };
+            
+            App.init();
+            Wishlist.init();
+
+            document.body.addEventListener('click', e => {
+                const wishlistBtn = e.target.closest('.wishlist-btn');
+                if (wishlistBtn) {
+                    const productId = wishlistBtn.dataset.productId;
+                    const product = Store.getProductById(productId);
+                    if (product) {
+                        Wishlist.toggle(product);
+                        wishlistBtn.classList.toggle('text-electric-pink', Wishlist.items.some(p => p.id === productId));
+                    }
+                }
+
+                const addToCartBtn = e.target.closest('.add-to-cart-btn');
+                if (addToCartBtn) {
+                    const productId = addToCartBtn.dataset.productId;
+                    const product = Store.getProductById(productId);
+                    if (product) {
+                        if(window.Cart) Cart.add(product);
+                        if(window.Animations) {
+                            const card = addToCartBtn.closest('.product-card');
+                            if(card) Animations.flyToCart(card.querySelector('.product-image'));
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>

@@ -1,149 +1,62 @@
-/**
- * assets/js/core/ui.js
- * The Face - Centralized UI Manager for Notifications and Modals
- */
+const UI = {
+    createProductCard(product) {
+        const discount = product.originalPrice ? Utils.calcDiscount(product.originalPrice, product.price) : 0;
+        const inStock = product.stock > 0;
 
-class UIManager {
-    constructor() {
-        this.initToastContainer();
-        this.initModalContainer();
-        this.initPreloader();
-    }
-
-    // --- Preloader ---
-    initPreloader() {
-        // Preloader is expected to be in the HTML.
-        // If it's there, we handle its removal.
-        // Check if load already fired
-        if (document.readyState === 'complete') {
-            this.removePreloader();
-        } else {
-            // Also listen for DOMContentLoaded as a fallback,
-            // though 'load' is preferred for full asset loading
-            window.addEventListener('load', () => this.removePreloader());
-        }
-    }
-
-    removePreloader() {
-        const preloader = document.getElementById('global-preloader');
-        if (preloader) {
-            preloader.style.opacity = '0';
-            setTimeout(() => {
-                preloader.remove();
-            }, 500);
-        }
-    }
-
-    // --- Toasts ---
-    initToastContainer() {
-        if (!document.getElementById('toast-container')) {
-            const container = document.createElement('div');
-            container.id = 'toast-container';
-            container.className = 'fixed bottom-5 right-5 z-50 flex flex-col gap-3';
-            document.body.appendChild(container);
-        }
-    }
-
-    showToast(message, type = 'info') {
-        const container = document.getElementById('toast-container');
-        const toast = document.createElement('div');
-
-        let colors = 'border-electric-cyan bg-dark-gray text-white';
-        let icon = '<svg class="w-6 h-6 text-electric-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
-
-        if (type === 'success') {
-            colors = 'border-green-500 bg-dark-gray text-white';
-            icon = '<svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
-        } else if (type === 'error') {
-            colors = 'border-red-500 bg-dark-gray text-white';
-            icon = '<svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
-        }
-
-        toast.className = `flex items-center gap-3 p-4 rounded-lg border-l-4 shadow-lg transform translate-y-10 opacity-0 transition-all duration-300 ${colors}`;
-        toast.innerHTML = `
-            ${icon}
-            <span class="font-medium">${message}</span>
-        `;
-
-        container.appendChild(toast);
-
-        // Animate In
-        requestAnimationFrame(() => {
-            toast.classList.remove('translate-y-10', 'opacity-0');
-        });
-
-        // Remove after 3s
-        setTimeout(() => {
-            toast.classList.add('translate-x-full', 'opacity-0');
-            setTimeout(() => {
-                toast.remove();
-            }, 300);
-        }, 3000);
-    }
-
-    // --- Modals ---
-    initModalContainer() {
-        if (!document.getElementById('modal-overlay')) {
-            const overlay = document.createElement('div');
-            overlay.id = 'modal-overlay';
-            overlay.className = 'fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300';
-            overlay.innerHTML = `
-                <div id="modal-content" class="bg-dark-gray border border-gray-700 rounded-xl max-w-md w-full p-6 transform scale-95 transition-transform duration-300 shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-electric-cyan to-hyper-violet"></div>
-                    <h3 id="modal-title" class="text-2xl font-bold text-white mb-4">Notification</h3>
-                    <p id="modal-body" class="text-gray-300 mb-8"></p>
-                    <div id="modal-actions" class="flex justify-end gap-4">
-                        <!-- Buttons injected here -->
+        return `
+            <div class="product-card bg-surface-dark rounded-xl overflow-hidden flex flex-col border border-transparent hover:border-neon-cyan transition-all duration-300 animate-on-scroll">
+                <div class="relative">
+                    ${discount > 0 ? `<div class="absolute top-4 left-4 bg-electric-pink text-white text-xs font-bold px-2 py-1 rounded">SALE -${discount}%</div>` : ''}
+                    <button class="wishlist-btn absolute top-4 right-4 text-white hover:text-electric-pink transition-colors" data-product-id="${product.id}"><i data-lucide="heart"></i></button>
+                    <div class="product-image-wrapper p-4">
+                        <img src="${product.primaryImage}" alt="${product.name}" class="product-image w-full h-48 object-cover rounded-lg">
                     </div>
                 </div>
-            `;
-            document.body.appendChild(overlay);
-        }
-    }
-
-    confirm(title, message, onConfirm, onCancel) {
-        const overlay = document.getElementById('modal-overlay');
-        const content = document.getElementById('modal-content');
-        const titleEl = document.getElementById('modal-title');
-        const bodyEl = document.getElementById('modal-body');
-        const actionsEl = document.getElementById('modal-actions');
-
-        titleEl.textContent = title;
-        bodyEl.textContent = message;
-
-        actionsEl.innerHTML = `
-            <button id="modal-cancel" class="px-4 py-2 text-gray-400 hover:text-white transition-colors">Cancel</button>
-            <button id="modal-confirm" class="px-6 py-2 bg-electric-cyan text-black font-bold rounded hover:bg-white transition-colors">Confirm</button>
+                <div class="p-4 flex flex-col flex-grow">
+                    <span class="text-xs text-text-muted mb-1">${product.brand.toUpperCase()}</span>
+                    <h3 class="text-md font-bold text-white mb-2 flex-grow">${Utils.truncate(product.name, 45)}</h3>
+                    <div class="flex items-center mb-2">
+                        <div class="flex text-amber-400">
+                            ${'★'.repeat(Math.round(product.rating))}${'☆'.repeat(5 - Math.round(product.rating))}
+                        </div>
+                        <span class="text-xs text-text-muted ml-2">(${product.reviewCount} reviews)</span>
+                    </div>
+                    <div class="mb-4">
+                        ${product.originalPrice ? `<span class="text-sm text-text-muted line-through">${Utils.formatLKR(product.originalPrice)}</span>` : ''}
+                        <span class="text-lg font-mono font-bold text-neon-cyan ml-2">${Utils.formatLKR(product.price)}</span>
+                    </div>
+                     <p class="text-sm mb-4 flex items-center ${inStock ? 'text-success-green' : 'text-error-red'}">
+                        <i data-lucide="${inStock ? 'check-circle' : 'x-circle'}" class="w-4 h-4 mr-2"></i>
+                        ${inStock ? 'In Stock' : 'Out of Stock'}
+                    </p>
+                    <div class="mt-auto grid grid-cols-2 gap-2">
+                        <a href="product.html?id=${product.id}" class="text-center w-full bg-surface-light text-white font-bold py-2 px-4 rounded-lg hover:bg-opacity-80 transition-all text-sm">Quick View</a>
+                        <button data-product-id="${product.id}" ${inStock ? '' : 'disabled'} class="add-to-cart-btn text-center w-full bg-neon-cyan text-void font-bold py-2 px-4 rounded-lg hover:bg-opacity-80 transition-all text-sm disabled:opacity-50 disabled:cursor-not-allowed">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
         `;
+    },
 
-        overlay.classList.remove('hidden');
-        // Trigger reflow
-        void overlay.offsetWidth;
-        overlay.classList.remove('opacity-0');
-        content.classList.remove('scale-95');
-        content.classList.add('scale-100');
+    createCategoryCard(category) {
+        return `
+            <a href="shop.html?category=${category.slug}" class="bg-surface-dark p-4 rounded-lg flex flex-col items-center justify-center text-center hover:bg-surface-light hover:-translate-y-1 transition-all duration-300 animate-on-scroll">
+                <span class="text-3xl mb-2">${category.icon}</span>
+                <span class="text-sm font-semibold">${category.name}</span>
+            </a>
+        `;
+    },
 
-        const cleanup = () => {
-            overlay.classList.add('opacity-0');
-            content.classList.remove('scale-100');
-            content.classList.add('scale-95');
-            setTimeout(() => {
-                overlay.classList.add('hidden');
-            }, 300);
-        };
-
-        document.getElementById('modal-confirm').onclick = () => {
-            if (onConfirm) onConfirm();
-            cleanup();
-        };
-
-        document.getElementById('modal-cancel').onclick = () => {
-            if (onCancel) onCancel();
-            cleanup();
-        };
+    createSearchResultItem(product) {
+        return `
+            <a href="product.html?id=${product.id}" class="flex items-center gap-4 p-3 rounded-lg hover:bg-surface-light transition-colors">
+                <img src="${product.primaryImage}" alt="${product.name}" class="w-12 h-12 object-cover rounded-md">
+                <div class="flex-1">
+                    <p class="text-white font-semibold">${product.name}</p>
+                    <p class="text-sm text-text-secondary">${product.brand}</p>
+                </div>
+                <p class="font-mono text-neon-cyan">${Utils.formatLKR(product.price)}</p>
+            </a>
+        `;
     }
-}
-
-// Singleton
-const uiManager = new UIManager();
-export default uiManager;
+};

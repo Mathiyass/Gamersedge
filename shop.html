@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - GamersEdge</title>
+    <link rel="icon" href="assets/images/favicon.jpg">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Custom CSS & JS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'void': '#050505', 'surface': '#0a0a0f', 'surface-light': '#12121a', 'neon-cyan': '#00AEEF', 'hyper-violet': '#7c3aed', 'electric-pink': '#ec4899', 'text-primary': '#ffffff', 'text-secondary': 'rgba(255, 255, 255, 0.7)', 'text-muted': 'rgba(255, 255, 255, 0.4)'},
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'], 'mono': ['JetBrains Mono', 'monospace'] },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-void text-text-primary font-sans">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 scrolled">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="assets/images/logo.webp" alt="GamersEdge Logo" class="w-10 h-10">
+                <span class="text-xl font-bold">GamersEdge</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-white hover:text-neon-cyan transition-colors">Home</a>
+                <a href="shop.html" class="text-neon-cyan font-bold transition-colors">Shop</a>
+                <a href="about.html" class="text-white hover:text-neon-cyan transition-colors">About</a>
+                <a href="contact.html" class="text-white hover:text-neon-cyan transition-colors">Contact</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="search-btn" class="hover:text-neon-cyan transition-colors"><i data-lucide="search"></i></button>
+                <a href="wishlist.html" class="hover:text-neon-cyan transition-colors relative">
+                    <i data-lucide="heart"></i>
+                    <span id="wishlist-count" class="absolute -top-2 -right-2 bg-electric-pink text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold" style="display: none;">0</span>
+                </a>
+                <button data-open-cart class="relative hover:text-neon-cyan transition-colors">
+                    <i data-lucide="shopping-cart" id="cart-icon"></i>
+                    <span class="cart-count absolute -top-2 -right-2 bg-neon-cyan text-void text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24">
+        <div class="container mx-auto px-4 py-12">
+            <h1 id="shop-title" class="text-4xl font-extrabold text-center mb-12">All Products</h1>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Filters Sidebar -->
+                <aside class="w-full lg:w-1/4">
+                    <div class="bg-surface-dark p-6 rounded-xl sticky top-28">
+                        <h3 class="text-xl font-bold mb-6">Filters</h3>
+                        
+                        <!-- Search Filter -->
+                        <div class="mb-6">
+                            <input type="text" id="shop-search-input" placeholder="Search in this collection..." class="w-full bg-surface text-white px-3 py-2 rounded-md outline-none focus:ring-2 focus:ring-neon-cyan border border-surface-light">
+                        </div>
+                        
+                        <!-- Category Filter -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3">Category</h4>
+                            <div id="category-filters" class="space-y-2">
+                                <!-- JS will populate this -->
+                            </div>
+                        </div>
+
+                        <!-- Brand Filter -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3">Brand</h4>
+                            <div id="brand-filters" class="space-y-2">
+                                <!-- JS will populate this -->
+                            </div>
+                        </div>
+                        
+                        <!-- Price Filter -->
+                        <div>
+                            <h4 class="font-semibold mb-3">Price Range</h4>
+                            <div class="flex items-center gap-2">
+                                <input type="number" id="min-price" placeholder="Min" class="w-full bg-surface-light text-white px-3 py-2 rounded-md outline-none focus:ring-2 focus:ring-neon-cyan">
+                                <span>-</span>
+                                <input type="number" id="max-price" placeholder="Max" class="w-full bg-surface-light text-white px-3 py-2 rounded-md outline-none focus:ring-2 focus:ring-neon-cyan">
+                            </div>
+                        </div>
+
+                        <button id="apply-filters" class="w-full bg-neon-cyan text-void font-bold py-2 rounded-lg mt-6 hover:bg-opacity-80 transition-all">Apply Filters</button>
+                         <button id="clear-filters" class="w-full bg-surface-light text-white font-bold py-2 rounded-lg mt-2 hover:bg-opacity-80 transition-all">Clear Filters</button>
+                    </div>
+                </aside>
+
+                <!-- Products Grid -->
+                <div class="w-full lg:w-3/4">
+                    <!-- Sorting and Count -->
+                    <div class="flex justify-between items-center mb-6">
+                        <p id="product-count" class="text-text-secondary">Showing 0 products</p>
+                        <select id="sort-by" class="bg-surface-light border border-surface-light px-4 py-2 rounded-lg outline-none focus:ring-2 focus:ring-neon-cyan">
+                            <option value="default">Default</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="rating">Top Rated</option>
+                            <option value="name-asc">Name: A-Z</option>
+                        </select>
+                    </div>
+                    
+                    <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                        <!-- JS will populate this -->
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div id="pagination" class="flex justify-center items-center gap-2 mt-12">
+                        <!-- JS will populate this -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-dark py-12 mt-16">
+        <div class="container mx-auto px-4 text-center text-text-muted">
+            &copy; <span id="footer-year">2024</span> GamersEdge. All Rights Reserved.
+        </div>
+    </footer>
+    
+    <!-- Cart Drawer & Search Modal can be included here if needed, or loaded via JS -->
+    
+    <!-- Scripts -->
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/core/store.js"></script>
+    <script src="assets/js/core/ui.js"></script>
+    <script src="assets/js/seed.js"></script>
+    <script src="assets/js/cart.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+            // Initialize global objects
+            if(window.Seeder) Seeder.run();
+            if(window.Cart) Cart.init();
+            
+            const Wishlist = {
+                items: [],
+                init() {
+                    this.items = Store._get(STORAGE_KEYS.WISHLIST, []);
+                    this.updateCount();
+                },
+                updateCount() {
+                    const count = this.items.length;
+                    document.querySelectorAll('.wishlist-count').forEach(el => {
+                        el.textContent = count;
+                        el.style.display = count > 0 ? 'flex' : 'none';
+                    });
+                }
+            };
+            Wishlist.init();
+
+            const ShopPage = {
+                products: [],
+                filters: {
+                    searchTerm: '',
+                    category: null,
+                    brands: [],
+                    minPrice: null,
+                    maxPrice: null
+                },
+                sortBy: 'default',
+                currentPage: 1,
+                productsPerPage: 9,
+
+                init() {
+                    this.products = Store.getProducts();
+                    const urlParams = new URLSearchParams(window.location.search);
+                    this.filters.category = urlParams.get('category');
+                    this.filters.searchTerm = urlParams.get('q') || '';
+                    document.getElementById('shop-search-input').value = this.filters.searchTerm;
+
+                    this.renderFilters();
+                    this.renderProducts();
+                    this.initEventListeners();
+                },
+
+                initEventListeners() {
+                    document.getElementById('shop-search-input').addEventListener('input', Utils.debounce(() => {
+                        this.filters.searchTerm = document.getElementById('shop-search-input').value;
+                        this.currentPage = 1;
+                        this.renderProducts();
+                    }, 300));
+                    document.getElementById('apply-filters').addEventListener('click', () => this.applyFilters());
+                    document.getElementById('clear-filters').addEventListener('click', () => this.clearFilters());
+                    document.getElementById('sort-by').addEventListener('change', (e) => {
+                        this.sortBy = e.target.value;
+                        this.renderProducts();
+                    });
+                },
+
+                renderFilters() {
+                    const categories = Store.getCategories();
+                    const catContainer = document.getElementById('category-filters');
+                    catContainer.innerHTML = categories.map(cat => `
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="category" value="${cat.slug}" class="accent-neon-cyan" ${this.filters.category === cat.slug ? 'checked' : ''}>
+                            <span>${cat.name}</span>
+                        </label>
+                    `).join('');
+                    catContainer.addEventListener('change', e => {
+                        this.filters.category = e.target.value;
+                        this.renderProducts();
+                    });
+
+                    const brands = [...new Set(this.products.map(p => p.brand))];
+                    const brandContainer = document.getElementById('brand-filters');
+                    brandContainer.innerHTML = brands.map(brand => `
+                         <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="brand" value="${brand}" class="accent-neon-cyan">
+                            <span>${brand}</span>
+                        </label>
+                    `).join('');
+                },
+                
+                applyFilters() {
+                    this.filters.brands = Array.from(document.querySelectorAll('#brand-filters input:checked')).map(input => input.value);
+                    this.filters.minPrice = document.getElementById('min-price').value || null;
+                    this.filters.maxPrice = document.getElementById('max-price').value || null;
+                    this.currentPage = 1;
+                    this.renderProducts();
+                },
+
+                clearFilters() {
+                    this.filters = { searchTerm: '', category: null, brands: [], minPrice: null, maxPrice: null };
+                    document.getElementById('shop-search-input').value = '';
+                    document.querySelectorAll('#category-filters input, #brand-filters input').forEach(i => i.checked = false);
+                    document.getElementById('min-price').value = '';
+                    document.getElementById('max-price').value = '';
+                    this.currentPage = 1;
+                    this.renderProducts();
+                },
+
+                renderProducts() {
+                    let filteredProducts = [...this.products];
+
+                    if (this.filters.searchTerm) {
+                        const term = this.filters.searchTerm.toLowerCase();
+                        filteredProducts = filteredProducts.filter(p => p.name.toLowerCase().includes(term) || p.brand.toLowerCase().includes(term));
+                    }
+                    if (this.filters.category) {
+                        const catId = Store.getCategories().find(c => c.slug === this.filters.category)?.id;
+                        if(catId) filteredProducts = filteredProducts.filter(p => p.category === catId);
+                    }
+                    if (this.filters.brands.length > 0) {
+                        filteredProducts = filteredProducts.filter(p => this.filters.brands.includes(p.brand));
+                    }
+                    if (this.filters.minPrice) filteredProducts = filteredProducts.filter(p => p.price >= this.filters.minPrice);
+                    if (this.filters.maxPrice) filteredProducts = filteredProducts.filter(p => p.price <= this.filters.maxPrice);
+
+                    switch (this.sortBy) {
+                        case 'price-asc': filteredProducts.sort((a, b) => a.price - b.price); break;
+                        case 'price-desc': filteredProducts.sort((a, b) => b.price - a.price); break;
+                        case 'rating': filteredProducts.sort((a, b) => b.rating - a.rating); break;
+                        case 'name-asc': filteredProducts.sort((a,b) => a.name.localeCompare(b.name)); break;
+                    }
+
+                    const totalPages = Math.ceil(filteredProducts.length / this.productsPerPage);
+                    const start = (this.currentPage - 1) * this.productsPerPage;
+                    const paginatedProducts = filteredProducts.slice(start, end);
+
+                    const grid = document.getElementById('products-grid');
+                    grid.innerHTML = paginatedProducts.length ? paginatedProducts.map(UI.createProductCard).join('') : `<p class="col-span-full text-center text-text-muted py-12">No products found.</p>`;
+                    document.getElementById('product-count').textContent = `Showing ${paginatedProducts.length} of ${filteredProducts.length} products`;
+                    
+                    this.renderPagination(totalPages);
+                    if (window.Animations) Animations.init3DCards();
+                },
+
+                renderPagination(totalPages) {
+                    const container = document.getElementById('pagination');
+                    container.innerHTML = '';
+                    if (totalPages <= 1) return;
+                    for (let i = 1; i <= totalPages; i++) {
+                        const isActive = i === this.currentPage;
+                        container.innerHTML += `<button data-page="${i}" class="pagination-btn w-10 h-10 rounded-md ${isActive ? 'bg-neon-cyan text-void' : 'bg-surface-light'}">${i}</button>`;
+                    }
+                    container.querySelectorAll('.pagination-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            this.currentPage = parseInt(e.target.dataset.page);
+                            this.renderProducts();
+                        });
+                    });
+                }
+            };
+            ShopPage.init();
+        });
+    </script>
+</body>
+</html>

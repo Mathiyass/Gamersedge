@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - Admin Panel</title>
+    <link rel="icon" href="../assets/images/favicon.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'void': '#050505', 'surface': '#0a0a0f', 'surface-light': '#12121a', 'neon-cyan': '#00AEEF', 'text-primary': '#ffffff', 'text-secondary': 'rgba(255, 255, 255, 0.7)', 'text-muted': 'rgba(255, 255, 255, 0.4)'},
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'], 'mono': ['JetBrains Mono', 'monospace'] },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-text-primary font-sans">
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-void p-6 flex flex-col">
+            <a href="dashboard.html" class="flex items-center gap-2 mb-10"><img src="../assets/images/logo.webp" alt="Logo" class="w-10 h-10"><span class="font-bold text-lg">GamersEdge</span></a>
+            <nav class="flex flex-col gap-2">
+                <a href="dashboard.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard</a>
+                <a href="products.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="package" class="w-5 h-5"></i> Products</a>
+                <a href="categories.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="folder" class="w-5 h-5"></i> Categories</a>
+                <a href="orders.html" class="flex items-center gap-3 px-4 py-2 rounded-md bg-surface-light text-neon-cyan"><i data-lucide="list-ordered" class="w-5 h-5"></i> Orders</a>
+                <a href="settings.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="settings" class="w-5 h-5"></i> Settings</a>
+            </nav>
+            <div class="mt-auto">
+                 <button id="logout-btn" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light text-text-secondary w-full mt-2"><i data-lucide="log-out" class="w-5 h-5"></i> Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <header class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold">Orders Management</h1>
+            </header>
+
+            <div class="bg-surface-light p-4 rounded-xl">
+                <div class="flex justify-between items-center mb-4">
+                    <input type="text" id="search-orders" placeholder="Search orders..." class="bg-surface px-4 py-2 rounded-md w-1/3">
+                    <select id="order-status-filter" class="bg-surface px-4 py-2 rounded-md">
+                        <option value="">All Statuses</option>
+                        <option value="pending">Pending</option>
+                        <option value="shipped">Shipped</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b border-surface">
+                            <th class="p-4">Order ID</th>
+                            <th class="p-4">Customer</th>
+                            <th class="p-4">Date</th>
+                            <th class="p-4">Total</th>
+                            <th class="p-4">Status</th>
+                            <th class="p-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-table-body">
+                        <!-- Orders will be rendered here by JS -->
+                    </tbody>
+                </table>
+                 <div class="flex justify-between items-center mt-4">
+                    <p id="order-count" class="text-text-muted text-sm">Showing 0 orders</p>
+                    <div id="pagination" class="flex gap-1"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="order-details-modal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4">
+        <div class="bg-surface-dark rounded-xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-6 border-b border-surface-light">
+                <h2 class="text-2xl font-bold">Order Details</h2>
+                <button id="close-order-modal-btn" class="text-text-muted hover:text-white">&times;</button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-6 space-y-4">
+                <p><strong>Order ID:</strong> <span id="detail-order-id"></span></p>
+                <p><strong>Customer:</strong> <span id="detail-customer-name"></span></p>
+                <p><strong>Email:</strong> <span id="detail-customer-email"></span></p>
+                <p><strong>Date:</strong> <span id="detail-order-date"></span></p>
+                <p><strong>Total:</strong> <span id="detail-order-total"></span></p>
+                <p><strong>Status:</strong> <span id="detail-order-status"></span></p>
+                
+                <h3 class="font-bold mt-4">Items:</h3>
+                <ul id="detail-order-items" class="list-disc list-inside space-y-1">
+                    <!-- Order items will be rendered here -->
+                </ul>
+
+                <h3 class="font-bold mt-4">Shipping Address:</h3>
+                <p id="detail-shipping-address"></p>
+                
+                <div class="mt-4">
+                    <label for="update-order-status" class="block text-sm text-text-secondary mb-1">Update Status:</label>
+                    <select id="update-order-status" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                        <option value="pending">Pending</option>
+                        <option value="shipped">Shipped</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                    <button id="save-order-status-btn" class="bg-neon-cyan text-void font-bold py-2 px-4 rounded-lg mt-2">Save Status</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/core/store.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const Admin = {
+            checkAuth() {
+                // Simplified for self-containment, assumes Store is available
+                const session = Store.getAdminAuth();
+                if (!session.loggedIn || new Date(session.expiresAt) < new Date()) {
+                    window.location.href = 'index.html';
+                }
+            },
+            logout() {
+                Store.saveAdminAuth({});
+                window.location.href = 'index.html';
+            },
+            getOrders: () => Store.getOrders(),
+            saveOrders: (orders) => Store.saveOrders(orders)
+        };
+
+        lucide.createIcons();
+        Admin.checkAuth();
+        document.getElementById('logout-btn').addEventListener('click', () => Admin.logout());
+        
+        const AdminOrdersPage = {
+            orders: [],
+            currentPage: 1,
+            ordersPerPage: 10,
+            currentOrderId: null,
+
+            init() {
+                // Manually add some dummy order data if none exists
+                if (Store.getOrders().length === 0) {
+                    const dummyOrders = [
+                        { id: 'ord_1', customerName: 'John Doe', createdAt: new Date().toISOString(), total: 125000, status: 'pending', items: [{name: 'RTX 4090', quantity: 1, price: 125000}], shippingAddress: '123 Main St' },
+                        { id: 'ord_2', customerName: 'Sara M.', createdAt: new Date().toISOString(), total: 89500, status: 'shipped', items: [{name: 'i7-14700K', quantity: 1, price: 89500}], shippingAddress: '456 Oak Ave'  },
+                        { id: 'ord_3', customerName: 'Mike T.', createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), total: 215000, status: 'delivered', items: [], shippingAddress: '789 Pine Ln'  },
+                    ];
+                    Store.saveOrders(dummyOrders);
+                }
+                this.orders = Admin.getOrders();
+                this.renderTable();
+                this.initEventListeners();
+            },
+
+            initEventListeners() {
+                document.getElementById('search-orders').addEventListener('input', (e) => this.renderTable(e.target.value, document.getElementById('order-status-filter').value));
+                document.getElementById('order-status-filter').addEventListener('change', (e) => this.renderTable(document.getElementById('search-orders').value, e.target.value));
+                document.getElementById('close-order-modal-btn').addEventListener('click', () => this.hideOrderDetailsModal());
+                document.getElementById('save-order-status-btn').addEventListener('click', () => this.updateOrderStatus());
+            },
+
+            renderTable(searchTerm = '', statusFilter = '') {
+                let filteredOrders = this.orders;
+
+                if (searchTerm) {
+                    filteredOrders = filteredOrders.filter(order => 
+                        (order.customerName && order.customerName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                        (order.id && order.id.toLowerCase().includes(searchTerm.toLowerCase()))
+                    );
+                }
+
+                if (statusFilter) {
+                    filteredOrders = filteredOrders.filter(order => order.status === statusFilter);
+                }
+                
+                const tableBody = document.getElementById('orders-table-body');
+                const totalPages = Math.ceil(filteredOrders.length / this.ordersPerPage);
+                const start = (this.currentPage - 1) * this.ordersPerPage;
+                const end = start + this.ordersPerPage;
+                const paginatedOrders = filteredOrders.slice(start, end);
+
+                if (paginatedOrders.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="6" class="text-center p-8 text-text-muted">No orders found.</td></tr>`;
+                } else {
+                    tableBody.innerHTML = paginatedOrders.map(order => this.createRow(order)).join('');
+                }
+                
+                document.getElementById('order-count').textContent = `Showing ${paginatedOrders.length} of ${filteredOrders.length} orders`;
+                this.renderPagination(totalPages);
+                lucide.createIcons();
+                this.initRowEventListeners();
+            },
+
+            createRow(order) {
+                const statusColor = {
+                    pending: 'text-amber-400',
+                    shipped: 'text-blue-400',
+                    delivered: 'text-green-500',
+                    cancelled: 'text-red-500'
+                };
+                return `
+                    <tr class="border-b border-surface">
+                        <td class="p-4 font-mono text-sm">${order.id.split('_')[1]}</td>
+                        <td class="p-4">${order.customerName}</td>
+                        <td class="p-4">${Utils.formatDate(order.createdAt)}</td>
+                        <td class="p-4 font-mono">${Utils.formatLKR(order.total)}</td>
+                        <td class="p-4"><span class="capitalize px-2 py-1 text-xs rounded-full ${statusColor[order.status] || 'text-gray-400'} bg-gray-500/10">${order.status}</span></td>
+                        <td class="p-4">
+                            <button class="view-btn p-1 text-text-muted hover:text-white" data-id="${order.id}"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                        </td>
+                    </tr>
+                `;
+            },
+
+            renderPagination(totalPages) {
+                const container = document.getElementById('pagination');
+                container.innerHTML = ''; 
+
+                if (totalPages <= 1) return;
+
+                let buttonsHtml = '';
+                for (let i = 1; i <= totalPages; i++) {
+                    const isActive = i === this.currentPage;
+                    buttonsHtml += `<button data-page="${i}" class="px-3 py-1 rounded-md text-sm ${isActive ? 'bg-neon-cyan text-void' : 'bg-surface hover:bg-surface-light'}">${i}</button>`;
+                }
+                container.innerHTML = buttonsHtml;
+
+                document.querySelectorAll('#pagination button').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.currentPage = parseInt(e.target.dataset.page);
+                        this.renderTable(document.getElementById('search-orders').value, document.getElementById('order-status-filter').value);
+                    });
+                });
+            },
+
+            initRowEventListeners() {
+                document.querySelectorAll('.view-btn').forEach(btn => btn.addEventListener('click', (e) => {
+                    const id = e.currentTarget.dataset.id;
+                    this.showOrderDetailsModal(id);
+                }));
+            },
+
+            showOrderDetailsModal(orderId) {
+                const order = this.orders.find(o => o.id === orderId);
+                if (!order) return;
+
+                this.currentOrderId = orderId;
+
+                document.getElementById('detail-order-id').textContent = order.id;
+                document.getElementById('detail-customer-name').textContent = order.customerName;
+                document.getElementById('detail-customer-email').textContent = order.customerEmail || 'N/A';
+                document.getElementById('detail-order-date').textContent = Utils.formatDate(order.createdAt);
+                document.getElementById('detail-order-total').textContent = Utils.formatLKR(order.total);
+                document.getElementById('detail-order-status').textContent = order.status;
+                document.getElementById('update-order-status').value = order.status;
+
+                const itemsList = document.getElementById('detail-order-items');
+                itemsList.innerHTML = order.items.map(item => `
+                    <li>${item.name} (x${item.quantity}) - ${Utils.formatLKR(item.price * item.quantity)}</li>
+                `).join('');
+                
+                document.getElementById('detail-shipping-address').textContent = order.shippingAddress || 'N/A';
+
+                document.getElementById('order-details-modal').classList.remove('hidden');
+                document.getElementById('order-details-modal').classList.add('flex');
+            },
+
+            hideOrderDetailsModal() {
+                document.getElementById('order-details-modal').classList.add('hidden');
+                document.getElementById('order-details-modal').classList.remove('flex');
+            },
+
+            updateOrderStatus() {
+                const newStatus = document.getElementById('update-order-status').value;
+                if (!this.currentOrderId) return;
+
+                const orderIndex = this.orders.findIndex(o => o.id === this.currentOrderId);
+                if (orderIndex > -1) {
+                    this.orders[orderIndex].status = newStatus;
+                    Admin.saveOrders(this.orders);
+                    Utils.showToast('Order status updated!', 'success');
+                    this.renderTable();
+                    this.hideOrderDetailsModal();
+                }
+            }
+        };
+
+        AdminOrdersPage.init();
+    });
+    </script>
+</body>
+</html>

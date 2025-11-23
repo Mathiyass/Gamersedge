@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - Admin Panel</title>
+    <link rel="icon" href="../assets/images/favicon.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'void': '#050505', 'surface': '#0a0a0f', 'surface-light': '#12121a', 'neon-cyan': '#00AEEF', 'text-primary': '#ffffff', 'text-secondary': 'rgba(255, 255, 255, 0.7)', 'text-muted': 'rgba(255, 255, 255, 0.4)'},
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'], 'mono': ['JetBrains Mono', 'monospace'] },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-text-primary font-sans">
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-void p-6 flex flex-col">
+            <a href="dashboard.html" class="flex items-center gap-2 mb-10"><img src="../assets/images/logo.webp" alt="Logo" class="w-10 h-10"><span class="font-bold text-lg">GamersEdge</span></a>
+            <nav class="flex flex-col gap-2">
+                <a href="dashboard.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard</a>
+                <a href="products.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="package" class="w-5 h-5"></i> Products</a>
+                <a href="categories.html" class="flex items-center gap-3 px-4 py-2 rounded-md bg-surface-light text-neon-cyan"><i data-lucide="folder" class="w-5 h-5"></i> Categories</a>
+                <a href="orders.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="list-ordered" class="w-5 h-5"></i> Orders</a>
+                <a href="settings.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="settings" class="w-5 h-5"></i> Settings</a>
+            </nav>
+            <div class="mt-auto">
+                 <button id="logout-btn" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light text-text-secondary w-full mt-2"><i data-lucide="log-out" class="w-5 h-5"></i> Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <header class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold">Categories Management</h1>
+                <button id="add-category-btn" class="bg-neon-cyan text-void font-bold py-2 px-4 rounded-lg flex items-center gap-2"><i data-lucide="plus"></i> Add New Category</button>
+            </header>
+
+            <div class="bg-surface-light p-4 rounded-xl">
+                <div class="flex justify-between items-center mb-4">
+                    <input type="text" id="search-categories" placeholder="Search categories..." class="bg-surface px-4 py-2 rounded-md w-1/3">
+                </div>
+
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b border-surface">
+                            <th class="p-4 w-12"><input type="checkbox" id="select-all-categories"></th>
+                            <th class="p-4">Icon</th>
+                            <th class="p-4">Name</th>
+                            <th class="p-4">Slug</th>
+                            <th class="p-4">Order</th>
+                            <th class="p-4">Status</th>
+                            <th class="p-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="categories-table-body">
+                        <!-- Categories will be rendered here by JS -->
+                    </tbody>
+                </table>
+                 <div class="flex justify-between items-center mt-4">
+                    <p id="category-count" class="text-text-muted text-sm">Showing 0 categories</p>
+                    <div id="pagination" class="flex gap-1"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Category Modal -->
+    <div id="category-modal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4">
+        <div class="bg-surface-dark rounded-xl w-full max-w-xl max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-6 border-b border-surface-light">
+                <h2 id="modal-title" class="text-2xl font-bold">Add New Category</h2>
+                <button id="close-modal-btn" class="text-text-muted hover:text-white">&times;</button>
+            </div>
+            <form id="category-form" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <input type="hidden" id="category-id">
+                
+                <div>
+                    <label for="category-name" class="block text-sm text-text-secondary mb-1">Category Name</label>
+                    <input type="text" id="category-name" class="w-full bg-surface p-2 rounded-md border border-surface-light" required>
+                </div>
+                
+                <div>
+                    <label for="category-slug" class="block text-sm text-text-secondary mb-1">Slug</label>
+                    <input type="text" id="category-slug" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                </div>
+
+                <div>
+                    <label for="category-icon" class="block text-sm text-text-secondary mb-1">Icon (Emoji or Lucide Icon Name)</label>
+                    <input type="text" id="category-icon" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                </div>
+
+                 <div>
+                    <label for="category-image" class="block text-sm text-text-secondary mb-1">Image URL</label>
+                    <input type="text" id="category-image" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                </div>
+
+                <div>
+                    <label for="category-description" class="block text-sm text-text-secondary mb-1">Description</label>
+                    <textarea id="category-description" rows="3" class="w-full bg-surface p-2 rounded-md border border-surface-light"></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="category-order" class="block text-sm text-text-secondary mb-1">Order</label>
+                        <input type="number" id="category-order" class="w-full bg-surface p-2 rounded-md border border-surface-light" value="0">
+                    </div>
+                     <div>
+                        <label for="category-status" class="block text-sm text-text-secondary mb-1">Status</label>
+                        <select id="category-status" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <div class="flex justify-end p-6 border-t border-surface-light gap-4">
+                <button id="cancel-modal-btn" class="bg-surface-light text-white py-2 px-4 rounded-md">Cancel</button>
+                <button type="submit" form="category-form" class="bg-neon-cyan text-void font-bold py-2 px-4 rounded-md">Save Category</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/core/store.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const Admin = {
+            checkAuth() {
+                const session = Store.getAdminAuth();
+                if (!session.loggedIn || new Date(session.expiresAt) < new Date()) {
+                    window.location.href = 'index.html';
+                }
+            },
+            logout() {
+                Store.saveAdminAuth({});
+                window.location.href = 'index.html';
+            },
+            getCategories: () => Store.getCategories(),
+            saveCategory(category) {
+                let categories = this.getCategories();
+                if (category.id) {
+                    const index = categories.findIndex(c => c.id === category.id);
+                    categories[index] = { ...categories[index], ...category };
+                } else {
+                    category.id = Utils.generateId('cat');
+                    categories.push(category);
+                }
+                Store.saveCategories(categories);
+                Utils.showToast('Category saved successfully', 'success');
+            },
+            deleteCategory(categoryId) {
+                let categories = this.getCategories().filter(c => c.id !== categoryId);
+                Store.saveCategories(categories);
+                Utils.showToast('Category deleted', 'info');
+            }
+        };
+
+        lucide.createIcons();
+        Admin.checkAuth();
+        document.getElementById('logout-btn').addEventListener('click', () => Admin.logout());
+        
+        const AdminCategoriesPage = {
+            categories: [],
+            currentPage: 1,
+            categoriesPerPage: 10,
+
+            init() {
+                this.categories = Admin.getCategories();
+                this.renderTable();
+                this.initEventListeners();
+            },
+
+            initEventListeners() {
+                document.getElementById('add-category-btn').addEventListener('click', () => this.showModal());
+                document.getElementById('close-modal-btn').addEventListener('click', () => this.hideModal());
+                document.getElementById('cancel-modal-btn').addEventListener('click', () => this.hideModal());
+                document.getElementById('category-form').addEventListener('submit', (e) => this.handleFormSubmit(e));
+                document.getElementById('search-categories').addEventListener('input', (e) => this.renderTable(e.target.value));
+            },
+
+            renderTable(searchTerm = '') {
+                const filteredCategories = this.categories.filter(c => c.name.toLowerCase().includes(searchTerm.toLowerCase()));
+                
+                const tableBody = document.getElementById('categories-table-body');
+                const totalPages = Math.ceil(filteredCategories.length / this.categoriesPerPage);
+                const start = (this.currentPage - 1) * this.categoriesPerPage;
+                const end = start + this.categoriesPerPage;
+                const paginatedCategories = filteredCategories.slice(start, end);
+
+                if (paginatedCategories.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="7" class="text-center p-8 text-text-muted">No categories found.</td></tr>`;
+                } else {
+                    tableBody.innerHTML = paginatedCategories.map(c => this.createRow(c)).join('');
+                }
+                
+                document.getElementById('category-count').textContent = `Showing ${paginatedCategories.length} of ${filteredCategories.length} categories`;
+                this.renderPagination(totalPages);
+                lucide.createIcons();
+                this.initRowEventListeners();
+            },
+
+            createRow(category) {
+                return `
+                    <tr class="border-b border-surface">
+                        <td class="p-4"><input type="checkbox" data-id="${category.id}"></td>
+                        <td class="p-4 text-xl">${category.icon}</td>
+                        <td class="p-4">${category.name}</td>
+                        <td class="p-4">${category.slug}</td>
+                        <td class="p-4">${category.order}</td>
+                        <td class="p-4"><span class="px-2 py-1 text-xs rounded-full ${category.status === 'active' ? 'bg-green-500/20 text-green-400' : 'bg-amber-500/20 text-amber-400'}">${category.status}</span></td>
+                        <td class="p-4">
+                            <button class="edit-btn p-1" data-id="${category.id}"><i data-lucide="edit" class="w-4 h-4"></i></button>
+                            <button class="delete-btn p-1" data-id="${category.id}"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                        </td>
+                    </tr>
+                `;
+            },
+
+            renderPagination(totalPages) {
+                const container = document.getElementById('pagination');
+                container.innerHTML = ''; 
+
+                if (totalPages <= 1) return;
+
+                let buttonsHtml = '';
+                for (let i = 1; i <= totalPages; i++) {
+                    const isActive = i === this.currentPage;
+                    buttonsHtml += `<button data-page="${i}" class="px-3 py-1 rounded-md text-sm ${isActive ? 'bg-neon-cyan text-void' : 'bg-surface hover:bg-surface-light'}">${i}</button>`;
+                }
+                container.innerHTML = buttonsHtml;
+
+                document.querySelectorAll('#pagination button').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.currentPage = parseInt(e.target.dataset.page);
+                        this.renderTable(document.getElementById('search-categories').value);
+                    });
+                });
+            },
+
+            initRowEventListeners() {
+                document.querySelectorAll('.edit-btn').forEach(btn => btn.addEventListener('click', (e) => {
+                    const id = e.currentTarget.dataset.id;
+                    const category = this.categories.find(c => c.id === id);
+                    this.showModal(category);
+                }));
+                document.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', (e) => {
+                    if(confirm('Are you sure you want to delete this category?')) {
+                        const id = e.currentTarget.dataset.id;
+                        Admin.deleteCategory(id);
+                        this.categories = Admin.getCategories();
+                        this.renderTable();
+                    }
+                }));
+            },
+
+            showModal(category = null) {
+                const form = document.getElementById('category-form');
+                form.reset();
+                document.getElementById('category-id').value = '';
+
+                if (category) {
+                    document.getElementById('modal-title').textContent = 'Edit Category';
+                    document.getElementById('category-id').value = category.id;
+                    document.getElementById('category-name').value = category.name;
+                    document.getElementById('category-slug').value = category.slug;
+                    document.getElementById('category-icon').value = category.icon;
+                    document.getElementById('category-image').value = category.image || '';
+                    document.getElementById('category-description').value = category.description;
+                    document.getElementById('category-order').value = category.order;
+                    document.getElementById('category-status').value = category.status;
+                } else {
+                    document.getElementById('modal-title').textContent = 'Add New Category';
+                }
+                document.getElementById('category-modal').classList.remove('hidden');
+                document.getElementById('category-modal').classList.add('flex');
+            },
+
+            hideModal() {
+                document.getElementById('category-modal').classList.add('hidden');
+                document.getElementById('category-modal').classList.remove('flex');
+            },
+
+            handleFormSubmit(e) {
+                e.preventDefault();
+                const category = {
+                    id: document.getElementById('category-id').value || null,
+                    name: document.getElementById('category-name').value,
+                    slug: document.getElementById('category-slug').value,
+                    icon: document.getElementById('category-icon').value,
+                    image: document.getElementById('category-image').value,
+                    description: document.getElementById('category-description').value,
+                    order: parseInt(document.getElementById('category-order').value),
+                    status: document.getElementById('category-status').value,
+                };
+                Admin.saveCategory(category);
+                this.categories = Admin.getCategories();
+                this.renderTable();
+                this.hideModal();
+            },
+        };
+
+        AdminCategoriesPage.init();
+    });
+    </script>
+</body>
+</html>

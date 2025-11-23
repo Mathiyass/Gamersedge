@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - GamersEdge</title>
+    <link rel="icon" href="assets/images/favicon.jpg">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Custom CSS & JS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'void': '#050505', 'surface': '#0a0a0f', 'surface-light': '#12121a', 'neon-cyan': '#00AEEF', 'hyper-violet': '#7c3aed', 'electric-pink': '#ec4899', 'text-primary': '#ffffff', 'text-secondary': 'rgba(255, 255, 255, 0.7)', 'text-muted': 'rgba(255, 255, 255, 0.4)'},
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'], 'mono': ['JetBrains Mono', 'monospace'] },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-void text-text-primary font-sans">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 scrolled">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2"><img src="assets/images/logo.webp" alt="GamersEdge Logo" class="w-10 h-10"><span class="text-xl font-bold">GamersEdge</span></a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-white hover:text-neon-cyan">Home</a>
+                <a href="shop.html" class="text-neon-cyan font-bold">Shop</a>
+                <a href="about.html" class="text-white hover:text-neon-cyan">About</a>
+                <a href="contact.html" class="text-white hover:text-neon-cyan">Contact</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="wishlist.html" class="hover:text-neon-cyan relative">
+                    <i data-lucide="heart"></i>
+                    <span id="wishlist-count" class="absolute -top-2 -right-2 bg-electric-pink text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold" style="display: none;">0</span>
+                </a>
+                <button data-open-cart class="relative hover:text-neon-cyan">
+                    <i data-lucide="shopping-cart" id="cart-icon"></i>
+                    <span class="cart-count absolute -top-2 -right-2 bg-neon-cyan text-void text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24">
+        <div id="product-detail-container" class="container mx-auto px-4 py-12">
+            <!-- Breadcrumbs -->
+            <div id="breadcrumbs" class="text-sm text-text-muted mb-8">
+                <!-- JS will populate this -->
+            </div>
+
+            <!-- Main Product Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Image Gallery -->
+                <div>
+                    <div class="bg-surface-dark rounded-xl p-4 mb-4">
+                        <img id="main-product-image" src="" alt="Product Image" class="w-full h-auto object-cover rounded-lg">
+                    </div>
+                    <div id="thumbnail-gallery" class="grid grid-cols-4 gap-4">
+                        <!-- JS will populate thumbnails -->
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div>
+                    <span id="product-brand" class="text-neon-cyan font-semibold"></span>
+                    <h1 id="product-name" class="text-3xl lg:text-4xl font-extrabold my-2"></h1>
+                    <div class="flex items-center gap-4 mb-4">
+                        <div id="product-rating" class="flex text-amber-400"></div>
+                        <span id="product-review-count" class="text-text-muted"></span>
+                    </div>
+
+                    <div class="mb-6">
+                        <span id="product-original-price" class="text-2xl text-text-muted line-through"></span>
+                        <span id="product-price" class="text-4xl font-mono font-bold text-neon-cyan ml-2"></span>
+                        <span id="product-discount" class="bg-electric-pink text-white text-sm font-bold px-3 py-1 rounded ml-4"></span>
+                    </div>
+
+                    <p id="product-stock-status" class="text-lg mb-6 flex items-center"></p>
+                    
+                    <div class="flex items-center gap-4 mb-6">
+                        <span>Quantity:</span>
+                        <div class="flex items-center gap-2">
+                            <button id="quantity-minus" class="w-10 h-10 rounded bg-surface-light flex items-center justify-center text-text-muted hover:bg-neon-cyan hover:text-void transition-colors">-</button>
+                            <span id="quantity-display" class="text-white w-12 text-center text-lg font-mono">1</span>
+                            <button id="quantity-plus" class="w-10 h-10 rounded bg-surface-light flex items-center justify-center text-text-muted hover:bg-neon-cyan hover:text-void transition-colors">+</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <button id="add-to-cart-main" class="w-full bg-neon-cyan text-void font-bold py-3 rounded-lg hover:bg-opacity-80 transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="w-full bg-hyper-violet text-white font-bold py-3 rounded-lg hover:bg-opacity-80 transition-all">Buy Now</button>
+                    </div>
+
+                    <div class="flex items-center gap-4 text-text-secondary">
+                        <button id="wishlist-btn" class="wishlist-btn flex items-center gap-2 hover:text-white"><i data-lucide="heart"></i> Wishlist</button>
+                        <button class="flex items-center gap-2 hover:text-white"><i data-lucide="share-2"></i> Share</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs: Description, Specs, Reviews -->
+            <div class="mt-16">
+                <div class="border-b border-surface-light flex gap-8">
+                    <button data-tab="description" class="tab-btn py-4 text-lg font-semibold text-neon-cyan border-b-2 border-neon-cyan">Description</button>
+                    <button data-tab="specifications" class="tab-btn py-4 text-lg font-semibold text-text-muted hover:text-white">Specifications</button>
+                    <button data-tab="reviews" class="tab-btn py-4 text-lg font-semibold text-text-muted hover:text-white">Reviews</button>
+                </div>
+                <div class="py-8">
+                    <div id="tab-content-description" class="tab-content"></div>
+                    <div id="tab-content-specifications" class="tab-content hidden"></div>
+                    <div id="tab-content-reviews" class="tab-content hidden"></div>
+                </div>
+            </div>
+
+            <!-- Related Products -->
+            <div class="mt-16">
+                <h2 class="text-3xl font-bold text-center mb-12">Related Products</h2>
+                <div id="related-products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- JS will populate related products -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-dark py-12 mt-16">
+        <div class="container mx-auto px-4 text-center text-text-muted">
+            &copy; <span id="footer-year">2024</span> GamersEdge. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/core/store.js"></script>
+    <script src="assets/js/core/ui.js"></script>
+    <script src="assets/js/seed.js"></script>
+    <script src="assets/js/cart.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+            // Initialize global objects
+            if(window.Seeder) Seeder.run();
+            if(window.Cart) Cart.init();
+            
+            const Wishlist = {
+                items: [],
+                init() {
+                    this.items = Store._get(STORAGE_KEYS.WISHLIST, []);
+                    this.updateCount();
+                },
+                toggle(product) {
+                    const inWishlist = this.items.some(p => p.id === product.id);
+                    if (inWishlist) {
+                        this.items = this.items.filter(p => p.id !== product.id);
+                        Utils.showToast(`${product.name} removed from wishlist.`, 'info');
+                    } else {
+                        this.items.push(product);
+                        Utils.showToast(`${product.name} added to wishlist!`, 'info');
+                    }
+                    this.save();
+                },
+                save() {
+                    Store._set(STORAGE_KEYS.WISHLIST, this.items);
+                    this.updateCount();
+                },
+                updateCount() {
+                    const count = this.items.length;
+                    document.querySelectorAll('.wishlist-count').forEach(el => {
+                        el.textContent = count;
+                        el.style.display = count > 0 ? 'flex' : 'none';
+                    });
+                }
+            };
+            
+            const ProductPage = {
+                product: null,
+                quantity: 1,
+
+                init() {
+                    Wishlist.init();
+
+                    const productId = Utils.getUrlParam('id');
+                    if (!productId) {
+                        document.getElementById('product-detail-container').innerHTML = '<h1 class="text-center text-2xl text-error-red">Product not found.</h1>';
+                        return;
+                    }
+                    
+                    this.product = Store.getProductById(productId);
+                    if (!this.product) {
+                        document.getElementById('product-detail-container').innerHTML = '<h1 class="text-center text-2xl text-error-red">Product not found.</h1>';
+                        return;
+                    }
+                    
+                    this.renderProduct();
+                    this.renderRelatedProducts();
+                    this.initEventListeners();
+                    this.updateWishlistButton();
+                },
+
+                renderProduct() {
+                    const category = Store.getCategoryById(this.product.category);
+                    document.title = `${this.product.name} - GamersEdge`;
+                    
+                    document.getElementById('breadcrumbs').innerHTML = `<a href="index.html" class="hover:text-white">Home</a> &gt; <a href="shop.html?category=${category.slug}" class="hover:text-white">${category.name}</a> &gt; <span class="text-white">${this.product.name}</span>`;
+                    document.getElementById('main-product-image').src = this.product.primaryImage;
+                    document.getElementById('product-brand').textContent = this.product.brand;
+                    document.getElementById('product-name').textContent = this.product.name;
+                    document.getElementById('product-rating').innerHTML = '★'.repeat(Math.round(this.product.rating)) + '☆'.repeat(5 - Math.round(this.product.rating));
+                    document.getElementById('product-review-count').textContent = `(${this.product.reviewCount} reviews)`;
+                    document.getElementById('product-price').textContent = Utils.formatLKR(this.product.price);
+
+                    if (this.product.originalPrice) {
+                        document.getElementById('product-original-price').textContent = Utils.formatLKR(this.product.originalPrice);
+                        document.getElementById('product-discount').textContent = `SAVE ${Utils.calcDiscount(this.product.originalPrice, this.product.price)}%`;
+                    } else {
+                        document.getElementById('product-discount').style.display = 'none';
+                    }
+
+                    const inStock = this.product.stock > 0;
+                    const stockEl = document.getElementById('product-stock-status');
+                    stockEl.innerHTML = `<i data-lucide="${inStock ? 'check-circle' : 'x-circle'}" class="w-5 h-5 mr-2"></i> ${inStock ? 'In Stock' : 'Out of Stock'}`;
+                    stockEl.className = `text-lg mb-6 flex items-center ${inStock ? 'text-green-500' : 'text-red-500'}`;
+
+                    document.getElementById('tab-content-description').innerHTML = `<p class="text-text-secondary leading-relaxed">${this.product.description}</p>`;
+                    document.getElementById('tab-content-specifications').innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">${this.product.specifications.map(spec => `<div class="bg-surface p-4 rounded-lg"><p class="text-sm text-text-muted">${spec.key}</p><p class="font-semibold">${spec.value}</p></div>`).join('')}</div>`;
+                    document.getElementById('tab-content-reviews').innerHTML = `<p class="text-center text-text-muted p-8">No reviews yet.</p>`;
+                    
+                    lucide.createIcons();
+                },
+
+                renderRelatedProducts() {
+                    const related = Store.getProducts().filter(p => p.category === this.product.category && p.id !== this.product.id).slice(0, 4);
+                    document.getElementById('related-products-grid').innerHTML = related.map(UI.createProductCard).join('');
+                },
+
+                initEventListeners() {
+                    document.getElementById('quantity-plus').addEventListener('click', () => this.updateQuantity(1));
+                    document.getElementById('quantity-minus').addEventListener('click', () => this.updateQuantity(-1));
+                    document.getElementById('add-to-cart-main').addEventListener('click', () => Cart.add(this.product, this.quantity));
+                    document.getElementById('wishlist-btn').addEventListener('click', () => {
+                        Wishlist.toggle(this.product);
+                        this.updateWishlistButton();
+                    });
+                    document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', (e) => {
+                        const tab = e.currentTarget.dataset.tab;
+                        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('text-neon-cyan', 'border-neon-cyan'));
+                        e.currentTarget.classList.add('text-neon-cyan', 'border-neon-cyan');
+                        document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                        document.getElementById(`tab-content-${tab}`).classList.remove('hidden');
+                    }));
+                },
+                
+                updateQuantity(change) {
+                    this.quantity = Math.max(1, Math.min(this.product.stock, this.quantity + change));
+                    document.getElementById('quantity-display').textContent = this.quantity;
+                },
+
+                updateWishlistButton() {
+                    const btn = document.getElementById('wishlist-btn');
+                    if (btn) btn.classList.toggle('text-electric-pink', Wishlist.items.some(p => p.id === this.product.id));
+                }
+            };
+            ProductPage.init();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Admin Panel</title>
+    <link rel="icon" href="../assets/images/favicon.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'void': '#050505', 'surface': '#0a0a0f', 'surface-light': '#12121a', 'neon-cyan': '#00AEEF', 'text-primary': '#ffffff', 'text-secondary': 'rgba(255, 255, 255, 0.7)', 'text-muted': 'rgba(255, 255, 255, 0.4)'},
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'], 'mono': ['JetBrains Mono', 'monospace'] },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-text-primary font-sans">
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-void p-6 flex flex-col">
+            <a href="dashboard.html" class="flex items-center gap-2 mb-10"><img src="../assets/images/logo.webp" alt="Logo" class="w-10 h-10"><span class="font-bold text-lg">GamersEdge</span></a>
+            <nav class="flex flex-col gap-2">
+                <a href="dashboard.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard</a>
+                <a href="products.html" class="flex items-center gap-3 px-4 py-2 rounded-md bg-surface-light text-neon-cyan"><i data-lucide="package" class="w-5 h-5"></i> Products</a>
+                <a href="categories.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="folder" class="w-5 h-5"></i> Categories</a>
+                <a href="orders.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="list-ordered" class="w-5 h-5"></i> Orders</a>
+                <a href="settings.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="settings" class="w-5 h-5"></i> Settings</a>
+            </nav>
+            <div class="mt-auto">
+                 <button id="logout-btn" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light text-text-secondary w-full mt-2"><i data-lucide="log-out" class="w-5 h-5"></i> Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <header class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold">Products Management</h1>
+                <button id="add-product-btn" class="bg-neon-cyan text-void font-bold py-2 px-4 rounded-lg flex items-center gap-2"><i data-lucide="plus"></i> Add New Product</button>
+            </header>
+
+            <div class="bg-surface-light p-4 rounded-xl">
+                <div class="flex justify-between items-center mb-4">
+                    <input type="text" id="search-products" placeholder="Search products..." class="bg-surface px-4 py-2 rounded-md w-1/3">
+                    <!-- Filters here if needed -->
+                </div>
+
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b border-surface">
+                            <th class="p-4 w-12"><input type="checkbox" id="select-all"></th>
+                            <th class="p-4">Product</th>
+                            <th class="p-4">Category</th>
+                            <th class="p-4">Price</th>
+                            <th class="p-4">Stock</th>
+                            <th class="p-4">Status</th>
+                            <th class="p-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-table-body">
+                        <!-- Products will be rendered here by JS -->
+                    </tbody>
+                </table>
+                 <div class="flex justify-between items-center mt-4">
+                    <p id="product-count" class="text-text-muted text-sm">Showing 0 products</p>
+                    <div id="pagination" class="flex gap-1"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Product Modal -->
+    <div id="product-modal" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4">
+        <div class="bg-surface-dark rounded-xl w-full max-w-3xl max-h-[90vh] flex flex-col">
+            <div class="flex justify-between items-center p-6 border-b border-surface-light">
+                <h2 id="modal-title" class="text-2xl font-bold">Add New Product</h2>
+                <button id="close-modal-btn" class="text-text-muted hover:text-white">&times;</button>
+            </div>
+            <form id="product-form" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <input type="hidden" id="product-id">
+                
+                <div>
+                    <label for="product-name" class="block text-sm text-text-secondary mb-1">Product Name</label>
+                    <input type="text" id="product-name" class="w-full bg-surface p-2 rounded-md border border-surface-light" required>
+                </div>
+                
+                 <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="product-brand" class="block text-sm text-text-secondary mb-1">Brand</label>
+                        <input type="text" id="product-brand" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                    </div>
+                    <div>
+                        <label for="product-category" class="block text-sm text-text-secondary mb-1">Category</label>
+                        <select id="product-category" class="w-full bg-surface p-2 rounded-md border border-surface-light"></select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="product-price" class="block text-sm text-text-secondary mb-1">Price (LKR)</label>
+                        <input type="number" id="product-price" class="w-full bg-surface p-2 rounded-md border border-surface-light" required>
+                    </div>
+                    <div>
+                        <label for="product-original-price" class="block text-sm text-text-secondary mb-1">Original Price (Optional)</label>
+                        <input type="number" id="product-original-price" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                    </div>
+                </div>
+
+                 <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="product-stock" class="block text-sm text-text-secondary mb-1">Stock</label>
+                        <input type="number" id="product-stock" class="w-full bg-surface p-2 rounded-md border border-surface-light" value="0">
+                    </div>
+                     <div>
+                        <label for="product-status" class="block text-sm text-text-secondary mb-1">Status</label>
+                        <select id="product-status" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                            <option value="active">Active</option>
+                            <option value="draft">Draft</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="product-image" class="block text-sm text-text-secondary mb-1">Primary Image URL</label>
+                    <input type="text" id="product-image" class="w-full bg-surface p-2 rounded-md border border-surface-light">
+                </div>
+                
+                <div>
+                    <label for="product-description" class="block text-sm text-text-secondary mb-1">Description</label>
+                    <textarea id="product-description" rows="4" class="w-full bg-surface p-2 rounded-md border border-surface-light"></textarea>
+                </div>
+            </form>
+            <div class="flex justify-end p-6 border-t border-surface-light gap-4">
+                <button id="cancel-btn" class="bg-surface-light text-white py-2 px-4 rounded-md">Cancel</button>
+                <button type="submit" form="product-form" class="bg-neon-cyan text-void font-bold py-2 px-4 rounded-md">Save Product</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/core/store.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const Admin = {
+            checkAuth() {
+                const session = Store.getAdminAuth();
+                if (!session.loggedIn || new Date(session.expiresAt) < new Date()) {
+                    window.location.href = 'index.html';
+                }
+            },
+            logout() {
+                Store.saveAdminAuth({});
+                window.location.href = 'index.html';
+            },
+            getProducts: () => Store.getProducts(),
+            saveProduct(product) {
+                let products = this.getProducts();
+                if (product.id) {
+                    const index = products.findIndex(p => p.id === product.id);
+                    products[index] = { ...products[index], ...product, updatedAt: new Date().toISOString() };
+                } else {
+                    product.id = Utils.generateId('prod');
+                    product.createdAt = new Date().toISOString();
+                    product.updatedAt = product.createdAt;
+                    product.rating = product.rating || 0;
+                    product.reviewCount = product.reviewCount || 0;
+                    products.push(product);
+                }
+                Store.saveProducts(products);
+                Utils.showToast('Product saved successfully', 'success');
+            },
+            deleteProduct(productId) {
+                let products = this.getProducts().filter(p => p.id !== productId);
+                Store.saveProducts(products);
+                Utils.showToast('Product deleted', 'info');
+            },
+            getCategories: () => Store.getCategories(),
+        };
+
+        lucide.createIcons();
+        Admin.checkAuth();
+        document.getElementById('logout-btn').addEventListener('click', () => Admin.logout());
+        
+        const AdminProductPage = {
+            products: [],
+            currentPage: 1,
+            productsPerPage: 10,
+
+            init() {
+                this.products = Admin.getProducts();
+                this.renderTable();
+                this.initEventListeners();
+            },
+
+            initEventListeners() {
+                document.getElementById('add-product-btn').addEventListener('click', () => this.showModal());
+                document.getElementById('close-modal-btn').addEventListener('click', () => this.hideModal());
+                document.getElementById('cancel-btn').addEventListener('click', () => this.hideModal());
+                document.getElementById('product-form').addEventListener('submit', (e) => this.handleFormSubmit(e));
+                document.getElementById('search-products').addEventListener('input', (e) => this.renderTable(e.target.value));
+            },
+
+            renderTable(searchTerm = '') {
+                const filteredProducts = this.products.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()));
+                
+                const tableBody = document.getElementById('products-table-body');
+                const totalPages = Math.ceil(filteredProducts.length / this.productsPerPage);
+                const start = (this.currentPage - 1) * this.productsPerPage;
+                const end = start + this.productsPerPage;
+                const paginatedProducts = filteredProducts.slice(start, end);
+
+                if (paginatedProducts.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="7" class="text-center p-8 text-text-muted">No products found.</td></tr>`;
+                } else {
+                    tableBody.innerHTML = paginatedProducts.map(p => this.createRow(p)).join('');
+                }
+                
+                document.getElementById('product-count').textContent = `Showing ${paginatedProducts.length} of ${filteredProducts.length} products`;
+                this.renderPagination(totalPages);
+                lucide.createIcons();
+                this.initRowEventListeners();
+            },
+
+            createRow(product) {
+                const category = Admin.getCategories().find(c => c.id === product.category);
+                return `
+                    <tr class="border-b border-surface">
+                        <td class="p-4"><input type="checkbox" data-id="${product.id}"></td>
+                        <td class="p-4 flex items-center gap-4">
+                            <img src="${product.primaryImage}" class="w-10 h-10 rounded-md object-cover">
+                            <span>${Utils.truncate(product.name, 40)}</span>
+                        </td>
+                        <td class="p-4">${category?.name || 'N/A'}</td>
+                        <td class="p-4 font-mono">${Utils.formatLKR(product.price)}</td>
+                        <td class="p-4">${product.stock}</td>
+                        <td class="p-4"><span class="px-2 py-1 text-xs rounded-full ${product.status === 'active' ? 'bg-green-500/20 text-green-400' : 'bg-amber-500/20 text-amber-400'}">${product.status}</span></td>
+                        <td class="p-4">
+                            <button class="edit-btn p-1" data-id="${product.id}"><i data-lucide="edit" class="w-4 h-4"></i></button>
+                            <button class="delete-btn p-1" data-id="${product.id}"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                        </td>
+                    </tr>
+                `;
+            },
+
+            renderPagination(totalPages) {
+                const container = document.getElementById('pagination');
+                container.innerHTML = ''; 
+
+                if (totalPages <= 1) return;
+
+                let buttonsHtml = '';
+                for (let i = 1; i <= totalPages; i++) {
+                    const isActive = i === this.currentPage;
+                    buttonsHtml += `<button data-page="${i}" class="px-3 py-1 rounded-md text-sm ${isActive ? 'bg-neon-cyan text-void' : 'bg-surface hover:bg-surface-light'}">${i}</button>`;
+                }
+                container.innerHTML = buttonsHtml;
+
+                document.querySelectorAll('#pagination button').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.currentPage = parseInt(e.target.dataset.page);
+                        this.renderTable(document.getElementById('search-products').value);
+                    });
+                });
+            },
+
+            initRowEventListeners() {
+                document.querySelectorAll('.edit-btn').forEach(btn => btn.addEventListener('click', (e) => {
+                    const id = e.currentTarget.dataset.id;
+                    const product = this.products.find(p => p.id === id);
+                    this.showModal(product);
+                }));
+                document.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', (e) => {
+                    if(confirm('Are you sure you want to delete this product?')) {
+                        const id = e.currentTarget.dataset.id;
+                        Admin.deleteProduct(id);
+                        this.products = Admin.getProducts();
+                        this.renderTable();
+                    }
+                }));
+            },
+
+            showModal(product = null) {
+                const form = document.getElementById('product-form');
+                form.reset();
+                document.getElementById('product-id').value = '';
+
+                const categorySelect = document.getElementById('product-category');
+                categorySelect.innerHTML = Admin.getCategories().map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+
+                if (product) {
+                    document.getElementById('modal-title').textContent = 'Edit Product';
+                    document.getElementById('product-id').value = product.id;
+                    document.getElementById('product-name').value = product.name;
+                    document.getElementById('product-brand').value = product.brand;
+                    document.getElementById('product-category').value = product.category;
+                    document.getElementById('product-price').value = product.price;
+                    document.getElementById('product-original-price').value = product.originalPrice || '';
+                    document.getElementById('product-stock').value = product.stock;
+                    document.getElementById('product-status').value = product.status;
+                    document.getElementById('product-image').value = product.primaryImage;
+                    document.getElementById('product-description').value = product.description;
+                } else {
+                    document.getElementById('modal-title').textContent = 'Add New Product';
+                }
+                document.getElementById('product-modal').classList.remove('hidden');
+                document.getElementById('product-modal').classList.add('flex');
+            },
+
+            hideModal() {
+                document.getElementById('product-modal').classList.add('hidden');
+                document.getElementById('product-modal').classList.remove('flex');
+            },
+
+            handleFormSubmit(e) {
+                e.preventDefault();
+                const product = {
+                    id: document.getElementById('product-id').value || null,
+                    name: document.getElementById('product-name').value,
+                    brand: document.getElementById('product-brand').value,
+                    category: document.getElementById('product-category').value,
+                    price: parseFloat(document.getElementById('product-price').value),
+                    originalPrice: parseFloat(document.getElementById('product-original-price').value) || null,
+                    stock: parseInt(document.getElementById('product-stock').value),
+                    status: document.getElementById('product-status').value,
+                    primaryImage: document.getElementById('product-image').value,
+                    description: document.getElementById('product-description').value,
+                    specifications: this.products.find(p => p.id === document.getElementById('product-id').value)?.specifications || [],
+                };
+                Admin.saveProduct(product);
+                this.products = Admin.getProducts();
+                this.renderTable();
+                this.hideModal();
+            },
+        };
+        
+        AdminProductPage.init();
+    });
+    </script>
+</body>
+</html>

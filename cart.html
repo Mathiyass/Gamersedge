@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - GamersEdge</title>
+    <link rel="icon" href="assets/images/favicon.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'void': '#050505', 'surface': '#0a0a0f', 'surface-light': '#12121a', 'neon-cyan': '#00AEEF', 'hyper-violet': '#7c3aed', 'text-primary': '#ffffff', 'text-secondary': 'rgba(255, 255, 255, 0.7)', 'text-muted': 'rgba(255, 255, 255, 0.4)'},
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'], 'mono': ['JetBrains Mono', 'monospace'] },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-void text-text-primary font-sans">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 scrolled">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2"><img src="assets/images/logo.webp" alt="GamersEdge Logo" class="w-10 h-10"><span class="text-xl font-bold">GamersEdge</span></a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-white hover:text-neon-cyan">Home</a>
+                <a href="shop.html" class="text-white hover:text-neon-cyan">Shop</a>
+<a href="about.html" class="text-white hover:text-neon-cyan">About</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="wishlist.html" class="hover:text-neon-cyan relative">
+                    <i data-lucide="heart"></i>
+                    <span id="wishlist-count" class="absolute -top-2 -right-2 bg-electric-pink text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold" style="display: none;">0</span>
+                </a>
+                <button class="relative hover:text-neon-cyan" disabled>
+                    <i data-lucide="shopping-cart" id="cart-icon"></i>
+                    <span class="cart-count absolute -top-2 -right-2 bg-neon-cyan text-void text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24">
+        <div class="container mx-auto px-4 py-12">
+            <h1 class="text-4xl font-extrabold text-center mb-12">Your Shopping Cart</h1>
+            
+            <div id="cart-page-container" class="max-w-4xl mx-auto">
+                <!-- This will be populated by JS -->
+            </div>
+        </div>
+    </main>
+    
+    <footer class="bg-surface-dark py-12 mt-16">
+        <div class="container mx-auto px-4 text-center text-text-muted">
+            &copy; <span id="footer-year">2024</span> GamersEdge. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/core/store.js"></script>
+    <script src="assets/js/cart.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+            // Initialize global objects
+            if(window.Seeder) Seeder.run();
+            
+            const Wishlist = {
+                items: [],
+                init() {
+                    this.items = Store._get(STORAGE_KEYS.WISHLIST, []);
+                    this.updateCount();
+                },
+                updateCount() {
+                    const count = this.items.length;
+                    document.querySelectorAll('.wishlist-count').forEach(el => {
+                        el.textContent = count;
+                        el.style.display = count > 0 ? 'flex' : 'none';
+                    });
+                }
+            };
+            Wishlist.init();
+
+            const CartPage = {
+                init() {
+                    Cart.init(); // Initialize the cart module first
+                    this.renderCart();
+                },
+
+                renderCart() {
+                    const container = document.getElementById('cart-page-container');
+                    const items = Cart.items;
+
+                    if (items.length === 0) {
+                        container.innerHTML = `
+                            <div class="text-center bg-surface-dark p-12 rounded-xl">
+                                <i data-lucide="shopping-cart" class="w-24 h-24 text-text-muted mx-auto mb-4"></i>
+                                <h2 class="text-2xl font-bold mb-2">Your Cart is Empty</h2>
+                                <p class="text-text-secondary mb-6">Looks like you haven't added anything to your cart yet.</p>
+                                <a href="shop.html" class="bg-neon-cyan text-void font-bold py-3 px-8 rounded-lg hover:bg-opacity-80 transition-all">Start Shopping</a>
+                            </div>
+                        `;
+                        lucide.createIcons();
+                        return;
+                    }
+
+                    const itemsHTML = items.map(item => `
+                        <div class="flex items-center gap-4 p-4 border-b border-surface-light" data-cart-item-id="${item.id}">
+                            <img src="${item.primaryImage}" alt="${item.name}" class="w-24 h-24 object-cover rounded-lg">
+                            <div class="flex-1">
+                                <a href="product.html?id=${item.id}" class="text-white font-semibold hover:text-neon-cyan">${item.name}</a>
+                                <p class="text-sm text-text-muted">${Utils.formatLKR(item.price)}</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="CartPage.updateItemQuantity('${item.id}', -1)" class="w-8 h-8 rounded bg-surface flex items-center justify-center text-text-muted hover:bg-neon-cyan hover:text-void">-</button>
+                                <span class="w-10 text-center font-mono">${item.quantity}</span>
+                                <button onclick="CartPage.updateItemQuantity('${item.id}', 1)" class="w-8 h-8 rounded bg-surface flex items-center justify-center text-text-muted hover:bg-neon-cyan hover:text-void">+</button>
+                            </div>
+                            <p class="w-32 text-right font-mono text-lg">${Utils.formatLKR(item.price * item.quantity)}</p>
+                            <button onclick="CartPage.removeItem('${item.id}')" class="text-error-red hover:opacity-75"><i data-lucide="trash-2"></i></button>
+                        </div>
+                    `).join('');
+
+                    const settings = Store.getSettings();
+                    const subtotal = Cart.getTotal();
+                    const shipping = subtotal > (settings.freeShippingThreshold || 0) ? 0 : (settings.shippingRate || 0);
+                    const total = subtotal + shipping;
+
+                    container.innerHTML = `
+                        <div class="bg-surface-dark rounded-xl overflow-hidden">
+                            <div class="p-4 hidden md:flex font-semibold text-text-muted border-b border-surface-light">
+                                <div class="flex-1">Product</div><div class="w-32 text-center">Quantity</div><div class="w-32 text-right">Total</div><div class="w-16 text-right"></div>
+                            </div>
+                            ${itemsHTML}
+                        </div>
+                        <div class="md:flex justify-between items-start mt-8">
+                             <a href="shop.html" class="flex items-center gap-2 text-text-secondary hover:text-white"><i data-lucide="arrow-left"></i> Continue Shopping</a>
+                             <div class="w-full md:w-1/2 lg:w-1/3 mt-8 md:mt-0">
+                                <div class="bg-surface-dark p-6 rounded-xl space-y-4">
+                                    <div class="flex justify-between"><span>Subtotal</span><span class="font-mono">${Utils.formatLKR(subtotal)}</span></div>
+                                    <div class="flex justify-between"><span>Shipping</span><span class="font-mono">${shipping === 0 ? 'FREE' : Utils.formatLKR(shipping)}</span></div>
+                                    <hr class="border-surface-light">
+                                    <div class="flex justify-between text-xl font-bold"><span>Total</span><span class="font-mono text-neon-cyan">${Utils.formatLKR(total)}</span></div>
+                                    <button class="w-full bg-neon-cyan text-void font-bold py-3 rounded-lg hover:bg-opacity-80 transition-all mt-4">Proceed to Checkout</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    lucide.createIcons();
+                },
+
+                updateItemQuantity(productId, change) {
+                    const item = Cart.items.find(i => i.id === productId);
+                    if (item) {
+                        Cart.updateQuantity(productId, item.quantity + change);
+                        this.renderCart();
+                    }
+                },
+
+                removeItem(productId) {
+                    Cart.remove(productId);
+                    this.renderCart();
+                }
+            };
+            
+            window.CartPage = {
+                updateItemQuantity: CartPage.updateItemQuantity.bind(CartPage),
+                removeItem: CartPage.removeItem.bind(CartPage)
+            };
+
+            CartPage.init();
+        });
+    </script>
+</body>
+</html>

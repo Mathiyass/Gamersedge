@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - GamersEdge</title>
+    <link rel="icon" href="assets/images/favicon.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'void': '#050505', 'surface': '#0a0a0f', 'surface-light': '#12121a', 'neon-cyan': '#00AEEF', 'hyper-violet': '#7c3aed', 'text-primary': '#ffffff', 'text-secondary': 'rgba(255, 255, 255, 0.7)', 'text-muted': 'rgba(255, 255, 255, 0.4)'},
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'], 'mono': ['JetBrains Mono', 'monospace'] },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-void text-text-primary font-sans">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 scrolled">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2"><img src="assets/images/logo.webp" alt="GamersEdge Logo" class="w-10 h-10"><span class="text-xl font-bold">GamersEdge</span></a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-white hover:text-neon-cyan">Home</a>
+                <a href="shop.html" class="text-white hover:text-neon-cyan">Shop</a>
+                <a href="about.html" class="text-white hover:text-neon-cyan">About</a>
+                <a href="contact.html" class="text-neon-cyan font-bold">Contact</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="wishlist.html" class="hover:text-neon-cyan transition-colors relative">
+                    <i data-lucide="heart"></i>
+                    <span id="wishlist-count" class="absolute -top-2 -right-2 bg-electric-pink text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold" style="display: none;">0</span>
+                </a>
+                 <button data-open-cart class="relative hover:text-neon-cyan">
+                    <i data-lucide="shopping-cart" id="cart-icon"></i>
+                    <span class="cart-count absolute -top-2 -right-2 bg-neon-cyan text-void text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24">
+        <div class="container mx-auto px-4 py-12">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-extrabold">Get In Touch</h1>
+                <p class="text-text-secondary mt-2">We're here to help. Reach out to us anytime.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 bg-surface-dark p-8 rounded-xl">
+                <!-- Contact Info -->
+                <div class="space-y-6">
+                    <h2 class="text-2xl font-bold">Contact Information</h2>
+                    <div class="flex items-start gap-4">
+                        <i data-lucide="map-pin" class="text-neon-cyan mt-1 w-6 h-6"></i>
+                        <div>
+                            <h3 class="font-semibold">Address</h3>
+                            <p id="contact-address" class="text-text-secondary">207/04/03/F/2, Wilimbula, Henegama, Wilimbula, Sri Lanka</p>
+                        </div>
+                    </div>
+                     <div class="flex items-start gap-4">
+                        <i data-lucide="phone" class="text-neon-cyan mt-1 w-6 h-6"></i>
+                        <div>
+                            <h3 class="font-semibold">Phone</h3>
+                            <p id="contact-phone-1" class="text-text-secondary">074 070 5733</p>
+                            <p id="contact-phone-2" class="text-text-secondary">076 532 9455</p>
+                        </div>
+                    </div>
+                     <div class="flex items-start gap-4">
+                        <i data-lucide="mail" class="text-neon-cyan mt-1 w-6 h-6"></i>
+                        <div>
+                            <h3 class="font-semibold">Email</h3>
+                            <p id="contact-email" class="text-text-secondary">sl.gamersedge@gmail.com</p>
+                        </div>
+                    </div>
+                     <div class="flex items-start gap-4">
+                        <i data-lucide="facebook" class="text-neon-cyan mt-1 w-6 h-6"></i>
+                        <div>
+                            <h3 class="font-semibold">Social</h3>
+                            <a id="contact-facebook" href="https://www.facebook.com/profile.php?id=61580407830126" target="_blank" class="text-text-secondary hover:text-neon-cyan">Facebook Profile</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div>
+                     <h2 class="text-2xl font-bold mb-6">Send Us a Message</h2>
+                     <form class="space-y-4">
+                         <div>
+                             <label for="name" class="block text-sm font-medium text-text-secondary mb-1">Your Name</label>
+                             <input type="text" id="name" class="w-full bg-surface px-3 py-2 rounded-md outline-none focus:ring-2 focus:ring-neon-cyan border border-surface-light">
+                         </div>
+                         <div>
+                             <label for="email" class="block text-sm font-medium text-text-secondary mb-1">Your Email</label>
+                             <input type="email" id="email" class="w-full bg-surface px-3 py-2 rounded-md outline-none focus:ring-2 focus:ring-neon-cyan border border-surface-light">
+                         </div>
+                         <div>
+                             <label for="message" class="block text-sm font-medium text-text-secondary mb-1">Message</label>
+                             <textarea id="message" rows="5" class="w-full bg-surface px-3 py-2 rounded-md outline-none focus:ring-2 focus:ring-neon-cyan border border-surface-light"></textarea>
+                         </div>
+                         <button type="submit" class="w-full bg-neon-cyan text-void font-bold py-3 rounded-lg hover:bg-opacity-80 transition-all">Send Message</button>
+                     </form>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="mt-12 rounded-xl overflow-hidden">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.217368538283!2d80.07696107485801!3d7.0262470929266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2fd77b9655555%3A0x893a38616147e83f!2sGamersEdge!5e0!3m2!1sen!2slk!4v1716135328500!5m2!1sen!2slk" 
+                    width="100%" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-surface-dark py-12 mt-16">
+        <div class="container mx-auto px-4 text-center text-text-muted">
+            &copy; <span id="footer-year">2024</span> GamersEdge. All Rights Reserved.
+        </div>
+    </footer>
+    
+    <script src="assets/js/core/store.js"></script>
+    <script src="assets/js/seed.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+            // Initialize global objects
+            if(window.Seeder) Seeder.run();
+            if(window.Cart) Cart.init();
+
+            const Wishlist = {
+                items: [],
+                init() {
+                    this.items = Store._get(STORAGE_KEYS.WISHLIST, []);
+                    this.updateCount();
+                },
+                updateCount() {
+                    const count = this.items.length;
+                    document.querySelectorAll('.wishlist-count').forEach(el => {
+                        el.textContent = count;
+                        el.style.display = count > 0 ? 'flex' : 'none';
+                    });
+                }
+            };
+            Wishlist.init();
+
+            const settings = Store.getSettings();
+            if(settings.address) document.getElementById('contact-address').textContent = settings.address;
+            if(settings.phone) document.getElementById('contact-phone-1').textContent = settings.phone;
+            if(settings.phoneSecondary) document.getElementById('contact-phone-2').textContent = settings.phoneSecondary;
+            if(settings.email) document.getElementById('contact-email').textContent = settings.email;
+            if(settings.social?.facebook) document.getElementById('contact-facebook').href = settings.social.facebook;
+
+            document.querySelector('form').addEventListener('submit', e => {
+                e.preventDefault();
+                alert('Thank you for your message! (This is a demo, the form is not active.)');
+                e.target.reset();
+            });
+        });
+    </script>
+
+</body>
+</html>

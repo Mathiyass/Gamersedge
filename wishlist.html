@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist - GamersEdge</title>
+    <link rel="icon" href="assets/images/favicon.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'void': '#050505', 'surface': '#0a0a0f', 'surface-light': '#12121a', 'neon-cyan': '#00AEEF', 'hyper-violet': '#7c3aed', 'text-primary': '#ffffff', 'text-secondary': 'rgba(255, 255, 255, 0.7)', 'text-muted': 'rgba(255, 255, 255, 0.4)'},
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'], 'mono': ['JetBrains Mono', 'monospace'] },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-void text-text-primary font-sans">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 scrolled">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2"><img src="assets/images/logo.webp" alt="GamersEdge Logo" class="w-10 h-10"><span class="text-xl font-bold">GamersEdge</span></a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-white hover:text-neon-cyan">Home</a>
+                <a href="shop.html" class="text-white hover:text-neon-cyan">Shop</a>
+                <a href="about.html" class="text-white hover:text-neon-cyan">About</a>
+                <a href="contact.html" class="text-white hover:text-neon-cyan">Contact</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="wishlist.html" class="text-neon-cyan font-bold relative">
+                    <i data-lucide="heart"></i>
+                    <span id="wishlist-count" class="absolute -top-2 -right-2 bg-electric-pink text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                </a>
+                <button data-open-cart class="relative hover:text-neon-cyan">
+                    <i data-lucide="shopping-cart" id="cart-icon"></i>
+                    <span class="cart-count absolute -top-2 -right-2 bg-neon-cyan text-void text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24">
+        <div class="container mx-auto px-4 py-12">
+            <h1 class="text-4xl font-extrabold text-center mb-12">My Wishlist</h1>
+            
+            <div id="wishlist-container" class="max-w-4xl mx-auto">
+                <!-- This will be populated by JS -->
+            </div>
+        </div>
+    </main>
+    
+    <footer class="bg-surface-dark py-12 mt-16">
+        <div class="container mx-auto px-4 text-center text-text-muted">
+            &copy; <span id="footer-year">2024</span> GamersEdge. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/core/store.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/wishlist.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>

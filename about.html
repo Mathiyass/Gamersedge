@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - GamersEdge</title>
+    <link rel="icon" href="assets/images/favicon.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'void': '#050505', 'surface': '#0a0a0f', 'surface-light': '#12121a', 'neon-cyan': '#00AEEF', 'hyper-violet': '#7c3aed', 'text-primary': '#ffffff', 'text-secondary': 'rgba(255, 255, 255, 0.7)', 'text-muted': 'rgba(255, 255, 255, 0.4)'},
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'], 'mono': ['JetBrains Mono', 'monospace'] },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-void text-text-primary font-sans">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 scrolled">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2"><img src="assets/images/logo.webp" alt="GamersEdge Logo" class="w-10 h-10"><span class="text-xl font-bold">GamersEdge</span></a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-white hover:text-neon-cyan">Home</a>
+                <a href="shop.html" class="text-white hover:text-neon-cyan">Shop</a>
+                <a href="about.html" class="text-neon-cyan font-bold">About</a>
+                <a href="contact.html" class="text-white hover:text-neon-cyan">Contact</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="wishlist.html" class="hover:text-neon-cyan transition-colors relative">
+                    <i data-lucide="heart"></i>
+                    <span id="wishlist-count" class="absolute -top-2 -right-2 bg-electric-pink text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold" style="display: none;">0</span>
+                </a>
+                 <button data-open-cart class="relative hover:text-neon-cyan">
+                    <i data-lucide="shopping-cart" id="cart-icon"></i>
+                    <span class="cart-count absolute -top-2 -right-2 bg-neon-cyan text-void text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24">
+        <div class="container mx-auto px-4 py-12">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-extrabold">About GamersEdge</h1>
+                <p class="text-text-secondary mt-2">Forged in passion, built for performance.</p>
+            </div>
+
+            <!-- Our Mission -->
+            <div class="bg-surface-dark p-8 rounded-xl mb-12 text-center max-w-3xl mx-auto">
+                <h2 class="text-2xl font-bold mb-4 text-neon-cyan">Our Mission</h2>
+                <p class="text-lg text-text-secondary leading-relaxed">
+                    To empower every gamer in Sri Lanka with the ultimate hardware and unwavering support. We believe that gaming is more than a hobby—it's a passion, a community, and a competitive sport. GamersEdge is committed to providing top-tier, genuine components and expert guidance, helping you build the rig of your dreams and dominate the digital realm.
+                </p>
+            </div>
+
+            <!-- Meet the Team -->
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-center mb-8">Meet the Team</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="bg-surface-light p-6 rounded-lg">
+                        <img src="https://i.pravatar.cc/150?u=ceo" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-neon-cyan">
+                        <h3 class="text-xl font-bold">Alex Fernando</h3>
+                        <p class="text-text-muted">Founder & CEO</p>
+                    </div>
+                    <div class="bg-surface-light p-6 rounded-lg">
+                        <img src="https://i.pravatar.cc/150?u=tech" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-hyper-violet">
+                        <h3 class="text-xl font-bold">Samira Khan</h3>
+                        <p class="text-text-muted">Lead Technician</p>
+                    </div>
+                    <div class="bg-surface-light p-6 rounded-lg">
+                        <img src="https://i.pravatar.cc/150?u=community" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-electric-pink">
+                        <h3 class="text-xl font-bold">Nisha Perera</h3>
+                        <p class="text-text-muted">Community Manager</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Our Journey -->
+            <div>
+                 <h2 class="text-3xl font-bold text-center mb-8">Our Journey</h2>
+                 <div class="max-w-2xl mx-auto">
+                    <div class="relative border-l-2 border-neon-cyan/30 space-y-12 pl-8">
+                        <div class="relative">
+                            <div class="absolute -left-[42px] top-0 h-4 w-4 bg-neon-cyan rounded-full"></div>
+                            <h3 class="font-bold text-lg">2024 - The Spark</h3>
+                            <p class="text-text-secondary">GamersEdge was founded by a group of passionate gamers who saw a need for a reliable, high-end PC component store in Sri Lanka.</p>
+                        </div>
+                         <div class="relative">
+                            <div class="absolute -left-[42px] top-0 h-4 w-4 bg-neon-cyan rounded-full"></div>
+                            <h3 class="font-bold text-lg">2025 - Launch</h3>
+                            <p class="text-text-secondary">Our online store goes live, offering a curated selection of the best components and introducing the first version of our innovative PC Builder.</p>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute -left-[42px] top-0 h-4 w-4 bg-neon-cyan rounded-full"></div>
+                            <h3 class="font-bold text-lg">Future - Domination</h3>
+                            <p class="text-text-secondary">We aim to become the #1 destination for PC enthusiasts in the region, expanding our product lines and hosting community events.</p>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-surface-dark py-12 mt-16">
+        <div class="container mx-auto px-4 text-center text-text-muted">
+            &copy; <span id="footer-year">2024</span> GamersEdge. All Rights Reserved.
+        </div>
+    </footer>
+    
+    <script src="assets/js/core/store.js"></script>
+    <script src="assets/js/seed.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+            // Initialize global objects
+            if(window.Seeder) Seeder.run();
+            if(window.Cart) Cart.init();
+            
+            const Wishlist = {
+                items: [],
+                init() {
+                    this.items = Store._get(STORAGE_KEYS.WISHLIST, []);
+                    this.updateCount();
+                },
+                updateCount() {
+                    const count = this.items.length;
+                    document.querySelectorAll('.wishlist-count').forEach(el => {
+                        el.textContent = count;
+                        el.style.display = count > 0 ? 'flex' : 'none';
+                    });
+                }
+            };
+            Wishlist.init();
+        });
+    </script>
+
+</body>
+</html>

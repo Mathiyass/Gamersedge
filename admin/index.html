@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - GamersEdge</title>
+    <link rel="icon" href="../assets/images/favicon.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'void': '#050505', 'surface': '#0a0a0f', 'surface-light': '#12121a', 'neon-cyan': '#00AEEF', 'hyper-violet': '#7c3aed', 'error-red': '#ef4444', 'text-primary': '#ffffff', 'text-secondary': 'rgba(255, 255, 255, 0.7)', 'text-muted': 'rgba(255, 255, 255, 0.4)'},
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'], 'mono': ['JetBrains Mono', 'monospace'] },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-void text-text-primary font-sans flex items-center justify-center min-h-screen">
+
+    <div class="w-full max-w-md p-8 space-y-8 bg-surface-dark rounded-xl border border-surface-light shadow-2xl shadow-neon-cyan/10">
+        <div class="text-center">
+            <a href="../index.html"><img src="../assets/images/logo.webp" alt="Logo" class="w-20 h-20 mx-auto mb-4"></a>
+            <h1 class="text-2xl font-bold">Admin Panel Login</h1>
+            <p class="text-text-muted">Welcome back, Operator.</p>
+        </div>
+        
+        <form id="login-form" class="space-y-6">
+            <div>
+                <label for="username" class="block text-sm font-medium text-text-secondary mb-1">Username</label>
+                <input type="text" id="username" value="admin" required class="w-full bg-surface px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-neon-cyan border border-surface-light transition">
+            </div>
+            
+            <div>
+                <label for="password" class="block text-sm font-medium text-text-secondary mb-1">Password</label>
+                <input type="password" id="password" value="admin" required class="w-full bg-surface px-4 py-3 rounded-md outline-none focus:ring-2 focus:ring-neon-cyan border border-surface-light transition">
+            </div>
+
+            <div id="login-error" class="text-error-red text-sm text-center hidden"></div>
+
+            <div class="flex items-center justify-between">
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" id="remember-me" class="accent-neon-cyan h-4 w-4">
+                    <span class="text-text-secondary text-sm">Remember me</span>
+                </label>
+            </div>
+            
+            <button type="submit" class="w-full bg-neon-cyan text-void font-bold py-3 rounded-lg hover:bg-opacity-80 transition-all">Login</button>
+        </form>
+    </div>
+
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/core/store.js"></script>
+    <script>
+        const STORAGE_KEYS = { // Define STORAGE_KEYS here since admin.js is removed
+            ADMIN_AUTH: 'ge_admin_auth',
+            REMEMBER_ADMIN: 'ge_remember_admin',
+            SETTINGS: 'ge_settings'
+        };
+
+        const Store = { // Minimal Store object for login page
+             _get(key, defaultValue = {}) {
+                try {
+                    const value = localStorage.getItem(key);
+                    return value ? JSON.parse(value) : defaultValue;
+                } catch (e) {
+                    console.error(`Error reading from localStorage key “${key}”:`, e);
+                    return defaultValue;
+                }
+            },
+            _set(key, value) {
+                try {
+                    localStorage.setItem(key, JSON.stringify(value));
+                } catch (e) {
+                    console.error(`Error writing to localStorage key “${key}”:`, e);
+                }
+            },
+            getAdminAuth: () => Store._get(STORAGE_KEYS.ADMIN_AUTH, {}),
+            saveAdminAuth: (authData) => Store._set(STORAGE_KEYS.ADMIN_AUTH, authData),
+            getRememberedAdmin: () => Store._get(STORAGE_KEYS.REMEMBER_ADMIN, null),
+            saveRememberedAdmin: (credentials) => Store._set(STORAGE_KEYS.REMEMBER_ADMIN, credentials),
+            removeRememberedAdmin: () => localStorage.removeItem(STORAGE_KEYS.REMEMBER_ADMIN),
+            getSettings: () => Store._get(STORAGE_KEYS.SETTINGS, {}), // Need for admin credentials
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const Admin = {
+                defaultCredentials: { username: 'admin', password: 'admin' },
+                checkAuth() {
+                    const session = Store.getAdminAuth();
+                    if (session.loggedIn && new Date(session.expiresAt) > new Date()) {
+                        window.location.href = 'dashboard.html';
+                    }
+                },
+                getCredentials() {
+                    const settings = Store.getSettings();
+                    return {
+                        username: settings.adminUsername || this.defaultCredentials.username,
+                        password: settings.adminPassword || this.defaultCredentials.password
+                    };
+                },
+                login(username, password, rememberMe) {
+                    const creds = this.getCredentials();
+                    if (username === creds.username && password === creds.password) {
+                        const session = {
+                            loggedIn: true,
+                            loginTime: new Date().toISOString(),
+                            expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+                        };
+                        Store.saveAdminAuth(session);
+                        if (rememberMe) {
+                            Store.saveRememberedAdmin({ username, password });
+                        } else {
+                            Store.removeRememberedAdmin();
+                        }
+                        return true;
+                    }
+                    return false;
+                },
+                loadRememberedCredentials() {
+                    const remembered = Store.getRememberedAdmin();
+                    if (remembered) {
+                        document.getElementById('username').value = remembered.username;
+                        document.getElementById('password').value = remembered.password;
+                        document.getElementById('remember-me').checked = true;
+                    }
+                }
+            };
+
+            Admin.checkAuth();
+            Admin.loadRememberedCredentials();
+
+            const form = document.getElementById('login-form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const rememberMe = document.getElementById('remember-me').checked;
+                const errorDiv = document.getElementById('login-error');
+
+                if (Admin.login(username, password, rememberMe)) {
+                    window.location.href = 'dashboard.html';
+                } else {
+                    errorDiv.textContent = 'Invalid username or password.';
+                    errorDiv.classList.remove('hidden');
+                    form.classList.add('animate-shake');
+                    setTimeout(() => form.classList.remove('animate-shake'), 500);
+                }
+            });
+        });
+    </script>
+    <style>
+        .animate-shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+    </style>
+</body>
+</html>

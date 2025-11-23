@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Admin Panel</title>
+    <link rel="icon" href="../assets/images/favicon.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'void': '#050505', 'surface': '#0a0a0f', 'surface-light': '#12121a', 'neon-cyan': '#00AEEF', 'hyper-violet': '#7c3aed', 'success-green': '#10b981', 'text-primary': '#ffffff', 'text-secondary': 'rgba(255, 255, 255, 0.7)', 'text-muted': 'rgba(255, 255, 255, 0.4)'},
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'] },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-text-primary font-sans">
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-void p-6 flex flex-col">
+            <a href="dashboard.html" class="flex items-center gap-2 mb-10">
+                <img src="../assets/images/logo.webp" alt="Logo" class="w-10 h-10">
+                <span class="font-bold text-lg">GamersEdge</span>
+            </a>
+            <nav class="flex flex-col gap-2">
+                <a href="dashboard.html" class="flex items-center gap-3 px-4 py-2 rounded-md bg-surface-light text-neon-cyan"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard</a>
+                <a href="products.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="package" class="w-5 h-5"></i> Products</a>
+                <a href="categories.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="folder" class="w-5 h-5"></i> Categories</a>
+                <a href="orders.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="list-ordered" class="w-5 h-5"></i> Orders</a>
+                <a href="settings.html" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light"><i data-lucide="settings" class="w-5 h-5"></i> Settings</a>
+            </nav>
+            <div class="mt-auto">
+                <a href="../index.html" target="_blank" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light text-text-secondary"><i data-lucide="external-link" class="w-5 h-5"></i> View Store</a>
+                <button id="logout-btn" class="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-surface-light text-text-secondary w-full mt-2"><i data-lucide="log-out" class="w-5 h-5"></i> Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8">
+            <header class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold">Dashboard Overview</h1>
+                <div class="flex items-center gap-4">
+                    <span class="text-text-secondary">Welcome, Admin</span>
+                    <img src="https://i.pravatar.cc/40" class="rounded-full">
+                </div>
+            </header>
+
+            <!-- Stat Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-surface-light p-6 rounded-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-text-secondary">Total Products</h3>
+                        <i data-lucide="package" class="text-hyper-violet"></i>
+                    </div>
+                    <p id="stats-total-products" class="text-4xl font-bold">0</p>
+                </div>
+                <div class="bg-surface-light p-6 rounded-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-text-secondary">Pending Orders</h3>
+                        <i data-lucide="list-ordered" class="text-neon-cyan"></i>
+                    </div>
+                    <p id="stats-pending-orders" class="text-4xl font-bold">0</p>
+                </div>
+                <div class="bg-surface-light p-6 rounded-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-text-secondary">Total Revenue</h3>
+                        <i data-lucide="siren" class="text-success-green"></i>
+                    </div>
+                    <p id="stats-total-revenue" class="text-4xl font-bold">Rs. 0</p>
+                </div>
+                <div class="bg-surface-light p-6 rounded-xl">
+                     <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-text-secondary">Out of Stock</h3>
+                        <i data-lucide="alert-circle" class="text-red-500"></i>
+                    </div>
+                    <p id="stats-out-of-stock" class="text-4xl font-bold">0</p>
+                </div>
+            </div>
+
+            <!-- Charts and Recent Orders -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 bg-surface-light p-6 rounded-xl">
+                    <h3 class="font-semibold mb-4">Revenue (Last 7 Days)</h3>
+                    <canvas id="revenue-chart"></canvas>
+                </div>
+                <div class="bg-surface-light p-6 rounded-xl">
+                    <h3 class="font-semibold mb-4">Recent Orders</h3>
+                    <div id="recent-orders-list" class="space-y-4">
+                       <p class="text-text-muted text-center mt-8">No recent orders.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/core/store.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const Admin = {
+                checkAuth() {
+                    const session = Store.getAdminAuth();
+                    if (!session.loggedIn || new Date(session.expiresAt) < new Date()) {
+                        window.location.href = 'index.html';
+                    }
+                },
+                logout() {
+                    Store.saveAdminAuth({});
+                    window.location.href = 'index.html';
+                },
+                getStats() {
+                    const products = Store.getProducts();
+                    const orders = Store.getOrders();
+                    return {
+                        totalProducts: products.length,
+                        outOfStock: products.filter(p => p.stock === 0).length,
+                        pendingOrders: orders.filter(o => o.status === 'pending').length,
+                        totalRevenue: orders.reduce((sum, o) => sum + o.total, 0)
+                    };
+                },
+                getRevenueLast7Days() {
+                    const orders = Store.getOrders();
+                    const labels = [];
+                    const data = [];
+                    for(let i = 6; i >= 0; i--) {
+                        const d = new Date();
+                        d.setDate(d.getDate() - i);
+                        labels.push(d.toLocaleDateString('en-US', { weekday: 'short' }));
+                        const dailyOrders = orders.filter(o => new Date(o.createdAt).toDateString() === d.toDateString());
+                        data.push(dailyOrders.reduce((sum, o) => sum + o.total, 0));
+                    }
+                    return { labels, data };
+                },
+                getOrders: () => Store.getOrders(),
+            };
+
+            lucide.createIcons();
+            Admin.checkAuth();
+
+            document.getElementById('logout-btn').addEventListener('click', () => Admin.logout());
+            
+            const stats = Admin.getStats();
+            document.getElementById('stats-total-products').textContent = stats.totalProducts;
+            document.getElementById('stats-pending-orders').textContent = stats.pendingOrders;
+            document.getElementById('stats-total-revenue').textContent = Utils.formatLKR(stats.totalRevenue);
+            document.getElementById('stats-out-of-stock').textContent = stats.outOfStock;
+            
+            const revenueData = Admin.getRevenueLast7Days();
+            const ctx = document.getElementById('revenue-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: revenueData.labels,
+                    datasets: [{
+                        label: 'Revenue',
+                        data: revenueData.data,
+                        borderColor: '#00AEEF',
+                        backgroundColor: 'rgba(0, 174, 239, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' } },
+                        x: { grid: { color: 'rgba(255,255,255,0.1)' } }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            const orders = Admin.getOrders().slice(0, 5);
+            const ordersList = document.getElementById('recent-orders-list');
+            if (orders.length > 0) {
+                 ordersList.innerHTML = orders.map(order => `
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="font-semibold">${order.customerName || 'John Doe'}</p>
+                            <p class="text-sm text-text-muted">${order.id}</p>
+                        </div>
+                        <div class="text-right">
+                             <p class="font-mono">${Utils.formatLKR(order.total)}</p>
+                             <p class="text-xs capitalize ${order.status === 'pending' ? 'text-amber-400' : 'text-green-400'}">${order.status}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        });
+    </script>
+</body>
+</html>
